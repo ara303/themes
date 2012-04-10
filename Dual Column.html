@@ -1,0 +1,470 @@
+<html>
+<!--
+Theme: Dual Column
+Author: Ed Adams
+Version: 2
+Website: themes.edada.ms
+-->
+<head>
+    <meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
+    <title>{Title}</title>
+    {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
+    <link rel="shortcut icon" href="{Favicon}" />
+    <link rel="apple-touch-icon" href="{PortraitURL-128}"/>
+    <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+    <!-- I referred to the meta tags as "value" instead of "content" in the previous version. -->
+    <meta name="if:Infinite Scrolling" content="1" />
+    <meta name="if:Rounded Corners" content="1" />
+    <meta name="if:Drop Shadows on Header" content="0" />
+    <meta name="if:Underline Hyperlinks" content="0" />
+    <meta name="if:Large Title" content="1" />
+    <meta name="if:Dim Post on Hover" content="1" />
+    <meta name="if:Hide Description" content="0" />
+    <meta name="if:Hide Links" content="0" />
+    <meta name="font:Header Title" content="Helvetica" />
+    <meta name="font:Header Caption" content="Helvetica" />
+    <meta name="font:Posts" content="Helvetica" />
+    <meta name="color:Text" content="#666666" />
+    <meta name="color:Links" content="#ff3b8e" />
+    <meta name="color:Links on Hover" content="#cccccc" />
+    <meta name="color:Posts" content="#ffffff" />
+    <meta name="color:Background" content="#000000" />
+    <meta name="image:Background" content="http://static.tumblr.com/fpdiq1j/OT8lz8i0w/dark_wood.png" />
+
+    <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/pOHlzg7ar/jquery.min.js"></script>
+    {block:IndexPage}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/Umwlzg7b6/jquery.masonry.min.js"></script>{/block:IndexPage}
+    {block:IfInfiniteScrolling}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>{/block:IfInfiniteScrolling}
+    <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/dL3lzjt7a/modplicity.js"></script>
+    
+    <style type="text/css">
+		/* --- House style --- */
+
+		body {
+            background: url('{image:Background}') {color:Background} fixed;
+    		font-size: 12px;
+            font-family: {font:Posts};
+        }
+        
+        a {
+            color: {color:Links};
+            {block:IfUnderlineHyperlinks}text-decoration: underline;{/block:IfUnderlineHyperlinks}
+            {block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
+        }	
+        
+        a:hover {
+            color: {color:Links on Hover};
+            {block:IfUnderlineHyperlinks}text-decoration: underline;{/block:IfUnderlineHyperlinks}
+            {block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
+        }
+        
+		/* --- Page layout --- */
+
+        .page_container {
+			width: 840px;
+			margin: auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 10px 0 10px 0;
+            margin: 20px auto 10px auto;
+            background-color: {color:Posts};
+            width: 820px;
+            {block:IfDropShadowsonHeader}text-shadow: 1px 1px #CCC;
+            -webkit-box-shadow: 0 0 5px 1px #CCC;{/block:IfDropShadowsonHeader}
+            {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
+        }
+
+		.header_title {
+            font-family: {font:Header Title};
+            {block:IfLargeTitle}font-size: 60px;
+            letter-spacing: -3px;
+            line-height: 50px;{/block:IfLargeTitle}
+            {block:IfNotLargeTitle}font-size: 30px;
+            letter-spacing: -1px;
+            line-height: 25px;{/block:IfNotLargeTitle}
+            font-weight: bold;
+	    }
+        
+        .header_caption {
+            font-family: {font:Header Caption};
+            width: 500px;
+            margin: auto;
+            font-size: 13px;
+            line-height: 15px;
+            letter-spacing: -0.05em;
+        }
+
+        .header_pages_each {
+            margin: 0 5px 0 5px;
+        }
+        
+        .header_pages_each:first-child {
+            margin: 0 5px 0 0;
+        }
+        
+        .header_pages_each:last-child {
+            margin: 0 0 0 5px;
+        }
+
+		{block:IfHideDescription}.header_description{
+            display: none;
+        }{/block:IfHideDescription}
+        
+        {block:IfHideLinks}.header_askandsubmit, .header_pages{
+            display: none;
+        }{/block:IfHideLinks}
+
+		/* --- Handle posts --- */
+        
+        .post {
+            font-family: {font:Posts};
+    		width: 400px;
+			margin: 10px;
+			float: left;
+			background-color: {color:Posts};
+			{block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
+            z-index: 1;
+        }
+        
+        .text, 
+        .quote,
+        .link,
+        .chat,
+        .audio,
+        .ask{
+            padding: 10px;
+        }
+        
+        .photo,
+        .video{ 
+            background-color: none;
+        }
+
+        {block:IfDimPostonHover}.post:hover {
+			opacity: .9;
+        }{/block:IfDimPostonHover}
+
+        div.post:only-child {
+            float: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+		.post_title {
+			font-size: 18px;
+			line-height: 25px;
+			font-weight: bold;
+		}
+		
+		.post_body {
+			font-size: 12px;
+			line-height: 13px;
+		}
+		
+		.post_caption {
+			line-height: 13px;
+			font-size: 12px;
+            margin: 10px;
+		}
+		
+		.post:hover .permalink {
+            opacity: 1.0;
+        }
+        
+        .permalink {
+            position: absolute;
+            bottom: 0;
+            padding: 2px 0 2px 0;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            text-align: center;
+            width: 400px;
+            background: rgba(255,255,255,1);
+            opacity: 0.001;
+            z-index: 2;
+        }
+        
+        ol.notes{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: block;
+            list-style-type: none;
+            -webkit-margin-before: 0;
+            -webkit-margin-after: 0;
+            -webkit-margin-start: 0;
+            -webkit-margin-end: 0;
+            -webkit-padding-start: 0;
+            margin-left: 5px;
+            padding-left: 5px;
+        }
+        
+        /* -- Pagination stuff --- */
+        
+        #pagination {
+            width: 800px;
+            margin: auto;
+        }
+        
+        .next {
+            float: left;
+            font-size: 30px;
+        }
+        
+        .previous {
+            float: right;
+            font-size: 30px;
+        }
+		
+		/* --- Aesthetic improvements --- */
+		
+		.post .photoset{
+            margin-bottom: -2px;
+			border-radius: 5px;
+		}
+
+        .post .video {
+            margin-bottom: -3px;
+        }
+
+		.post .photo {
+			border-radius: 10px;
+		}
+
+        .text .permalink{
+            margin-left: -10px;
+        }
+        
+        .photoset .permalink{
+            margin-bottom: -1px;
+        }
+
+        img.photo_element { 
+            {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
+			margin-bottom: -3px;
+        }
+        
+		p:first-child {
+			-webkit-margin-before: 0;
+			-webkit-margin-start: 0;
+		}
+
+
+		p:last-child {
+			-webkit-margin-after: 0;
+			-webkit-margin-end: 0;
+		}
+        
+        .footer {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding-bottom: 10px;
+            padding-right: 10px;
+            font-size: 9px;
+            opacity: .5;
+        }
+        
+    </style>
+    <style type="text/css">
+        /* Custom CSS start */
+            {CustomCSS}
+        /* Custom CSS end */
+    </style>
+</head>
+<body>
+    <div class="page_container">
+        <div class="header">
+            <div class="header_title">
+                <a href="/">{Title}</a> 
+            </div>
+            <div class="header_caption">
+                {block:Description}
+                    <div class="header_description">
+                        {Description}
+                    </div>
+                {/block:Description}
+                <div class="header_askandsubmit">
+                    {block:AskEnabled}
+                        <a href="/ask">{AskLabel}</a>
+                    {/block:AskEnabled}
+                    {block:SubmissionsEnabled}
+                        <a href="/submit">{SubmitLabel}</a>
+                    {/block:SubmissionsEnabled}
+                </div>
+            	{block:HasPages}
+                    <div class="header_pages">
+                	    {block:Pages}
+                    	    <a class="header_pages_each" href="{URL}">{Label}</a>
+                	    {/block:Pages}
+                    </div>
+            	{/block:HasPages}
+			</div>
+        </div>
+        <div id="posts">
+        	{block:Posts}
+				<div class="post">
+            		{block:Text}
+			    		<div class="text">
+                        	{block:IndexPage}
+ 			    		    	{block:NoteCount}
+									<div class="permalink">
+										<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							<div class="post_title">{Title}</div>
+							<div class="post_body">{Body}</div>
+			    		</div>
+					{/block:Text}
+					{block:Photo}
+						<div class="photo">
+							{block:IndexPage}
+								{block:NoteCount}
+									<div class="permalink">
+										<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							<img class="photo_element" src="{PhotoURL-400}" width="400" alt="{PhotoAlt}" />
+							{block:PermalinkPage}
+								<div class="post_caption">
+									{block:Caption}{Caption}{block:Caption}
+								</div>
+							{/block:PermalinkPage}
+						</div>
+					{/block:Photo}
+					{block:Photoset}
+						<div class="photoset">
+							{block:IndexPage}
+								{block:NoteCount}
+									<div class="permalink">
+			    				    	<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							{Photoset-400}
+							{block:PermalinkPage}
+								<div class="post_caption">
+									{block:Caption}{Caption}{block:Caption}
+								</div>
+							{/block:PermalinkPage}
+						</div>
+					{/block:Photoset}
+					{block:Quote}
+						<div class="quote">
+							{block:IndexPage}
+								{block:NoteCount}
+									<div class="permalink">
+										<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							<div class="post_body">"{Quote}"</div>
+							{block:Source}
+								<div class="post_body"><strong>&ndash; {Source}</strong></div>
+							{/block:Source}
+						</div>
+					{/block:Quote}
+					{block:Link}
+						<div class="link">
+							{block:IndexPage}
+								{block:NoteCount}
+									<div class="permalink">
+										<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							<a class="post_title" href="{URL}" {Target}>{Name}</a>
+							{block:PermalinkPage}
+								<div class="post_caption">{block:Description}{Description}{block:Description}</div>
+							{/block:PermalinkPage}
+						</div>
+					{/block:Link}
+					{block:Chat}
+						<div class="chat">
+							{block:IndexPage}
+								{block:NoteCount}
+									<div class="permalink">
+										<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							{block:Title}
+								<div class="post_title">{Title}</div>
+							{/block:Title}
+							{block:Lines}
+								<div class="post_body">{block:Label}<strong>{Label}</strong>{/block:Label}&nbsp;{Line}</div>
+							{/block:Lines}
+						</div>
+					{/block:Chat}
+					{block:Audio}
+						<div class="audio">
+							{block:IndexPage}
+								{block:NoteCount}
+									<div class="permalink">
+										<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							{AudioPlayer}
+							<div class="post_body">
+								{block:TrackName}<div><strong>Name:</strong> {TrackName}</div>{/block:TrackName}
+								{block:Artist}<div><strong>Artist:</strong> {Artist}</div>{/block:Artist}
+								{block:Album}<div><strong>Album:</strong> {Album}</div>{/block:Album}
+							</div>
+							{block:PermalinkPage}
+								<div class="post_caption">{block:Caption}{Caption}{block:Caption}</div>
+							{/block:PermalinkPage}
+						</div>
+					{/block:Audio}
+					{block:Video}
+						<div class="video">
+							{block:IndexPage}
+								{block:NoteCount}
+									<div class="permalink">
+										<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							{Video-400}
+							{block:PermalinkPage}
+								<div class="post_body">{block:Caption}{Caption}{block:Caption}</div>
+							{/block:PermalinkPage}
+						</div>
+					{/block:Video}
+					{block:Ask}
+						<div class="ask">
+							{block:IndexPage}
+								{block:NoteCount}
+									<div class="permalink">
+										<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+									</div>
+								{/block:NoteCount}
+							{/block:IndexPage}
+							<div class="post_title">{Asker} asked {Question}</div>
+							<div class="post_body">{Answer}</div>
+						</div>
+					{/block:Ask}
+					{block:PermalinkPage}
+						{block:PostNotes}
+							{PostNotes}
+						{/block:PostNotes}
+					{/block:PermalinkPage}
+				</div>
+			{/block:Posts}
+        </div> <!/posts>
+		{block:Pagination}
+			<div id="navigation">
+				{block:NextPage}
+					<a class="next" href="{NextPage}">Next</a>
+				{/block:NextPage}
+				{block:PreviousPage}
+					<a class="previous" href="{PreviousPage}">Previous</a>
+				{/block:PreviousPage}
+			</div>
+		{/block:Pagination}
+        <div class="footer"><a href="http://themes.edada.ms">ed's themes</div>
+    </div> <!/wrapper>
+</body>
+</html>

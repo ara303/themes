@@ -1,0 +1,453 @@
+<html>
+	<head>
+		<!-- "Triple Column" theme by edada.ms -->
+		<title>{Title}</title>
+		{block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
+		<link rel="shortcut icon" href="{Favicon}" />
+		<link rel="alternate" type="application/rss+xml" href="{RSS}" />
+		<meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
+	
+		<meta name="if:Infinite Scrolling" content="1" />
+		<meta name="if:Rounded Corners" content="1" />
+		<meta name="if:Underline Hyperlinks" content="0" />
+		<meta name="if:Dim Post on Hover" content="1" />
+		<meta name="if:Hide Captions" content="1" />
+		<meta name="if:Hide Title" content="0" />
+		<meta name="if:Hide Description" content="0" />
+		<meta name="if:Hide Ask" content="0" />
+		<meta name="if:Hide Submit" content="0" />
+		<meta name="if:Hide Pages" content="0" />
+		<meta name="if:Background On Header" content="1" />
+		<meta name="if:Background On Posts" content="1" />
+		<meta name="if:Hide Source" content="1" />
+		<meta name="font:Header Title" content="Helvetica" />
+		<meta name="font:Header Caption" content="Helvetica" />
+		<meta name="font:Posts" content="Helvetica" />
+		<meta name="color:Text" content="#666666" />
+		<meta name="color:Links" content="#ff3b8e" />
+		<meta name="color:Links on Hover" content="#cccccc" />
+		<meta name="color:Posts" content="#ffffff" />
+		<meta name="color:Background" content="#000000" />
+		<meta name="image:Background" content="http://static.tumblr.com/fpdiq1j/OT8lz8i0w/dark_wood.png" />
+		<meta name="image:Header" content="" />
+
+		<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/pOHlzg7ar/jquery.min.js"></script>
+		{block:IndexPage}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/Umwlzg7b6/jquery.masonry.min.js"></script>{/block:IndexPage}
+		{block:IfInfiniteScrolling}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>{/block:IfInfiniteScrolling}
+		<script type="text/javascript">
+			$(function(){
+				var $container = $('#posts');
+				$container.imagesLoaded(function(){
+					$container.masonry({
+						itemSelector: '.post'
+					});
+				});
+				$container.infinitescroll({
+					navSelector: '.navigation', 
+					nextSelector: '.next-page', 
+					itemSelector: '.post'
+				},
+				function( newElements ) {
+					var $newElems = $( newElements ).css({ opacity: 0 });
+					$newElems.imagesLoaded(function(){
+						$newElems.animate({ opacity: 1 });
+						$container.masonry( 'appended', $newElems, true ); 
+					});
+				});
+			});
+		</script>
+	
+		<style type="text/css">
+			body {
+				background: url('{image:Background}') {color:Background} fixed;
+				font-size: 12px;
+				font-family: {font:Posts};
+				color: {color:Text};
+			}
+		
+			a {
+				font-family: {font:Links};
+				color: {color:Links};
+				{block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
+				transition: color 0.5s linear;
+				-webkit-transition: color 0.5s linear;
+				-moz-transition: color 0.5s linear;
+				-o-transition: color 0.5s linear;
+			}
+
+			a:hover, a:visited:hover {
+				color: {color:LinksonHover};
+				transition: color 0.5s linear;
+				-webkit-transition: color 0.5s linear;
+				-moz-transition: color 0.5s linear;
+				-o-transition: color 0.5s linear;
+			}
+	
+			.container {
+				margin: auto;
+				width: 780px; /* <-- OI! */
+			} 
+			
+			/* --- Header specific --- */
+	
+			.header {
+				text-align: center;
+				margin: 5px;
+				padding: 10px; 
+				{block:IfBackgroundOnHeader}background-color: {color:Posts};{/block:IfBackgroundOnHeader}
+				{block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
+			}
+
+			.header .heading {
+				font-family: {font:HeaderTitle};
+				font-size: 30px;
+				font-weight: bold;
+				font-smoothing: antialiased;
+				-webkit-font-smoothing: antialiased;
+				-moz-font-smoothing: antialiased;
+				-o-font-smoothing: antialiased;
+			}
+	
+			.header .links a {
+				margin-right: 5px;
+			}
+		
+			.header .links a:last-child {
+				margin-right: 0px;
+			}
+
+			{block:IfHideCaptions}.caption {
+				display: none;
+			}{/block:IfHideCaptions}
+
+			{block:IfHideTitle}.heading {
+				display: none;
+			}{/block:IfHideTitle}
+
+			{block:IfHideDescription}.description {
+				display: none;
+			}{/block:IfHideDescription}
+		
+			{block:IfHideAsk}.ask {
+				display: none;
+			}{/block:IfHideAsk}
+		
+			{block:IfHideSubmit}.submit {
+				display: none;
+			}{/block:IfHideSubmit}
+
+			{block:IfHidePages}.pages {
+				display: none;
+			}{/block:IfHidePages}
+
+			/* --- Posts specific --- */
+		
+			.post {
+				font-family: {font:Posts};
+				width: 250px;
+				margin: 5px;
+				float: left;
+				{block:IfBackgroundOnPosts}background-color: {color:Posts};{/block:IfBackgroundOnPosts}
+				{block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
+				z-index: 1;
+			}
+			
+			.caption, .text, .quote, .link, .chat, .audio .body {
+				padding: 10px;
+			}
+			
+			.post.permalink-page {
+				float: none;
+				clear: both;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.post:hover .permalink {
+				opacity: 0.9;
+			}
+		
+			.permalink {
+				position: absolute;
+				bottom: 0;
+				padding: 2px 0 2px 0;
+				text-align: center;
+				width: 250px;
+				background: rgb(255,255,255);
+				opacity: 0;
+				z-index: 2;
+				{block:IfRoundedCorners}border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;{/block:IfRoundedCorners}
+				/* Note to self: This won't work in anything other than Webkit */
+			}
+		
+			.notes-container {
+				width: 230px;
+				margin: 10px auto 0 auto;
+				background: white;
+				border-radius: 5px;
+				padding: 10px;
+				/* top right bottom left */
+			}
+			
+			ol.notes{
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			li.note{
+				display: block;
+				padding-bottom: 3px;
+			}
+		
+			/* --- Navigation specific --- */
+		
+			.navigation {
+				width: 800px;
+				margin: auto;
+			}
+		
+			.next-page {
+				float: left;
+				font-size: 30px;
+			}
+		
+			.previous-page {
+				float: right;
+				font-size: 30px;
+			}
+			
+			/* --- Footer specific --- */
+			
+			.footer {
+				position: fixed;
+				bottom: 10px;
+				right: 10px;
+				font-size: 10px;
+				opacity: .5;
+			}
+		
+			/* --- Aesthetic improvements --- */
+		
+			{block:IfBackgroundOnPosts}.post .photoset {
+				background-color: {color:Posts}; /* Not sure why this is necessary but photoset padding won't behave if I don't apply a background. */
+			}{/block:IfBackgroundOnPosts}
+
+			.post .video, .post .photoset, .post .photo {
+				margin-bottom: -3px; /* Fixes additional padding at bottom of some posts. */
+			}
+			
+			.post .video iframe {
+				width: 250px; /* Keeps the video from going nuts. */
+			}
+
+			/*.post .photo {
+				border-radius: 10px;
+				margin-bottom: -3px;
+			}*/
+
+			{block:IfRoundedCorners}.photo img, .audio img, .photoset iframe, .video iframe { 
+				{block:IfNotHideCaptions}-webkit-border-top-left-radius: 5px;
+				-webkit-border-top-right-radius: 5px;
+				-moz-border-radius-topleft: 5px;
+				-moz-border-radius-topright: 5px;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;{/block:IfNotHideCaptions}
+				{block:IfHideCaptions}border-radius: 5px;{/block:IfHideCaptions}
+			}{/block:IfRoundedCorners}
+		
+			p:first-child, ul:first-child, ol:first-child, blockquote:first-child {
+				margin-top: 0;
+			}
+		
+			p:last-child, ul:last-child, ol:last-child, blockquote:last-child {
+				margin-bottom: 0;
+			}
+			
+			.title{
+				font-size: 17px; /* EDIT THIS NUMBER TO CHANGE THE SIZE OF POST HEADINGS. */
+				padding-bottom: 2px;
+			}
+			
+			.post.video{background-color:transparent}
+			
+			{CustomCSS}
+		</style>
+		<!--
+			TO DO LIST
+			- configure infinte scrolling so it doesn't display the loading image or loading message (theres a tutorial on infinite-scrolling.com)
+			- make sure padding and margins are consistently good
+		-->
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<div class="heading">
+					{block:IfHeaderImage}<img src="{image:Header}" alt="{Title}" />{/block:IfHeaderImage}
+					{block:IfNotHeaderImage}<a href="/">{Title}</a>{/block:IfNotHeaderImage} 
+				</div>
+				{block:Description}
+					<div class="description">{Description}</div>
+				{/block:Description}
+				<div class="links">
+					{block:HasPages}{block:Pages}
+						<a href="{URL}" class="pages">{Label}</a>
+					{/block:Pages}{/block:HasPages}
+					{block:AskEnabled}
+						<a href="/ask" class="ask">{AskLabel}</a>
+					{/block:AskEnabled}
+					{block:SubmissionsEnabled}
+						<a href="/submit" class="submit">{SubmitLabel}</a>
+					{/block:SubmissionsEnabled}
+				</div>
+			</div>
+			<div id="posts">
+				{block:Posts}
+					<div class="post {block:PermalinkPage}permalink-page{/block:PermalinkPage}">
+						{block:Text}
+							<div class="text">
+								<div class="title">{Title}</div>
+								<div class="body">{Body}</div>
+							</div>
+						{/block:Text}
+						
+						{block:Photo}
+							<div class="photo">
+								<img src="{PhotoURL-250}" alt="{PhotoAlt}" />
+								{block:Caption}
+									<div class="caption">
+										{Caption}
+									</div>
+								{/block:Caption}
+							</div>
+						{/block:Photo}
+						
+						{block:Photoset}
+							<div class="photoset">
+								{Photoset-250}
+								{block:Caption}
+									<div class="caption">
+										{Caption}
+									</div>
+								{/block:Caption}
+							</div>
+						{/block:Photoset}
+						
+						{block:Quote}
+							<div class="quote">
+								<div class="title">
+									"{Quote}"
+								</div>
+								{block:Source}
+									<div class="body">
+										&mdash; {Source}
+									</div>
+								{/block:Source}
+							</div>
+						{/block:Quote}
+						
+						{block:Link}
+							<div class="link">
+								<div class="title">
+									<a href="{URL}" {Target}>{Name}</a>
+								</div>
+								{block:Caption}
+									<div class="caption">
+										{Caption}
+									</div>
+								{/block:Caption}
+							</div>
+						{/block:Link}
+						
+						{block:Chat}
+							<div class="chat">
+								{block:Title}
+									<div class="title">{Title}</div>
+								{/block:Title}
+								<div class="body">
+									{block:Lines}
+										<div class="line">{block:Label}<strong>{Label}</strong>{/block:Label} {Line}</div>
+									{/block:Lines}
+								</div>
+							</div>
+						{/block:Chat}
+						
+						{block:Audio}
+							<div class="audio">
+								{block:AlbumArt}
+									<img src="{AlbumArtURL}" width="250" />
+								{/block:AlbumArt}
+								{AudioPlayerWhite}
+								{block:Caption}
+									<div class="body">
+										{Caption}
+									</div>
+								{/block:Caption}
+							</div>
+						{/block:Audio}
+						
+						{block:Video}
+							<div class="video">
+								{Video-250}
+								{block:Caption}
+									<div class="caption">
+										{Caption}
+									</div>
+								{/block:Caption}
+							</div>
+						{/block:Video}
+						
+						{block:Answer}
+							<div class="answer">
+								<div class="title">
+									{Asker} asked: {Question}
+								</div>
+								<div class="body">
+									{Answer}
+								</div>
+							</div>
+						{/block:Answer}
+
+						{block:Date}
+							{block:IndexPage}
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
+								</div>
+							{/block:IndexPage}
+							{block:PermalinkPage}
+								<div class="attribution">				
+									{block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource}
+								</div>
+							{/block:PermalinkPage}
+						{/block:Date}
+					</div>
+						
+					{block:PermalinkPage}
+						{block:PostNotes}
+							<div style="clear:both"></div>
+							<div class="notes-container">
+								{PostNotes}
+							</div>
+						{/block:PostNotes}
+					{/block:PermalinkPage}
+				{/block:Posts}
+			</div>
+			
+			{block:Pagination}
+				<div class="navigation">
+					{block:NextPage}
+						<a class="next-page" href="{NextPage}">Next Page</a>
+					{/block:NextPage}
+					{block:PreviousPage}
+						<a class="previous-page" href="{PreviousPage}">Previous Page</a>
+					{/block:PreviousPage}
+				</div>
+			{/block:Pagination}
+			
+			<a class="footer" href="http://themes.edada.ms">
+				ed's themes
+			</a>
+		</div>
+	</body>
+</html>

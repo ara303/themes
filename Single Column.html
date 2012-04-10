@@ -1,0 +1,579 @@
+<html>
+    <!--
+		"Single Column" theme by edada.ms - more at themes.edada.ms
+	-->
+	<head>
+		<meta name="color:Text" content="#000000">
+		<meta name="color:Links" content="#979393">
+		<meta name="color:Links on Hover" content="#979393">
+		<meta name="color:Background" content="#eee"/>
+		<meta name="font:Text" content="Helvetica Neue" />
+		<meta name="font:Links" content="Verdana">
+		<meta name="if:Rounded Edges" content="1" />
+		<meta name="if:Sidebar On Right" content="1" />
+		<meta name="if:Infinite Scrolling" content="1" />
+		<meta name="if:Hide Captions" content="1" />
+		<meta name="if:Hide Header" content="0" />
+		<meta name="if:Hide Description" content="0" />
+		<meta name="if:Hide Pages" content="0" />
+		<meta name="if:Hide Ask" content="0" />
+		<meta name="if:Hide Submit" content="0" />
+		<meta name="if:Hide Archive" content="0" />
+		<meta name="if:Hide RSS" content="0" />
+		<meta name="if:Hide Source" content="0" />
+		<meta name="image:Background" content="http://static.tumblr.com/fpdiq1j/mKMlxszq7/old_wall.png" />
+		<link rel="shortcut icon" href="{Favicon}" />
+		<link rel="apple-touch-icon" href="{PortraitURL-128}" />
+		<link rel="alternate" type="application/rss+xml" href="{RSS}" />
+		<title>{Title}</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		{block:IfInfiniteScrolling}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
+		<script type="text/javascript">
+			$('.posts').infinitescroll({
+				navSelector: '.navigation', 
+				nextSelector: '.next', 
+				itemSelector: '.post'
+			});
+		</script>{/block:IfInfiniteScrolling}
+		<!--
+			TODO infinite scrolling might need id not class
+			TODO padding at the bottom of images ugh
+			TODO random stuff in audio probably from alex's animation
+			TODO beta testing!!!!!!!!!!!!!!!!
+		-->
+
+		<style type="text/css">
+		
+			body {
+				font-family: {font:Text};
+				background: url('{image:Background}') {color:Background} fixed;
+				font-size: 12px;
+				padding-top: 10px;
+			}
+	
+			a {
+				font-family: {font:Links};
+				color: {color:Links};
+				text-decoration: none;
+				transition: color 0.5s linear;
+				-webkit-transition: color 0.5s linear;
+				-moz-transition: color 0.5s linear;
+				-o-transition: color 0.5s linear;
+			}
+	
+			a:hover, a:visited:hover {
+				color: {color:Links on Hover};
+				transition: color 0.5s linear;
+				-webkit-transition: color 0.5s linear;
+				-moz-transition: color 0.5s linear;
+				-o-transition: color 0.5s linear;
+			}
+			
+			/* --- Wrapper --- */
+			
+			.wrapper {
+				margin: auto;
+				width: 790px;
+			}
+			
+			/* --- Sidebar specific --- */
+
+			.sidebar {
+				{block:IfSidebarOnRight}float: right;
+				margin-left: 20px;{/block:IfSidebarOnRight}
+				{block:IfNotSidebarOnRight}float: left;
+				margin-right: 20px;{/block:IfNotSidebarOnRight}
+				width: 250px;
+				padding: 10px;
+				background: rgba(255, 255, 255, 1);
+				box-shadow: 0 0 5px #888;
+				{block:IfRoundedEdges}-webkit-border-radius: 5px;
+				-moz-border-radius: 5px;
+				-o-border-radius: 5px;
+				border-radius: 5px;{/block:IfRoundedEdges}
+			}
+
+			.sidebar .header{
+				font-size: 25px;
+				font-weight: bold;
+				text-align: center;
+			}
+	
+			.sidebar .description{
+				padding-top: 10px;
+			}
+	
+			.sidebar .links{
+				padding-top: 10px;
+			}
+	
+			.sidebar .links a {
+				padding-right: 5px;
+			}
+	
+			.sidebar .links a:last-child{
+				padding-right: 0 !important;
+			}
+	
+			/* --- Posts specific --- */
+
+			.posts {
+				width: 500px;
+				{block:IfSidebarOnRight}float: right;{/block:IfSidebarOnRight}
+				{block:IfNotSidebarOnRight}float: left;{/block:IfNotSidebarOnRight}
+			}
+			
+			.post { /* each */
+				position: relative;
+				margin-bottom: 20px;
+				box-shadow: 0 0 5px #888;
+				background: rgba(255, 255, 255, 1);
+				{block:IfRoundedEdges}-webkit-border-radius: 5px;
+				-moz-border-radius: 5px;
+				-o-border-radius: 5px;
+				border-radius: 5px;{/block:IfRoundedEdges}
+			}
+			
+			.text, 
+			.link,
+			.quote, 
+			.answer, 
+			.chat,
+			.caption {
+				padding: 10px;
+			}
+			
+			.media {
+				margin-bottom: -3px;
+			}
+			
+			.post:hover .permalink {
+				opacity: 1.0;
+				transition: opacity 0.1s linear;
+				-webkit-transition: opacity 0.1s linear;
+				-moz-transition: opacity 0.1s linear;
+				-o-transition: opacity 0.1s linear;
+			}
+			
+			.permalink {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				z-index: 2;
+				font-size: 13px;
+				text-decoration: none;
+				background-color: rgba(0, 0, 0, 0.5);
+				border-top-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+				padding: 3px 3px 3px 5px;
+				opacity: 0;
+				transition: opacity 0.1s linear;
+				-webkit-transition: opacity 0.1s linear;
+				-moz-transition: opacity 0.1s linear;
+				-o-transition: opacity 0.1s linear;
+			}
+			
+			.label {
+				font-weight: bold;
+			}
+	
+			/* --- Navigation specific --- */
+	
+			.navigation {
+				font-size: 50px;
+				margin: auto;
+			}
+		
+			.navigation a.next {
+				margin-right: 20px;
+				float: right;
+			}
+			
+			.navigation a.previous {
+				margin-left: 20px;
+				float: left;
+			}
+
+			.navigation a {
+				opacity: 0.3;
+				transition: opacity 0.5s linear;
+				-webkit-transition: opacity 0.5s linear;
+				-moz-transition: opacity 0.5s linear;
+				-o-transition: opacity 0.5s linear;
+			}
+
+			.navigation a:hover {
+				opacity: 0.9;
+				transition: opacity 0.5s linear;
+				-webkit-transition: opacity 0.5s linear;
+				-moz-transition: opacity 0.5s linear;
+				-o-transition: opacity 0.5s linear;
+			}
+	
+			/* --- Footer specific --- */
+			
+			.footer {
+				font-size: 10px;
+				right: 10px;
+				bottom: 10px;
+				position: fixed;
+			}
+	
+			/* --- Misc stuff --- */
+	
+			blockquote {
+				margin: 10px 0 10px 10px;
+				padding-left: 10px;
+				border-left: solid 3px {color:Links};
+			}
+			
+			.clear {
+				clear: both;
+				float: none;
+			}
+	
+			/* I don't want to use any of this code because it's old and shit and only works in Webkit. */
+
+			/* Define content possible meta-types. */
+	
+			.heading {
+				font-weight: bold;
+				font-size: 20px;
+				color: {color:Headings};
+				text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2);
+			}
+
+			/* Define indivual attributes for each type of posts. */
+	
+			/*.photo, .audio, .video, .photoset {
+				padding: 0 !important; 
+				border-radius: 7px; 
+			}*/
+	
+			.media img, iframe.photoset { /* Quick hack to get rounded corners on media and photoset posts */
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				{block:IfHideCaptions}border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;{/block:IfHideCaptions}
+			}
+	
+			.source {
+				font-size: 13px;
+				text-transform: none;
+			}
+
+			ul.chat.body {
+				list-style-type: none;
+				padding: 0;
+			}
+
+			.chat.body .row {
+				line-height: 18px;
+				border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+			}
+
+			.chat.body .row:last-child {
+				border-bottom: none !important;
+			}
+
+			/* Define any additional attributes for aesthetic purposes. */
+
+			{block:IfHideHeader}.sidebar .header {
+				display: none;
+			}{/block:IfHideHeader}
+	
+			{block:IfHideDescription}.sidebar .description {
+				display: none;
+			}{/block:IfHideDescription}
+
+			{block:IfHidePages}.links-pages {
+				display: none;
+			}{/block:IfHidePages}
+	
+			{block:IfHideAsk}.links-ask {
+				display: none;
+			}{/block:IfHideAsk}
+	
+			{block:IfHideSubmit}.links-submit {
+				display: none;
+			}{/block:IfHideSubmit}
+	
+			{block:IfHideArchive}.links-archive {
+				display: none;
+			}{/block:IfHideArchive}
+	
+			{block:IfHideRSS}.links-rss {
+				display: none;
+			}{/block:IfHideRSS}
+	
+			{block:IfHideCaptions}.caption {
+				display: none;
+			}{/block:IfHideCaptions}
+	
+			.audio-info, .audio-info-toggle {
+				padding-top: 10px;
+				font-size: 10px;
+			}
+
+			p:last-child, ul:last-child, ol:last-child, blockquote:last-child {
+				margin: 0;
+			}
+			
+			p:first-child, ul:first-child, ol:first-child, blockquote:first-child {
+				margin: 0;
+			}
+		</style>
+	
+		<style type="text/css">
+			/* Start custom CSS */
+				{CustomCSS} 
+			/* End custom CSS */
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="sidebar">
+				<div class="header">
+					<a href="/">{Title}</a>
+				</div>
+				<div class="description">
+					{block:Description}{Description}{/block:Description}
+				</div>
+				<div class="links">
+					{block:HasPages}{block:Pages}
+						<a href="{URL}" class="links-pages">{Label}</a>
+					{/block:Pages}{/block:HasPages}
+					{block:AskEnabled}
+						<a href="/ask" class="links-ask">{AskLabel}</a>
+					{/block:AskEnabled}
+					{block:SubmissionsEnabled}
+						<a href="/submit" class="links-submit">{SubmitLabel}</a>
+					{/block:SubmissionsEnabled}
+					<a href="/archive" class="links-archive">Archive</a>
+					<a href="{RSS}" class="links-rss">RSS</a>
+				</div>
+			</div>
+	
+			<div class="posts">
+				{block:Posts}
+					<div class="post">
+						{block:Text}
+							<div class="text">
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCount}</a>
+								</div>
+								{block:Title}
+									<div class="heading">
+										{Title}
+									</div>
+								{/block:Title}
+								<div class="body"> 
+									{Body}
+								</div>
+							</div>
+						{/block:Text}
+
+						{block:Photo}
+							<div class="photo">
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCount}</a>
+								</div>
+								<div class="media">
+									<a href="{LinkURL}">
+										<img src="{PhotoURL-500}" border="0" alt="{PhotoAlt}" />
+									</a>
+								</div>
+								{block:Caption}
+									<div class="caption">
+										{Caption}
+									</div>
+								{/block:Caption}
+							</div>
+						{/block:Photo}
+
+						{block:Photoset}
+							<div class="photoset">
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCount}</a>
+								</div>
+								<div class="media">
+									{Photoset-500}
+								</div>
+								{block:Caption}
+									<div class="caption">
+										{Caption}
+									</div>
+								{/block:Caption}
+							</div>				  
+						{/block:Photoset}
+
+						{block:Quote}
+							<div class="quote">
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCount}</a>
+								</div>
+								<div class="body">
+									"{Quote}"
+									{block:Source}
+										<div class="source">
+											&ndash; {Source}
+										</div>
+									{/block:Source}
+								</div>
+							</div>	
+						{/block:Quote}
+
+						{block:Link}
+							<div class="link">
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCount}</a>
+								</div>
+								<a class="heading" href="{URL}" {Target}>
+									{Name}
+								</a>
+								{block:Description}
+									<div class="body">
+										{Description}
+									</div>
+								{/block:Description}
+							</div>			 
+						{/block:Link}
+			
+						{block:Video}
+							<div class="video">
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCount}</a>
+								</div>
+								<div class="media">
+									{Video-500}
+								</div>
+								{block:Caption}
+									<div class="caption">
+										{Caption}
+									</div>
+								{/block:Caption}
+							</div>
+						{/block:Video}
+			
+						{block:Chat}
+							<div class="chat">
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCount}</a>
+								</div>
+								{block:Title}
+									<div class="heading">
+										{Title}
+									</div>
+								{/block:Title}
+								<ul class="chat body">
+									{block:Lines}
+										<li class="row">
+											{block:Label}
+												<span class="label">{Label}</span>
+											{/block:Label}
+											<span class="line">{Line}</span>
+										</li>
+									{/block:Lines}
+								</ul>
+							</div>
+						{/block:Chat}
+
+						{block:Audio}
+							<div class="audio">
+								<div class="permalink">
+								<a href="{Permalink}">{NoteCount}</a>
+							</div>
+							{block:AlbumArt}
+								<div class="media">
+									<img src="{AlbumArtURL}" alt="{block:TrackName}{TrackName}{/block:TrackName} - {block:Artist}{Artist}{/block:Artist}" />
+								</div>
+							{block:AlbumArt}
+							<div class="media">
+								{AudioPlayerWhite}
+							</div>
+                            <div class="caption">
+						        {block:Caption}
+								    	{Caption}
+							    {/block:Caption}
+								{block:PermalinkPage}
+									<div class="audio-info-toggle" id="show-info-{PostID}" onclick="Effect.BlindDown('info-{PostID}');Effect.Appear('info-{PostID}');Effect.BlindDown('hide-info-{PostID}');Effect.Appear('hide-info-{PostID}');Effect.BlindUp('show-info-{PostID}');Effect.Fade('show-info-{PostID}');return false;">Show Info</div>
+									<div class="audio-info-toggle" id="hide-info-{PostID}" onclick="Effect.BlindUp('info-{PostID}');Effect.Fade('info-{PostID}');Effect.BlindUp('hide-info-{PostID}');Effect.Fade('hide-info-{PostID}');Effect.BlindDown('show-info-{PostID}');Effect.Appear('show-info-{PostID}');return false;" style="display: none;">Hide Info</div>
+									<div class="audio-info" id="info-{PostID}" style="display: none;">
+										{block:TrackName}
+											<div class="name">
+												<span class="label">Title:</span>
+												<span class="item">{TrackName}</span>
+											</div>
+										{/block:TrackName}
+										{block:Artist}
+											<div class="artist">
+												<span class="label">Artist:</span>
+												<span class="item">{Artist}</span>
+											</div>
+										{/block:Artist}
+										{block:Album}
+											<div class="album">
+												<span class="label">Album:</span>
+												<span class="item">{Album}</span>
+											</div>
+										{/block:Album}
+											<div class="playcount">
+												<span class="label">Playcount:</span>
+												<span class="item">{FormattedPlayCount}</span>
+											</div>
+											<div class="download">
+												{block:ExternalAudio}
+													<a href="{ExternalAudioURL}">Download</a>	
+												{/block:ExternalAudio}
+											</div>
+										</div>
+									{/block:PermalinkPage}
+								</div>
+							</div>	 
+						{/block:Audio}	  
+			
+						{block:Answer}
+							<div class="answer">
+								<div class="permalink">
+									<a href="{Permalink}">{NoteCount}</a>
+								</div>
+								<div class="heading">
+									{Asker} asked: {Question}
+								</div>
+								<div class="ask body">
+									{Answer}
+								</div>
+							</div>
+						{/block:Answer}
+
+						{block:IfHideSource}
+							<!-- {block:ContentSource}{SourceLink}{/block:ContentSource}
+							{block:RebloggedFrom}{ReblogParentURL}{/block:RebloggedFrom} -->
+						{/block:IfHideSource}
+
+						{block:PostNotes}
+							<div class="post notes">
+								{PostNotes}
+							</div>
+						{/block:PostNotes}
+					</div>
+				{/block:Posts}
+			</div>
+		
+			{block:Pagination}
+				<div class="navigation">
+					{block:PreviousPage}
+						<a href="{PreviousPage}" class="previous" alt="Previous Page">&larr;</a>
+					{/block:PreviousPage}
+					{block:NextPage}
+						<a href="{NextPage}" class="next" alt="Next Page">&rarr;</a>
+					{/block:NextPage}
+				</div>
+			{/block:Pagination}
+
+			<div class="footer">
+				<a href="http://themes.edada.ms">ed's themes</a>
+			</div>
+		</div>
+	</body>
+</html>

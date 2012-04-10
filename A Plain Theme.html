@@ -1,0 +1,274 @@
+<html>
+	<!-- "A Plain Theme" from themes.edada.ms -->
+	<head>
+		<title>{Title}</title>
+		
+		<meta name="description" content="{block:Description}{Description}{/block:Description}" />	
+		<link rel="shortcut icon" href="{Favicon}" />
+		<link rel="apple-touch-icon" href="{PortraitURL-128}"/>
+		<link rel="alternate" type="application/rss+xml" href="{RSS}" />
+		
+		<meta name="color:Background" content="#FFFFFF" />
+		<meta name="color:Text" content="#000000" />
+		<meta name="color:Borders" content="#000000" />
+		<meta name="font:Body" content="Helvetica Neue" />
+		<meta name="image:Background" content="" />
+		<meta name="if:Hide Heading" content="0" />
+		<meta name="if:Hide Description" content="0" />
+		<meta name="if:Hide Captions" content="0" />
+		<meta name="if:Hide RSS" content="1" />
+		<meta name="if:Hide Archive" content="1" />
+		<meta name="if:Hide Ask" content="0" />
+		<meta name="if:Hide Submit" content="0" />
+		<meta name="if:Hide Pages" content="0" />
+		
+		<style type="text/css">
+			 body {
+				padding:10px 0;
+				background:url('{image:Background}') {color:Background} fixed;
+				color:{color:Text};
+				width:500px;
+				max-width:500px;
+				margin:auto;
+				font:12px {font:Body};
+			}
+			
+			a {
+				color:{color:Text};
+				text-decoration:none;
+			}
+			
+			a:hover {
+				opacity:0.9;
+			}
+			
+			.title {
+				font-size:20px;
+			}
+			
+			.heading {
+				font-size:25px;
+				text-align:center;
+				font-weight:bold;
+			}
+			
+			.description {
+				padding:10px 0 10px;
+			}
+		
+			.links {
+				padding:10px 0 10px;
+				margin: 0 0 10px;
+				text-align:center;
+				border-top:1px solid {color:Borders};
+				border-bottom:1px solid {color:Borders};
+			}
+			
+			.link {
+				margin-left:12px;
+				padding:1px 4px 2px 4px;
+				border:1px solid {color:Borders};
+				border-radius:3px;
+			}
+			
+			.link:first-child {
+				margin-left:0;
+			}
+			
+			.notes {
+				padding-left:9px;
+			}
+			
+			.meta {
+				border-bottom:1px dotted {color:Borders};
+				padding-bottom:3px;
+				margin: 1em 0 2.5em;
+				font-size:10px;
+			}
+			
+			.permalink {
+				float: left;
+			}
+			
+			.attribution {
+				float: right;
+			}
+			
+			.clear {
+				clear: both;
+			}
+			
+			.pages {
+				width:500px;
+				padding-top:10px;
+			}
+			
+			.next-page {
+				float:left;
+			}
+			
+			.previous-page {
+				float:right;
+			}
+			
+			.footer {
+				position:fixed;
+				right:10px;
+				bottom:10px;
+				opacity:0.5;
+				font-size:10px;
+			}
+			
+			p:first-child {
+				margin-top:0;
+			}
+			
+			p:last-child {
+				margin-bottom:0;
+			}
+			
+			{block:IfHideCaptions}.caption.hide {
+				display:none;
+			}{/block:IfHideCaptions}
+			
+			{block:IfHideHeading}.heading {
+				display:none;
+			}{block:IfHideHeading}
+			
+			{block:IfHideDescription}.description {
+				display:none;
+			}{/block:IfHideDescription}
+			
+			{block:IfHideRSS}#rss {
+				display:none;
+			}{/block:IfHideRSS}
+			
+			{block:IfHideArchive}#archive {
+				display:none;
+			}{/block:IfHideArchive}
+			
+			{block:IfHideAsk}#ask {
+				display:none;
+			}{/block:IfHideAsk}
+			
+			{block:IfHideSubmit}#sub {
+				display:none;
+			}{/block:IfHideSubmit}
+			
+			{block:IfHidePages}.page.link {
+				display:none;
+			}{/block:IfHidePages}
+			
+			{CustomCSS}
+		</style>
+	</head>
+	<body>
+		<div class="heading"><a href="/">{Title}</a></div>
+		{block:Description}<div class="description">{Description}</div>{/block:Description}
+		<div class="links">
+			{block:AskEnabled}<a class="link" id="ask" href="/ask">{AskLabel}</a>{/block:AskEnabled}
+			{block:SubmissionsEnabled}<a class="link" id="sub" href="/submit">{SubmitLabel}</a>{/block:SubmissionsEnabled}
+			{block:HasPages}{block:Pages}<a class="page link" href="{URL}">{Label}</a>{/block:Pages}{block:HasPages}
+			<a class="link" id="rss" href="{RSS}">RSS</a>
+			<a class="link" id="archive" href="/archive">Archive</a>
+		</div>
+	   
+		{block:Posts}
+			<div class="post">
+				{block:Photo}
+					{LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" />{LinkCloseTag}
+					{block:Caption}<div class="caption hide">{Caption}</div>{/block:Caption}
+				{/block:Photo}
+	
+				{block:Photoset}
+					{Photoset-500}
+					{block:Caption}<div class="caption hide">{Caption}</div>{/block:Caption}
+				{/block:Photoset}
+	
+				{block:Video}
+					{Video-500}
+					{block:Caption}<div class="caption hide">{Caption}</div>{/block:Caption}
+				{/block:Video}
+	
+				{block:Audio}
+					{block:AlbumArt}
+						<img src="{AlbumArtURL}" />
+					{/block:AlbumArt}
+					{AudioPlayerWhite}
+					{block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+				{/block:Audio}
+	
+				{block:Quote}
+					<div class="title">"{Quote}"</div>
+					<div class="caption">
+						{block:Source}
+							&mdash; {Source}
+						{/block:Source}
+					</div>
+				{/block:Quote}
+		
+				{block:Text}
+					{block:Title}<div class="title">{Title}</div>{/block:Title}
+					<div class="caption">{Body}</div>
+				{/block:Text}
+	
+				{block:Answer}
+					<div class="title">{Asker} asked: {Question}</div>
+					<div class="caption">{Answer}</div>
+				{block:Answer}
+		
+				{block:Chat}
+					{block:Title}<div class="title">{Title}</div>{/block:Title}
+					<div class="caption">
+						{block:Lines}
+							{block:Label}<strong>{Label}</strong>{/block:Label}&nbsp;{Line}<br>
+						{/block:Lines}
+					</div>
+				{/block:Chat}
+	
+				{block:Link}
+					<a class="title" href="{URL}" {Target}>{Name}</a>
+					{block:Description}<div class="caption hide">{Description}</div>{/block:Description}
+				{/block:Link}
+
+				{block:Date}
+					<div class="meta">
+						<div class="permalink">
+							<a href="{Permalink}">
+								{block:PermalinkPage}Posted at {12Hour}:{Minutes} {AmPm} on {ShortDayOfWeek} {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} {Year}, with {NoteCountWithLabel}{/block:PermalinkPage}
+								{block:IndexPage}Posted {TimeAgo}, with {NoteCountWithLabel}{/block:IndexPage}
+							</a>
+						</div>
+						{block:PermalinkPage}
+							<div class="attribution">				
+								{block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource}
+							</div>
+						{/block:PermalinkPage}
+						<div class="clear"></div>
+					</div>
+				{/block:Date}
+
+				{block:PostNotes}
+					<div class="notes">
+						{PostNotes}
+					</div>
+				{/block:PostNotes}
+			</div>
+		{/block:Posts}
+
+		<div class="pages">
+			{block:Pagination}
+				{block:NextPage}
+					<a class="next-page" href="{NextPage}">Next Page</a>
+				{/block:NextPage}
+				{block:PreviousPage}
+					<a class="previous-page" href="{PreviousPage}">Previous Page</a>
+				{/block:PreviousPage}
+			{/block:Pagination}
+		</div>
+	
+		<a class="footer" href="http://themes.edada.ms">
+			ed's themes
+		</a>
+	</body>
+</html>
