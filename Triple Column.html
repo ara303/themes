@@ -1,6 +1,6 @@
 <html>
-	<head>
-		<!-- "Triple Column" theme by edada.ms -->
+    <head>
+		<!-- "Triple Column" (beta2) theme by edada.ms -->
 		<title>{Title}</title>
 		{block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
 		<link rel="shortcut icon" href="{Favicon}" />
@@ -45,7 +45,12 @@
 				$container.infinitescroll({
 					navSelector: '.navigation', 
 					nextSelector: '.next-page', 
-					itemSelector: '.post'
+					itemSelector: '.post',
+                    loading: {
+                        loadingImg: 'http://static.tumblr.com/fpdiq1j/v8Ym2n5v1/blank.gif',
+                        loadingText: ''
+                    },
+                    donetext: ''
 				},
 				function( newElements ) {
 					var $newElems = $( newElements ).css({ opacity: 0 });
@@ -85,7 +90,7 @@
 	
 			.container {
 				margin: auto;
-				width: 780px; /* <-- OI! */
+				width: 780px; 
 			} 
 			
 			/* --- Header specific --- */
@@ -139,6 +144,10 @@
 			{block:IfHidePages}.pages {
 				display: none;
 			}{/block:IfHidePages}
+            
+            {block:IfInfiniteScrolling}.navigation{
+                display: none; /* because the plugin won't do it for me */
+            }{/block:IfInfiniteScrolling}
 
 			/* --- Posts specific --- */
 		
@@ -150,6 +159,7 @@
 				{block:IfBackgroundOnPosts}background-color: {color:Posts};{/block:IfBackgroundOnPosts}
 				{block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
 				z-index: 1;
+                overflow: hidden;
 			}
 			
 			.caption, .text, .quote, .link, .chat, .audio .body {
@@ -157,6 +167,7 @@
 			}
 			
 			.post.permalink-page {
+                width: 500px;
 				float: none;
 				clear: both;
 				margin-left: auto;
@@ -176,18 +187,25 @@
 				background: rgb(255,255,255);
 				opacity: 0;
 				z-index: 2;
-				{block:IfRoundedCorners}border-bottom-left-radius: 5px;
-				border-bottom-right-radius: 5px;{/block:IfRoundedCorners}
-				/* Note to self: This won't work in anything other than Webkit */
+				{block:IfRoundedCorners}-webkit-border-bottom-right-radius: 5px;
+                -webkit-border-bottom-left-radius: 5px;
+                -moz-border-radius-bottomright: 5px;
+                -moz-border-radius-bottomleft: 5px;
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius: 5px;{/block:IfRoundedCorners}	
 			}
-		
+            
+            .attribution {
+                padding: 5px;
+                font-size: 10px;
+            }
+        
 			.notes-container {
-				width: 230px;
+				width: 480px;
 				margin: 10px auto 0 auto;
 				background: white;
-				border-radius: 5px;
+				{block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
 				padding: 10px;
-				/* top right bottom left */
 			}
 			
 			ol.notes{
@@ -230,55 +248,43 @@
 		
 			/* --- Aesthetic improvements --- */
 		
-			{block:IfBackgroundOnPosts}.post .photoset {
-				background-color: {color:Posts}; /* Not sure why this is necessary but photoset padding won't behave if I don't apply a background. */
-			}{/block:IfBackgroundOnPosts}
-
-			.post .video, .post .photoset, .post .photo {
-				margin-bottom: -3px; /* Fixes additional padding at bottom of some posts. */
+			.post .photo img, .post .video, .post .photoset{
+				display: block; /* whitespace fix */
 			}
+            
+            .post .photoset{
+                background-color: white;
+                border-radius: 5px; /* whitespace fix for photoset */
+            }
 			
 			.post .video iframe {
-				width: 250px; /* Keeps the video from going nuts. */
+				width: 250px; /* constrain flash player */
 			}
 
-			/*.post .photo {
-				border-radius: 10px;
-				margin-bottom: -3px;
-			}*/
-
-			{block:IfRoundedCorners}.photo img, .audio img, .photoset iframe, .video iframe { 
-				{block:IfNotHideCaptions}-webkit-border-top-left-radius: 5px;
-				-webkit-border-top-right-radius: 5px;
-				-moz-border-radius-topleft: 5px;
-				-moz-border-radius-topright: 5px;
-				border-top-left-radius: 5px;
-				border-top-right-radius: 5px;{/block:IfNotHideCaptions}
-				{block:IfHideCaptions}border-radius: 5px;{/block:IfHideCaptions}
+			{block:IfRoundedCorners}.photo img, .audio img, .photoset iframe, .video iframe {
+                border-radius: 5px; /* images with rounded corners in all browsers */
 			}{/block:IfRoundedCorners}
 		
 			p:first-child, ul:first-child, ol:first-child, blockquote:first-child {
-				margin-top: 0;
+				margin-top: 0; /* post body padding fix */
 			}
 		
 			p:last-child, ul:last-child, ol:last-child, blockquote:last-child {
-				margin-bottom: 0;
+				margin-bottom: 0; /* post body padding fix */
 			}
 			
-			.title{
-				font-size: 17px; /* EDIT THIS NUMBER TO CHANGE THE SIZE OF POST HEADINGS. */
-				padding-bottom: 2px;
+            .body img, .caption img { /* handles inline images */
+                max-width: 230px; /* resizes to fit */
+                border-radius: 0px !important; /* reset border-radius */
+            }
+            
+			.title{ /* this probably doesn't belong in this section */
+				font-size: 17px;
+				padding-bottom: 4px;
 			}
-			
-			.post.video{background-color:transparent}
 			
 			{CustomCSS}
 		</style>
-		<!--
-			TO DO LIST
-			- configure infinte scrolling so it doesn't display the loading image or loading message (theres a tutorial on infinite-scrolling.com)
-			- make sure padding and margins are consistently good
-		-->
 	</head>
 	<body>
 		<div class="container">
@@ -314,7 +320,7 @@
 						
 						{block:Photo}
 							<div class="photo">
-								<img src="{PhotoURL-250}" alt="{PhotoAlt}" />
+								<img src="{block:IndexPage}{PhotoURL-250}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-500}{/block:PermalinkPage}" alt="{PhotoAlt}" />
 								{block:Caption}
 									<div class="caption">
 										{Caption}
@@ -325,7 +331,7 @@
 						
 						{block:Photoset}
 							<div class="photoset">
-								{Photoset-250}
+								{block:IndexPage}{Photoset-250}{/block:IndexPage}{block:PermalinkPage}{Photoset-500}{/block:PermalinkPage}
 								{block:Caption}
 									<div class="caption">
 										{Caption}
@@ -376,7 +382,7 @@
 						{block:Audio}
 							<div class="audio">
 								{block:AlbumArt}
-									<img src="{AlbumArtURL}" width="250" />
+									<img src="{AlbumArtURL}" width="{block:IndexPage}250{/block:IndexPage}{block:PermalinkPage}500{/block:PermalinkPage}" />
 								{/block:AlbumArt}
 								{AudioPlayerWhite}
 								{block:Caption}
@@ -389,7 +395,7 @@
 						
 						{block:Video}
 							<div class="video">
-								{Video-250}
+								{block:IndexPage}{Video-250}{/block:IndexPage}{block:PermalinkPage}{Video-500}{/block:PermalinkPage}
 								{block:Caption}
 									<div class="caption">
 										{Caption}

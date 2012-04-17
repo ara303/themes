@@ -1,8 +1,13 @@
 <html>
-    <!--
-		"Single Column" theme by edada.ms - more at themes.edada.ms
-	-->
+	<!-- "Single Column" from themes.edada.ms -->
 	<head>
+		<title>{Title}</title>
+		
+		<meta name="description" content="{block:Description}{Description}{/block:Description}" />	
+		<link rel="shortcut icon" href="{Favicon}" />
+		<link rel="apple-touch-icon" href="{PortraitURL-128}"/>
+		<link rel="alternate" type="application/rss+xml" href="{RSS}" />
+
 		<meta name="color:Text" content="#000000">
 		<meta name="color:Links" content="#979393">
 		<meta name="color:Links on Hover" content="#979393">
@@ -20,27 +25,7 @@
 		<meta name="if:Hide Submit" content="0" />
 		<meta name="if:Hide Archive" content="0" />
 		<meta name="if:Hide RSS" content="0" />
-		<meta name="if:Hide Source" content="0" />
-		<meta name="image:Background" content="http://static.tumblr.com/fpdiq1j/mKMlxszq7/old_wall.png" />
-		<link rel="shortcut icon" href="{Favicon}" />
-		<link rel="apple-touch-icon" href="{PortraitURL-128}" />
-		<link rel="alternate" type="application/rss+xml" href="{RSS}" />
-		<title>{Title}</title>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		{block:IfInfiniteScrolling}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
-		<script type="text/javascript">
-			$('.posts').infinitescroll({
-				navSelector: '.navigation', 
-				nextSelector: '.next', 
-				itemSelector: '.post'
-			});
-		</script>{/block:IfInfiniteScrolling}
-		<!--
-			TODO infinite scrolling might need id not class
-			TODO padding at the bottom of images ugh
-			TODO random stuff in audio probably from alex's animation
-			TODO beta testing!!!!!!!!!!!!!!!!
-		-->
+		<meta name="image:Background" content="" />
 
 		<style type="text/css">
 		
@@ -117,7 +102,7 @@
 	
 			/* --- Posts specific --- */
 
-			.posts {
+			#posts {
 				width: 500px;
 				{block:IfSidebarOnRight}float: right;{/block:IfSidebarOnRight}
 				{block:IfNotSidebarOnRight}float: left;{/block:IfNotSidebarOnRight}
@@ -130,7 +115,6 @@
 				background: rgba(255, 255, 255, 1);
 				{block:IfRoundedEdges}-webkit-border-radius: 5px;
 				-moz-border-radius: 5px;
-				-o-border-radius: 5px;
 				border-radius: 5px;{/block:IfRoundedEdges}
 			}
 			
@@ -141,10 +125,6 @@
 			.chat,
 			.caption {
 				padding: 10px;
-			}
-			
-			.media {
-				margin-bottom: -3px;
 			}
 			
 			.post:hover .permalink {
@@ -179,22 +159,22 @@
 	
 			/* --- Navigation specific --- */
 	
-			.navigation {
+			#navigation {
 				font-size: 50px;
 				margin: auto;
 			}
 		
-			.navigation a.next {
+			#navigation a.next {
 				margin-right: 20px;
 				float: right;
 			}
 			
-			.navigation a.previous {
+			#navigation a.previous {
 				margin-left: 20px;
 				float: left;
 			}
 
-			.navigation a {
+			#navigation a {
 				opacity: 0.3;
 				transition: opacity 0.5s linear;
 				-webkit-transition: opacity 0.5s linear;
@@ -202,7 +182,7 @@
 				-o-transition: opacity 0.5s linear;
 			}
 
-			.navigation a:hover {
+			#navigation a:hover {
 				opacity: 0.9;
 				transition: opacity 0.5s linear;
 				-webkit-transition: opacity 0.5s linear;
@@ -232,8 +212,6 @@
 				float: none;
 			}
 	
-			/* I don't want to use any of this code because it's old and shit and only works in Webkit. */
-
 			/* Define content possible meta-types. */
 	
 			.heading {
@@ -245,16 +223,23 @@
 
 			/* Define indivual attributes for each type of posts. */
 	
-			/*.photo, .audio, .video, .photoset {
-				padding: 0 !important; 
-				border-radius: 7px; 
-			}*/
-	
-			.media img, iframe.photoset { /* Quick hack to get rounded corners on media and photoset posts */
+			.media img, iframe.photoset { /* FIX FOR FF! */
+				-webkit-border-top-left-radius: 5px;
+				-webkit-border-top-right-radius: 5px;
+				-moz-border-radius-topleft: 5px;
+				-moz-border-radius-topright: 5px;
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
-				{block:IfHideCaptions}border-bottom-left-radius: 5px;
-				border-bottom-right-radius: 5px;{/block:IfHideCaptions}
+				{block:IfHideCaptions}-webkit-border-bottom-right-radius: 5px;
+				-webkit-border-bottom-left-radius: 5px;
+				-moz-border-radius-bottomright: 5px;
+				-moz-border-radius-bottomleft: 5px;
+				border-bottom-right-radius: 5px;
+				border-bottom-left-radius: 5px;{/block:IfHideCaptions}
+			}
+			
+			.media img{
+				display: block;
 			}
 	
 			.source {
@@ -265,6 +250,7 @@
 			ul.chat.body {
 				list-style-type: none;
 				padding: 0;
+				margin: 0;
 			}
 
 			.chat.body .row {
@@ -274,6 +260,15 @@
 
 			.chat.body .row:last-child {
 				border-bottom: none !important;
+			}
+			
+			.post.notes{
+				padding: 10px;
+			}
+			
+			ol.notes{
+				margin: 0;
+				padding-left: 20px;
 			}
 
 			/* Define any additional attributes for aesthetic purposes. */
@@ -308,27 +303,25 @@
 	
 			{block:IfHideCaptions}.caption {
 				display: none;
-			}{/block:IfHideCaptions}
-	
-			.audio-info, .audio-info-toggle {
-				padding-top: 10px;
-				font-size: 10px;
-			}
+			}{/block:IfHideCaptions} /* unless on permalink? */
 
 			p:last-child, ul:last-child, ol:last-child, blockquote:last-child {
-				margin: 0;
+				margin-bottom: 0;
 			}
 			
 			p:first-child, ul:first-child, ol:first-child, blockquote:first-child {
-				margin: 0;
+				margin-top: 0;
 			}
+			
+			{CustomCSS}
 		</style>
-	
-		<style type="text/css">
-			/* Start custom CSS */
-				{CustomCSS} 
-			/* End custom CSS */
-		</style>
+		
+		{block:IfInfiniteScrolling}<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
+		
+		<script type="text/javascript">
+			$('#posts').infinitescroll({navSelector:'#navigation',nextSelector:'a.next',itemSelector:'.post'});
+		</script>{/block:IfInfiniteScrolling}
 	</head>
 	<body>
 		<div class="wrapper">
@@ -354,7 +347,7 @@
 				</div>
 			</div>
 	
-			<div class="posts">
+			<div id="posts">
 				{block:Posts}
 					<div class="post">
 						{block:Text}
@@ -481,53 +474,20 @@
 						{block:Audio}
 							<div class="audio">
 								<div class="permalink">
-								<a href="{Permalink}">{NoteCount}</a>
-							</div>
-							{block:AlbumArt}
-								<div class="media">
-									<img src="{AlbumArtURL}" alt="{block:TrackName}{TrackName}{/block:TrackName} - {block:Artist}{Artist}{/block:Artist}" />
+									<a href="{Permalink}">{NoteCount}</a>
 								</div>
-							{block:AlbumArt}
-							<div class="media">
-								{AudioPlayerWhite}
-							</div>
-                            <div class="caption">
-						        {block:Caption}
-								    	{Caption}
-							    {/block:Caption}
-								{block:PermalinkPage}
-									<div class="audio-info-toggle" id="show-info-{PostID}" onclick="Effect.BlindDown('info-{PostID}');Effect.Appear('info-{PostID}');Effect.BlindDown('hide-info-{PostID}');Effect.Appear('hide-info-{PostID}');Effect.BlindUp('show-info-{PostID}');Effect.Fade('show-info-{PostID}');return false;">Show Info</div>
-									<div class="audio-info-toggle" id="hide-info-{PostID}" onclick="Effect.BlindUp('info-{PostID}');Effect.Fade('info-{PostID}');Effect.BlindUp('hide-info-{PostID}');Effect.Fade('hide-info-{PostID}');Effect.BlindDown('show-info-{PostID}');Effect.Appear('show-info-{PostID}');return false;" style="display: none;">Hide Info</div>
-									<div class="audio-info" id="info-{PostID}" style="display: none;">
-										{block:TrackName}
-											<div class="name">
-												<span class="label">Title:</span>
-												<span class="item">{TrackName}</span>
-											</div>
-										{/block:TrackName}
-										{block:Artist}
-											<div class="artist">
-												<span class="label">Artist:</span>
-												<span class="item">{Artist}</span>
-											</div>
-										{/block:Artist}
-										{block:Album}
-											<div class="album">
-												<span class="label">Album:</span>
-												<span class="item">{Album}</span>
-											</div>
-										{/block:Album}
-											<div class="playcount">
-												<span class="label">Playcount:</span>
-												<span class="item">{FormattedPlayCount}</span>
-											</div>
-											<div class="download">
-												{block:ExternalAudio}
-													<a href="{ExternalAudioURL}">Download</a>	
-												{/block:ExternalAudio}
-											</div>
-										</div>
-									{/block:PermalinkPage}
+								{block:AlbumArt}
+									<div class="media">
+										<img src="{AlbumArtURL}" alt="{block:TrackName}{TrackName}{/block:TrackName} - {block:Artist}{Artist}{/block:Artist}" />
+									</div>
+								{/block:AlbumArt}
+								<div class="media">
+									{AudioPlayerWhite}
+								</div>
+                            	<div class="caption">
+						        	{block:Caption}
+								   		{Caption}
+							    	{/block:Caption}
 								</div>
 							</div>	 
 						{/block:Audio}	  
@@ -546,22 +506,22 @@
 							</div>
 						{/block:Answer}
 
-						{block:IfHideSource}
-							<!-- {block:ContentSource}{SourceLink}{/block:ContentSource}
-							{block:RebloggedFrom}{ReblogParentURL}{/block:RebloggedFrom} -->
-						{/block:IfHideSource}
-
-						{block:PostNotes}
-							<div class="post notes">
-								{PostNotes}
+						{block:PermalinkPage}
+							<div class="caption attribution">
+								{block:ContentSource}(Source: <a href=”{SourceURL}”>{SourceTitle}</a>{block:RebloggedFrom}, via <a href=”{ReblogParentURL}”>{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource}
 							</div>
-						{/block:PostNotes}
+						{/block:PermalinkPage}
 					</div>
+					{block:PostNotes}
+						<div class="post notes">
+							{PostNotes}
+						</div>
+					{/block:PostNotes}
 				{/block:Posts}
 			</div>
 		
 			{block:Pagination}
-				<div class="navigation">
+				<div id="navigation">
 					{block:PreviousPage}
 						<a href="{PreviousPage}" class="previous" alt="Previous Page">&larr;</a>
 					{/block:PreviousPage}
