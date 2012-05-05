@@ -1,5 +1,5 @@
 <html>
-	<!-- "A Plain Theme" from themes.edada.ms -->
+    <!-- "A Plain Theme" from themes.edada.ms -->
 	<head>
 		<title>{Title}</title>
 		
@@ -8,14 +8,16 @@
 		<link rel="apple-touch-icon" href="{PortraitURL-128}"/>
 		<link rel="alternate" type="application/rss+xml" href="{RSS}" />
 		
-		<meta name="color:Background" content="#FFFFFF" />
+		<meta name="color:Background" content="#afafaf" />
+        <meta name="color:Posts Background" content="#FFFFFF" />
 		<meta name="color:Text" content="#000000" />
-		<meta name="color:Borders" content="#000000" />
+		<meta name="color:Borders" content="#afafaf" />
 		<meta name="font:Body" content="Helvetica Neue" />
 		<meta name="image:Background" content="" />
+    	<meta name="if:Display Captions" content="1" />
+        <meta name="if:Huge Title" content="1" />
 		<meta name="if:Hide Heading" content="0" />
 		<meta name="if:Hide Description" content="0" />
-		<meta name="if:Hide Captions" content="0" />
 		<meta name="if:Hide RSS" content="1" />
 		<meta name="if:Hide Archive" content="1" />
 		<meta name="if:Hide Ask" content="0" />
@@ -23,11 +25,15 @@
 		<meta name="if:Hide Pages" content="0" />
 		
 		<style type="text/css">
-			 body {
-				padding:10px 0;
-				background:url('{image:Background}') {color:Background} fixed;
+            html {
+                background: url('{image:Background)') {color:Background} fixed;
+            }
+        
+			body {
+				padding:10px;
+				background:{color:Posts Background};
 				color:{color:Text};
-				width:500px;
+				width:520px;
 				max-width:500px;
 				margin:auto;
 				font:12px {font:Body};
@@ -47,7 +53,7 @@
 			}
 			
 			.heading {
-				font-size:25px;
+				font-size:{block:IfNotHugeTitle}25px{/block:IfNotHugeTitle}{block:IfHugeTitle}50px{/block:IfHugeTitle};
 				text-align:center;
 				font-weight:bold;
 			}
@@ -86,6 +92,10 @@
 				font-size:10px;
 			}
 			
+            .caption {
+                margin-top: 5px;
+            }
+            
 			.permalink {
 				float: left;
 			}
@@ -100,7 +110,7 @@
 			
 			.pages {
 				width:500px;
-				padding-top:10px;
+				height:20px;
 			}
 			
 			.next-page {
@@ -115,7 +125,7 @@
 				position:fixed;
 				right:10px;
 				bottom:10px;
-				opacity:0.5;
+				opacity:0.9;
 				font-size:10px;
 			}
 			
@@ -127,9 +137,9 @@
 				margin-bottom:0;
 			}
 			
-			{block:IfHideCaptions}.caption.hide {
+			{block:IfNotDisplayCaptions}.caption.hide {
 				display:none;
-			}{/block:IfHideCaptions}
+			}{/block:IfNotDisplayCaptions}
 			
 			{block:IfHideHeading}.heading {
 				display:none;
@@ -259,10 +269,10 @@
 		<div class="pages">
 			{block:Pagination}
 				{block:NextPage}
-					<a class="next-page" href="{NextPage}">Next Page</a>
+					<a class="next-page" href="{NextPage}">&larr; Back</a>
 				{/block:NextPage}
 				{block:PreviousPage}
-					<a class="previous-page" href="{PreviousPage}">Previous Page</a>
+					<a class="previous-page" href="{PreviousPage}">Forward &rarr;</a>
 				{/block:PreviousPage}
 			{/block:Pagination}
 		</div>
