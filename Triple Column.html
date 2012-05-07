@@ -1,6 +1,6 @@
 <html>
-	<head>
-		<!-- "Triple Column" (beta2) theme by edada.ms -->
+    <head>
+		<!-- "Triple Column" (beta3) theme by edada.ms -->
 		<title>{Title}</title>
 		{block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
 		<link rel="shortcut icon" href="{Favicon}" />
@@ -46,10 +46,8 @@
 					navSelector: '.navigation', 
 					nextSelector: '.next-page', 
 					itemSelector: '.post',
-					loading: {
-						loadingImg: 'http://static.tumblr.com/fpdiq1j/v8Ym2n5v1/blank.gif',
-						loadingText: ''
-					},
+				    loadingImg: 'http://static.tumblr.com/fpdiq1j/v8Ym2n5v1/blank.gif',
+					loadingText: '',
 					donetext: ''
 				},
 				function( newElements ) {
@@ -80,8 +78,8 @@
 				-o-transition: color 0.5s linear;
 			}
 
-			a:hover, a:visited:hover {
-				color: {color:LinksonHover};
+			a:hover {
+				color: {color:Links on Hover};
 				transition: color 0.5s linear;
 				-webkit-transition: color 0.5s linear;
 				-moz-transition: color 0.5s linear;
@@ -146,7 +144,7 @@
 			}{/block:IfHidePages}
 			
 			{block:IfInfiniteScrolling}.navigation{
-				display: none; /* because the plugin won't do it for me */
+				display: none;
 			}{/block:IfInfiniteScrolling}
 
 			/* --- Posts specific --- */
@@ -283,7 +281,7 @@
 			}
 			
 			.body img, .caption img { /* handles inline images */
-				max-width: 230px; /* resizes to fit */
+				max-width: 100%; /* resizes to fit */
 				border-radius: 0px !important; /* reset border-radius */
 			}
 			

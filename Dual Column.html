@@ -1,48 +1,76 @@
 <html>
-<!--
-Theme: Dual Column
-Author: Ed Adams
-Version: 2
-Website: themes.edada.ms
--->
-<head>
-    <meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
-    <title>{Title}</title>
-    {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
-    <link rel="shortcut icon" href="{Favicon}" />
-    <link rel="apple-touch-icon" href="{PortraitURL-128}"/>
-    <link rel="alternate" type="application/rss+xml" href="{RSS}" />
-    <!-- I referred to the meta tags as "value" instead of "content" in the previous version. -->
-    <meta name="if:Infinite Scrolling" content="1" />
-    <meta name="if:Rounded Corners" content="1" />
-    <meta name="if:Drop Shadows on Header" content="0" />
-    <meta name="if:Underline Hyperlinks" content="0" />
-    <meta name="if:Large Title" content="1" />
-    <meta name="if:Dim Post on Hover" content="1" />
-    <meta name="if:Hide Description" content="0" />
-    <meta name="if:Hide Links" content="0" />
-    <meta name="font:Header Title" content="Helvetica" />
-    <meta name="font:Header Caption" content="Helvetica" />
-    <meta name="font:Posts" content="Helvetica" />
-    <meta name="color:Text" content="#666666" />
-    <meta name="color:Links" content="#ff3b8e" />
-    <meta name="color:Links on Hover" content="#cccccc" />
-    <meta name="color:Posts" content="#ffffff" />
-    <meta name="color:Background" content="#000000" />
-    <meta name="image:Background" content="http://static.tumblr.com/fpdiq1j/OT8lz8i0w/dark_wood.png" />
+    <head>
+    	<!-- "Dual Column" (beta3) theme by edada.ms -->
+		<title>{Title}</title>
+		{block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
+		<link rel="shortcut icon" href="{Favicon}" />
+		<link rel="alternate" type="application/rss+xml" href="{RSS}" />
+		<meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
+	
+		<meta name="if:Infinite Scrolling" content="1" />
+		<meta name="if:Rounded Corners" content="1" />
+		<meta name="if:Underline Hyperlinks" content="0" />
+		<meta name="if:Dim Post on Hover" content="1" />
+    	<meta name="if:Large Title" content="1" />
+		<meta name="if:Hide Captions" content="1" />
+		<meta name="if:Hide Title" content="0" />
+		<meta name="if:Hide Description" content="0" />
+		<meta name="if:Hide Ask" content="0" />
+		<meta name="if:Hide Submit" content="0" />
+		<meta name="if:Hide Pages" content="0" />
+		<meta name="if:Background On Header" content="1" />
+		<meta name="if:Background On Posts" content="1" />
+		<meta name="if:Hide Source" content="1" />
+		<meta name="font:Header Title" content="Helvetica" />
+		<meta name="font:Header Caption" content="Helvetica" />
+		<meta name="font:Posts" content="Helvetica" />
+		<meta name="color:Text" content="#666666" />
+		<meta name="color:Links" content="#ff3b8e" />
+		<meta name="color:Links on Hover" content="#cccccc" />
+		<meta name="color:Posts" content="#ffffff" />
+		<meta name="color:Background" content="#000000" />
+		<meta name="image:Background" content="http://static.tumblr.com/fpdiq1j/OT8lz8i0w/dark_wood.png" />
+		<meta name="image:Header" content="" />
 
-    <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/pOHlzg7ar/jquery.min.js"></script>
-    {block:IndexPage}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/Umwlzg7b6/jquery.masonry.min.js"></script>{/block:IndexPage}
-    {block:IfInfiniteScrolling}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>{/block:IfInfiniteScrolling}
-    <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/dL3lzjt7a/modplicity.js"></script>
+		<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/pOHlzg7ar/jquery.min.js"></script>
+		{block:IndexPage}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/Umwlzg7b6/jquery.masonry.min.js"></script>{/block:IndexPage}
+		{block:IfInfiniteScrolling}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>{/block:IfInfiniteScrolling}
+		<script type="text/javascript">
+			$(function(){
+				var $container = $('#posts');
+				$container.imagesLoaded(function(){
+					$container.masonry({
+						itemSelector: '.post'
+					});
+				});
+				$container.infinitescroll({
+					navSelector: '.navigation', 
+					nextSelector: '.next-page', 
+					itemSelector: '.post',
+				    loadingImg: 'http://static.tumblr.com/fpdiq1j/v8Ym2n5v1/blank.gif',
+					loadingText: '',
+					donetext: ''
+				},
+				function( newElements ) {
+					var $newElems = $( newElements ).css({ opacity: 0 });
+					$newElems.imagesLoaded(function(){
+						$newElems.animate({ opacity: 1 });
+						$container.masonry( 'appended', $newElems, true ); 
+					});
+				});
+			});
+		</script>
     
     <style type="text/css">
-		/* --- House style --- */
+        /* --- House style --- */
 
 		body {
             background: url('{image:Background}') {color:Background} fixed;
     		font-size: 12px;
             font-family: {font:Posts};
+            color:{color:Text};
+            margin: 0;
+            padding: 0;
         }
         
         a {
@@ -77,12 +105,9 @@ Website: themes.edada.ms
 
 		.header_title {
             font-family: {font:Header Title};
-            {block:IfLargeTitle}font-size: 60px;
+            {block:IfLargeTitle}font-size: 40px;
             letter-spacing: -3px;
             line-height: 50px;{/block:IfLargeTitle}
-            {block:IfNotLargeTitle}font-size: 30px;
-            letter-spacing: -1px;
-            line-height: 25px;{/block:IfNotLargeTitle}
             font-weight: bold;
 	    }
         
@@ -231,7 +256,7 @@ Website: themes.edada.ms
 			border-radius: 10px;
 		}
 
-        .text .permalink{
+        .text .permalink, .audio .permalink{
             margin-left: -10px;
         }
         
@@ -257,12 +282,10 @@ Website: themes.edada.ms
         
         .footer {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            padding-bottom: 10px;
-            padding-right: 10px;
+            bottom: 10px;
+            right: 10px;
             font-size: 9px;
-            opacity: .5;
+            opacity: 0.9;
         }
         
     </style>
@@ -433,7 +456,7 @@ Website: themes.edada.ms
 							{/block:PermalinkPage}
 						</div>
 					{/block:Video}
-					{block:Ask}
+					{block:Answer}
 						<div class="ask">
 							{block:IndexPage}
 								{block:NoteCount}
@@ -445,7 +468,7 @@ Website: themes.edada.ms
 							<div class="post_title">{Asker} asked {Question}</div>
 							<div class="post_body">{Answer}</div>
 						</div>
-					{/block:Ask}
+					{/block:Answer}
 					{block:PermalinkPage}
 						{block:PostNotes}
 							{PostNotes}
@@ -455,7 +478,7 @@ Website: themes.edada.ms
 			{/block:Posts}
         </div> <!/posts>
 		{block:Pagination}
-			<div id="navigation">
+			<div class="navigation">
 				{block:NextPage}
 					<a class="next" href="{NextPage}">Next</a>
 				{/block:NextPage}
@@ -465,6 +488,6 @@ Website: themes.edada.ms
 			</div>
 		{/block:Pagination}
         <div class="footer"><a href="http://themes.edada.ms">ed's themes</div>
-    </div> <!/wrapper>
+    </div>
 </body>
 </html>
