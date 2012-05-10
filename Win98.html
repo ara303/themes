@@ -1,6 +1,6 @@
 <html>
     <head>
-		<!-- "Win98" (beta2) theme by edada.ms -->
+    	<!-- "Win98" (beta2) theme by edada.ms -->
 		<title>{Title}</title>
 		{block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
 		<link rel="shortcut icon" href="{Favicon}" />
@@ -117,7 +117,7 @@
 				background-position: -168px 0px;
 			}
 		
-			.window .middle {
+			.window .middle, div.notes {
 				background: url('http://static.tumblr.com/fpdiq1j/utSm3gwcy/large_middle.png');
 				background-repeat: repeat-y;
 			}
@@ -187,9 +187,9 @@
 				width: 300px;
 			}
 		
-			.window .middle {
+			.window .middle, div.notes {
 				background-repeat: repeat-y;
-				padding: 4px 23px 2px 10px;
+				padding: 4px 25px 4px 10px;
 			}
 		
 			.window .bottom {
@@ -329,6 +329,8 @@
 			}{/block:IfNotDisplayArchiveIcon}
 		
 			{CustomCSS}
+            
+            blockquote{margin-left:10px;padding-left:10px;border-left:1px solid #000;}
 		</style>
 	
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
