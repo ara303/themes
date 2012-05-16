@@ -18,7 +18,7 @@
         <meta name="if:Display Archive Icon" content="1" />
 
         <style type="text/css">
-            iframe#tumblr_controls {
+           iframe#tumblr_controls {
                 top: 20px !important;
             }
         
@@ -41,8 +41,8 @@
                 text-decoration: underline;
             }
             
-            .menu_bar .left_corner, .menu_bar .apple_logo, .menu_bar .mac_logo, .menu_bar .right_corner, .icons .computer, .icons .info, .icons .folder, .icons .page, .icons .trash, .window_top, .window_bottom, .dock .left_corner, .dock .right_corner {
-                background-image: url('http://static.tumblr.com/fpdiq1j/Lnqm3ttfl/master_sprite.png');
+            .menu_bar .left_corner, .menu_bar .apple_logo, .menu_bar .mac_logo, .menu_bar .right_corner, .icons .computer, .icons .info, .icons .folder, .icons .page, .icons .trash, .window .top, .window .bottom, .dock .left_corner, .dock .right_corner {
+                background-image: url('http://static.tumblr.com/fpdiq1j/q1gm40vc0/master_sprite_smaller.png');
                 display: block;
                 margin: auto;
             }
@@ -50,7 +50,7 @@
             .menu_bar {
                 background: url('http://static.tumblr.com/fpdiq1j/R8am3tmz7/menu.png') repeat;
                 height: 20px;
-                position: absolute;
+                position: fixed;
                 top: 0;
                 width: 100%;
                 display: block;
@@ -85,10 +85,30 @@
             }
             
             .menu_bar .tab {
-                margin: 0 0 0 15px;
+                margin: 0 0 0 10px;
+                padding: 0 5px;
                 font-weight: bold;
                 float: left;
                 line-height: 20px;
+            }
+            
+            .tab_click {
+                background-color: darkBlue;
+                color: white;
+            }
+            
+            .menu_bar .tab_menu {
+                position: fixed;
+                background-color: #D5D5D5;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                color: black;
+                font-weight: bold;
+                border-radius: 0px 0px 4px 4px;
+                top: 19px;
+                margin-left: -47px;
+                padding: 5px;
+                z-index: 6;
+                display: none;
             }
             
             .menu_bar .clock {
@@ -152,35 +172,56 @@
                 width: 75px;
             }
             
+            .info {
+                background: url('http://www.guidebookgallery.org/pics/gui/applications/multimedia/sound/macos80.png');
+                position: fixed;
+                z-index: 3;
+                width: 269px;
+                height: 81px;
+                bottom: 20px;
+                right: 20px;
+                display: none
+            }
+            
+            .info .content {
+                position: relative;
+                top: 24px;
+                left: 9px;
+                background: white;
+                font-size: 11px;
+                max-width: 250px;
+                height: 48px;
+            }
+            
             .applications {
-                width: 584px;
+                width: 536px;
                 margin: auto;
                 z-index: 3;
                 position: relative;
                 top: 42px;
             }
             
-            .window_top {
+            .window .top {
                 background-position: 0px -32px;
-                width: 584px;
+                width: 536px;
                 height: 22px;
             }
             
-            .window_middle {
-                background: url('http://static.tumblr.com/fpdiq1j/7cnm3trjc/window_middle.png') repeat-y;
-                max-width: 548px;
-                width: 584px;
+            .window .middle {
+                background: url('http://static.tumblr.com/fpdiq1j/nZUm40uql/window_middle_smaller.png') repeat-y;
+                max-width: 500px;
+                width: 536px;
                 padding: 4px 26px 4px 10px;
             }
             
-            .window_bottom {
+            .window .bottom {
                 background-position: 0px -54px;
-                width: 584px;
+                width: 536px;
                 height: 22px;
                 margin-bottom: 20px;
             }
 
-            .window_bottom a { /*permalink*/
+            .window .bottom a { /*permalink*/
                 font-size: 11px;
                 position: relative;
                 top: 1px;
@@ -244,60 +285,153 @@
             {block:IfNotDisplayArchiveIcon}.archive{
                 display:none;
             }{/block:IfNotDisplayArchiveIcon}
+            
+            #infsrc-loading { display: none !important; }
         
             {CustomCSS}
         </style>
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
         <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
-
         <script type="text/javascript">
-            function showClock(){
-                var currentTime = new Date();
-                var hours = currentTime.getHours();
-                var minutes = currentTime.getMinutes();
+		function showClock(){
+		    var currentTime = new Date();
+		    var hours = currentTime.getHours();
+		    var minutes = currentTime.getMinutes();
+		    if (minutes < 10) {
+		        minutes = "0" + minutes;
+		    }
+		    var suffix = "AM";
+		    if (hours >= 12) {
+		        suffix = "PM";
+		        hours = hours - 12;
+		    }       
+		    if (hours == 0) {
+		        hours = 12;
+		    }
+		    var timeString = hours + ":" + minutes + " " + suffix;
+		    $("#showClock").html(timeString);
+		}
 
-                if (minutes < 10) {
-                    minutes = "0" + minutes;
-                }
-                        
-                var suffix = "AM";
-                if (hours >= 12) {
-                    suffix = "PM";
-                    hours = hours - 12;
-                }
-                        
-                if (hours == 0) {
-                    hours = 12;
-                }
-            
-                var timeString = hours + ":" + minutes + " " + suffix;
-        
-                $("#showClock").html(timeString);
-            }
-            
-            $(document).ready(function(){
-                showClock();
-                setInterval(showClock, 600);
-                
-                $('.desktop').infinitescroll({
-                    navSelector  : ".navigation",
-                    nextSelector : "a.next",
-                    itemSelector : ".applications",
-                    loadingImg   : ""
-                });
-            });
-        </script>
+		$(document).ready(function(){
+		   showClock();
+		   setInterval(showClock, 600);
+
+		   $('.desktop').infinitescroll({
+		       navSelector  : ".navigation",
+		       nextSelector : "a.next",
+		       itemSelector : ".applications"
+		   });
+
+		   $(".mac_logo").click(function () {
+		       $(".info").fadeToggle();
+		       //$(".info").draggable();
+		   });
+
+			$("#file").click(function () {
+			    $("#file_menu").slideToggle();
+				$(this).toggleClass('tab_click');
+			});
+
+			$("#options").click(function () {
+			    $("#options_menu").slideToggle();
+				$(this).toggleClass('tab_click');
+			});
+
+			$("#filters").click(function () {
+		   		$("#filters_menu").slideToggle();
+				$(this).toggleClass('tab_click');
+			});
+
+		   $('#filterText').click( function() {
+		       hideAllBut('text');
+		   });
+
+		   $('#filterPhoto').click( function() {
+		       hideAllBut('photo');
+		   });
+
+		   $('#filterPhotoset').click( function() {
+		       hideAllBut('photoset');
+		   });
+
+		   $('#filterQuote').click( function() {
+		       hideAllBut('quote');
+		   });
+
+		   $('#filterLink').click( function() {
+		       hideAllBut('link');
+		   });
+
+		   $('#filterChat').click( function() {
+		       hideAllBut('chat');
+		   });
+
+		   $('#filterAudio').click( function() {
+		       hideAllBut('audio');
+		   });
+
+		   $('#filterVideo').click( function() {
+		       hideAllBut('video');
+		   });
+
+		   $('#filterReset').click( function() {
+		       $('.post').each(function(){
+		           $(this).slideDown('slow');
+		       });
+		   })
+
+		   function hideAllBut(type) {
+		       var type = 'type_' + type;
+		       $('.post').each(function() {
+		     if(!$(this).hasClass(type)) {
+		         $(this).slideUp('slow');
+		    } else {
+		         $(this).slideDown('slow');
+		    }
+		    });
+		   }
+		});
+		</script>
     </head>
     
     <body>
         <div class="desktop">
             <div class="menu_bar">
                 <div class="left_corner"></div>
-                <span class="apple_logo"></span>
-                <span class="tab">File</span>
+                <a href="/">
+					<span class="apple_logo"></span>
+				</a>
+                <span class="tab" id="file">File</span>
+				<ul class="tab_menu" id="file_menu">
+					<li>This theme by</li>
+					<li>Ed Adams<li>
+                   	<br>
+					<li>Images & art by</li>
+					<li>Apple</li>
+				</ul>
                 <span class="tab">Edit</span>
-                <span class="tab">Help</span>
+                <span class="tab" id="options">Options</span>
+				<ul class="tab_menu" id="options_menu">
+					<li id="allowDragging">Allow Dragging</li>
+					<li id="showWidgets">Show Extra Features</li>
+					<li id="hideWidgets">Hide Extra Features</li>
+					<li id="launchCalculator">Launch Calculator</li>
+				</ul>
+                <span class="tab" id="filters">Filters</span>
+                <ul class="tab_menu" id="filters_menu">
+					<li id="filterText">Filter Text</li>
+                    <li id="filterPhoto">Filter Photo</li>
+                   	<li id="filterPhotoset">Filter Photoset</li>
+                  	<li id="filterQuote">Filter Quote</li>
+                 	<li id="filterLink">Filter Link</li>
+                  	<li id="filterChat">Filter Chat</li>
+                   	<li id="filterAudio">Filter Audio</li>
+                   	<li id="filterVideo">Filter Video</li>
+                   	<br>
+                   	<li id="filterReset"><center>Reset</center></li>
+				</ul>
                 <span class="mac_logo"></span>
                 <span class="clock" id="showClock">00:00 PM</span>
                 <div class="right_corner"></div>
@@ -336,110 +470,117 @@
                     <div class="label">Archive</div>
                 </a>
             </div>
+            <div class="info">
+                <div class="content">
+                    This is a Tumblr blog, using a theme designed to look like Mac OS 8. It was made by <a href="http://edada.ms">Ed</a>, who will soon make it available for everyone to use. 
+                </div>
+            </div>
             <div class="applications">
                 {block:Posts}
-                    <div class="window_top"></div>
-                    <div class="window_middle">
-                       {block:Text}
-                            {block:Title}
-                                <div class="title">
-                                    {Title}
-                                </div>
-                            {/block:Title}
-                            <div class="body">
-                                {Body}
-                            </div>
-                        {/block:Text}
+					<div class="window type_{PostType}">
+                    	<div class="top"></div>
+	                    <div class="middle">
+	                       {block:Text}
+	                            {block:Title}
+	                                <div class="title">
+	                                    {Title}
+	                                </div>
+	                            {/block:Title}
+	                            <div class="body">
+	                                {Body}
+	                            </div>
+	                        {/block:Text}
 
-                        {block:Photo}
-                            <img src="{PhotoURL-500}" alt="{PhotoAlt}" />
-                            {block:Caption}
-                                <div class="caption">
-                                    {Caption}
-                                </div>
-                            {/block:Caption}
-                        {/block:Photo}
+	                        {block:Photo}
+	                            <img src="{PhotoURL-500}" alt="{PhotoAlt}" />
+	                            {block:Caption}
+	                                <div class="caption">
+	                                    {Caption}
+	                                </div>
+	                            {/block:Caption}
+	                        {/block:Photo}
 
-                        {block:Photoset}
-                            {Photoset-500}
-                                {block:Caption}
-                                    <div class="caption">
-                                        {Caption}
-                                    </div>
-                                {/block:Caption}
-                            {/block:Photoset}
+	                        {block:Photoset}
+	                            {Photoset-500}
+	                                {block:Caption}
+	                                    <div class="caption">
+	                                        {Caption}
+	                                    </div>
+	                                {/block:Caption}
+	                            {/block:Photoset}
 
-                            {block:Quote}
-                                <div class="title">
-                                    "{Quote}"
-                                </div>
-                                {block:Source}
-                                    <div class="body">
-                                        &mdash; {Source}
-                                    </div>
-                                {/block:Source}
-                            {/block:Quote}
+	                            {block:Quote}
+	                                <div class="title">
+	                                    "{Quote}"
+	                                </div>
+	                                {block:Source}
+	                                    <div class="body">
+	                                        &mdash; {Source}
+	                                    </div>
+	                                {/block:Source}
+	                            {/block:Quote}
 
-                            {block:Link}
-                                <a href="{URL}" class="title" {Target}>{Name} »</a>
-                                {block:Description}
-                                    <div class="body">
-                                        {Description}
-                                    </div>
-                                {/block:Description}
-                            {/block:Link}
+	                            {block:Link}
+	                                <a href="{URL}" class="title" {Target}>{Name} »</a>
+	                                {block:Description}
+	                                    <div class="body">
+	                                        {Description}
+	                                    </div>
+	                                {/block:Description}
+	                            {/block:Link}
 
-                            {block:Chat}
-                                {block:Title}
-                                    <div class="title">{Title}
-                                {/block:Title}
-                                {block:Lines}
-                                    <div class="body">
-                                        {block:Label}
-                                            <span class="label">{Label}</span>
-                                        {/block:Label}
-                                        {Line}
-                                    </div>
-                                {/block:Lines}
-                            {/block:Chat}
+	                            {block:Chat}
+	                                {block:Title}
+	                                    <div class="title">{Title}
+	                                {/block:Title}
+	                                {block:Lines}
+	                                    <div class="body">
+	                                        {block:Label}
+	                                            <span class="label">{Label}</span>
+	                                        {/block:Label}
+	                                        {Line}
+	                                    </div>
+	                                {/block:Lines}
+	                            {/block:Chat}
 
-                            {block:Video}
-                            {Video-500}
-                                {block:Caption}
-                                    <div class="caption">
-                                        {Caption}
-                                    </div>
-                                {/block:Caption}
-                            {/block:Video}
+	                            {block:Video}
+	                            {Video-500}
+	                                {block:Caption}
+	                                    <div class="caption">
+	                                        {Caption}
+	                                    </div>
+	                                {/block:Caption}
+	                            {/block:Video}
 
-                            {block:Audio}
-                                {AudioPlayerBlack}
-                                {block:Caption}
-                                    <div class="body">
-                                        {Caption}
-                                    </div>
-                                {/block:Caption}
-                            {/block:Audio}
+	                            {block:Audio}
+	                                {AudioPlayerBlack}
+	                                {block:Caption}
+	                                    <div class="body">
+	                                        {Caption}
+	                                    </div>
+	                                {/block:Caption}
+	                            {/block:Audio}
                         
-                            {block:PermalinkPage}
-                                <div class="attribution">
-                                    {block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource} 
-                                </div>
-                                <div class="notes">
-                                    {block:PostNotes}  
-                                        {PostNotes}
-                                    {/block:PostNotes}
-                                </div>
-                            {/block:PermalinkPage}
-                        </div>
-                    <div class="window_bottom">
-                        {block:Date}
-                            <a href="{Permalink}">
-                                Posted on {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} at {12Hour}:{Minutes} {CapitalAmPm}{block:NoteCount}, with {NoteCountWithLabel}{/block:NoteCount}
-                            </a>
-                        {/block:Date}
-                    </div>
-                {/block:Posts}
+	                            {block:PermalinkPage}
+	                                <div class="attribution">
+	                                    {block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource} 
+	                                </div>
+	                                <div class="notes">
+	                                    {block:PostNotes}  
+	                                        {PostNotes}
+	                                    {/block:PostNotes}
+	                                </div>
+	                            {/block:PermalinkPage}
+	                        </div>
+	                    <div class="bottom">
+	                        {block:Date}
+	                            <a href="{Permalink}">
+	                                Posted on {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} at {12Hour}:{Minutes} {CapitalAmPm}{block:NoteCount}, with {NoteCountWithLabel}{/block:NoteCount}
+	                            </a>
+	                        {/block:Date}
+	                    </div>
+                	</div>
+				{/block:Posts}
             </div>
             {block:Pagination}
                 <div class="navigation">
@@ -456,5 +597,20 @@
                 <div class="right_corner"></div>
             </div>
         </div>
+        <!-- Start Gaug.es -->
+            <script type="text/javascript">
+                var _gauges = _gauges || [];
+                (function() {
+                    var t   = document.createElement('script');
+                    t.type  = 'text/javascript';
+                    t.async = true;
+                    t.id    = 'gauges-tracker';
+                    t.setAttribute('data-site-id', '4faadab8f5a1f53703000022');
+                    t.src = '//secure.gaug.es/track.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(t, s);
+                    })();
+            </script>
+        <!-- End Gaug.es -->
     </body>
 </html>
