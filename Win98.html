@@ -431,9 +431,7 @@
 						<div class="middle">
 							{block:Text}
 								{block:Title}
-									<div class="title">
-										{Title}
-									</div>
+									<div class="title">{Title}</div>
 								{/block:Title}
 								<div class="body">
 									{Body}
@@ -459,9 +457,7 @@
 							{/block:Photoset}
 
 							{block:Quote}
-								<div class="title">
-									"{Quote}"
-								</div>
+								<div class="title">"{Quote}"</div>
 								{block:Source}
 									<div class="body">
 										&mdash; {Source}
@@ -480,16 +476,16 @@
 
 							{block:Chat}
 								{block:Title}
-									<div class="title">{Title}
+									<div class="title">{Title}</div>
 								{/block:Title}
-								{block:Lines}
-									<div class="body">
+								<div class="body">
+									{block:Lines}
 										{block:Label}
 											<span class="label">{Label}</span>
 										{/block:Label}
 										{Line}
-									</div>
-								{/block:Lines}
+									{/block:Lines}		
+								</div>
 							{/block:Chat}
 
 							{block:Video}
