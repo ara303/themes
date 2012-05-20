@@ -26,7 +26,7 @@
             }
         
             body {
-                background: url('{image:Background}') {color:Background} repeat');
+                background: {color:Background} url('{image:Background}') repeat;
                 font-family: 'Arial', sans-serif;
                 font-size: 12px;
             }
@@ -560,14 +560,12 @@
                             {/block:Audio}
                         </div>
                         {block:PermalinkPage}
-                            <div class="attribution">
-                                {block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource} 
-                            </div>
-                            <div class="notes">
-                                {block:PostNotes}  
+                            {block:ContentSource}<div class="attribution">(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom})</div>{/block:ContentSource} 
+                            {block:PostNotes}
+                                <div class="notes">  
                                     {PostNotes}
-                                {/block:PostNotes}
-                            </div>
+                                </div>
+                            {/block:PostNotes}
                         {/block:PermalinkPage}
                         <div class="bottom"></div>
                     </div>
