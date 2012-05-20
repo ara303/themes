@@ -1,567 +1,618 @@
 <html>
     <head>
-    	<!-- "Win98" (beta2) theme by edada.ms -->
-		<title>{Title}</title>
-		{block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
-		<link rel="shortcut icon" href="{Favicon}" />
-		<link rel="alternate" type="application/rss+xml" href="{RSS}" />
-		<meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
+        <!-- "Win98" (v1) theme by edada.ms -->
+        <title>{Title}</title>
+        {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
+        <link rel="shortcut icon" href="{Favicon}" />
+        <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+        <meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
 
-		<meta name="color:Background" content="#008080" />
-		
-		<meta name="if:Display Photo Captions" content="1" />
-		<meta name="if:Display Home Icon" content="1" />
-		<meta name="if:Display Ask Icon" content="1" />
-		<meta name="if:Display Submit Icon" content="1" />
-		<meta name="if:Display Pages Icon" content="1" />
-		<meta name="if:Display Archive Icon" content="1" />
+        <meta name="image:Background" content="" />
 
-		<style type="text/css">
-			iframe#tumblr_controls{
-				position: fixed !important;
-				z-index: 1337 !important;	
-			}
-		
-			body, html {
-				margin: 0;
-				padding: 0;
-			}
-		
-			body {
-				background: {color:Background};
-				font-family: 'Arial', sans-serif;
-				font-size: 12px;
-			}
-		
-			a {
-				color: black;
-				text-decoration: none;
-			}
-		
-			a:hover {
-				color: black;
-				text-decoration: underline;
-			}
-		
-			.icons {
-				margin: 0 0 0 10px;
-				list-style-type: none;
-				padding: 0;
-				width: 100px;
-				float: left;
-				position: fixed;
-				z-index: 2;
-			}
-		
-			.my_computer, .my_documents, .network_neighborhood, .folder, .recycle_bin, .start_menu, .application_icons, .start_bar .start_button .logo, .start_bar .tray .calendar, .start_menu, .window .top, .window .middle, .window .bottom {
-				background-image: url('http://static.tumblr.com/fpdiq1j/u2lm3gqzh/master_sprite.png');
-				margin: auto;
-			}
-		
-			.my_computer {
-				height: 32px;
-				width: 32px;
-				background-position: -616px -157px;
-			}
-		
-			.my_documents {
-				height: 30px;
-				width: 32px;
-				background-position: -616px -189px;
-			}
-		
-			.network_neighborhood {
-				height: 32px;
-				width: 32px;
-				background-position: -616px -219px;
-			}
-		
-			.recycle_bin {
-				height: 32px;
-				width: 30px;
-				background-position: -616px -251px;
-			}
-		
-			.folder{
-				height: 27px;
-				width: 32px;
-				background-position: -616px -283px;
-			}
-		
-			.start_bar .start_button .logo {
-				width: 16px;
-				height: 14px;
-				background-position: -633px -103px;
-			}
-		
-			.application_icons {
-				height: 16px;
-				width: 84px;
-				background-position: -565px -69px;
-			}
-		
-			.start_bar .tray .calendar {
-				height: 16px;
-				width: 16px;
-				background-position: -632px -87px;
-			}
-		
-			.start_menu {
-				height: 383px;
-				width: 168px;
-				background-position: 0px 0px;
-			}
-		
-			.window .top {
-				height: 44px;
-				background-position: -168px 0px;
-			}
-		
-			.window .middle, div.notes {
-				background: url('http://static.tumblr.com/fpdiq1j/utSm3gwcy/large_middle.png');
-				background-repeat: repeat-y;
-			}
-		
-			.window .bottom {
-				background-position: -168px -46px;
-				height: 22px;
-			} 
-		
-			.icon_label {
-				padding-top: 6px;
-				padding-bottom: 15px;
-				color: white;
-				text-align: center;
-			}
-		
-			.icons a{
-				color: white;
-				text-decoration: none;
-			}
-		
-			.title {
-				font-size: 1.4em;
-				margin-bottom: 3px;
-			}
-		
-			.body {
-				/* body on non-media posts like text */
-			}
-		
-			.caption {
-				/* caption on media posts */   
-			}
-		
-			.label {
-				font-weight: bold;
-			}
+        <meta name="color:Background" content="#008080" />
+        <meta name="color:Link Color" content="#000000" />
+        
+        <meta name="if:Display Photo Captions" content="1" />
+        <meta name="if:Display Home Icon" content="1" />
+        <meta name="if:Display Ask Icon" content="1" />
+        <meta name="if:Display Submit Icon" content="1" />
+        <meta name="if:Display Pages Icon" content="1" />
+        <meta name="if:Display Archive Icon" content="1" />
+
+        <style type="text/css">
+            body, html {
+                margin: 0;
+                padding: 0;
+            }
+        
+            body {
+                background: url('{image:Background}') {color:Background} repeat');
+                font-family: 'Arial', sans-serif;
+                font-size: 12px;
+            }
+        
+            a {
+                color: {color:Link Color};
+                text-decoration: none;
+            }
+        
+            a:hover {
+                text-decoration: underline;
+            }
+        
+            .icons {
+                margin: 0 0 0 10px;
+                list-style-type: none;
+                padding: 0;
+                width: 100px;
+                float: left;
+                position: fixed;
+                z-index: 2;
+            }
+        
+            .my_computer, .my_documents, .network_neighborhood, .folder, .recycle_bin, .start_menu, .application_icons, .start_bar .start_button .logo, .start_bar .tray .calendar, .start_menu, .window .top, .window .middle, .window .bottom {
+                background-image: url('http://static.tumblr.com/fpdiq1j/u2lm3gqzh/master_sprite.png');
+                margin: auto;
+            }
+        
+            .my_computer {
+                height: 32px;
+                width: 32px;
+                background-position: -616px -157px;
+            }
+        
+            .my_documents {
+                height: 30px;
+                width: 32px;
+                background-position: -616px -189px;
+            }
+        
+            .network_neighborhood {
+                height: 32px;
+                width: 32px;
+                background-position: -616px -219px;
+            }
+        
+            .recycle_bin {
+                height: 32px;
+                width: 30px;
+                background-position: -616px -251px;
+            }
+        
+            .folder{
+                height: 27px;
+                width: 32px;
+                background-position: -616px -283px;
+            }
+        
+            .start_bar .start_button .logo {
+                width: 16px;
+                height: 14px;
+                background-position: -633px -103px;
+            }
+        
+            .application_icons {
+                height: 16px;
+                width: 84px;
+                background-position: -565px -69px;
+            }
+        
+            .start_bar .tray .calendar {
+                height: 16px;
+                width: 16px;
+                background-position: -632px -87px;
+            }
+        
+            .start_menu {
+                height: 383px;
+                width: 168px;
+                background-position: 0px 0px;
+            }
+        
+            .window .top {
+                height: 44px;
+                background-position: -168px 0px;
+            }
+        
+            .window .middle, div.notes, div.attribution {
+                background: url('http://static.tumblr.com/fpdiq1j/utSm3gwcy/large_middle.png');
+                background-repeat: repeat-y;
+            }
+        
+            .window .bottom {
+                background-position: -168px -46px;
+                height: 22px;
+            } 
+        
+            .icon_label {
+                padding-top: 6px;
+                padding-bottom: 15px;
+                color: white;
+                text-align: center;
+            }
+        
+            .icons a{
+                color: white;
+                text-decoration: none;
+            }
+        
+            .title {
+                font-size: 1.4em;
+                margin-bottom: 3px;
+            }
+        
+            .attempt_resize {
+                max-width: 100%;
+            }
+        
+            .label {
+                font-weight: bold;
+            }
             
             .body img, .caption img {
                 max-width: 100%;
                 overflow: hidden;
             }
-		
-			#desktop {
-				margin: 20px auto 0 auto;
-				width: 480px;
-				z-index: 3;
-				position: relative;
-			}	
-		
-			.window {
-				width: 480px;
-				max-width: 480px;
-				margin: 0 0 30px;
-			}
-		
-			.window .top {
-				height: 44px;
-			}
-		
-			.window .top .info {
-				font-size: 11px;
-				top: 26px;
-				left: 10px;
-				position: relative;
-				z-index: 4;
-				width: 300px;
-			}
-		
-			.window .middle, div.notes {
-				background-repeat: repeat-y;
-				padding: 4px 25px 4px 10px;
-			}
-		
-			.window .bottom {
-				height: 22px;
-			}
-		
-			.start_bar {
-				position: fixed;
-				background-color: rgb(192,192,192);
-				bottom: 0;
-				height: 28px;
-				width: 100%;
-				z-index: 4;
-			}
-		
-			.start_menu {
-				position: fixed;
-				z-index: 3;
-				bottom: 28px;
-				display: none;
-			}
-		
-			.start_bar .top_border {
-				border-bottom: 1px solid rgb(255,255,255);
-				border-top: 1px solid rgb(223,223,223);
-			}
-		
-			.start_bar .start_button {
-				float: left;
-				border-top: 2px solid white;
-				border-left: 2px solid white;
-				border-bottom: 2px solid gray;
-				border-right: 2px solid gray;
-				height: 18px;
-				width: 54px;
-				margin-left: 2px;
-				margin-top: 2px;
-			}
-		
-			.sb_click {
-				border-bottom: 2px solid white !important;
-				border-right: 2px solid white !important;
-				border-top: 2px solid gray !important;
-				border-left: 2px solid gray !important;
-			}
-		
-			.start_bar .start_button .text{
-				float: right;
-				display: inline;
-				margin-right: 4px;
-				line-height: 18px;
-				font-weight: bold;
-			}
-		
-			.start_bar .start_button .logo{
-				float: left;
-				margin-top: 2px;
-				margin-left: 2px;
-			}
-		
-			.start_bar .big_seperator {
-				float: left;
-				border-left: 1px solid rgb(128,128,128);
-				border-right: 1px solid rgb(255,255,255);
-				height: 22px;
-				margin-top: 2px;
-				margin-left: 2px;
-			}
-		
-			.start_bar .small_seperator {
-				float: left;
-				border-left: 1px solid rgb(255,255,255);
-				border-top: 1px solid rgb(255,255,255);
-				border-right: 1px solid rgb(128,128,128);
-				border-bottom: 1px solid rgb(128,128,128);
-				background-color: rgb(192,192,192);
-				width: 1px;
-				height: 16px;
-				margin-top: 4px;
-				margin-left: 2px;
-			}
-		
-			.start_bar .application_icons {
-				float: left;
-				margin-top: 5px;
-				margin-left: 7px;
-				margin-right: 7px;
-			}
-		
-			.start_bar .tray {
-				float: right;
-				border-top: 1px solid rgb(128,128,128);
-				border-left: 1px solid rgb(128,128,128);
-				border-bottom: 1px solid rgb(255,255,255);
-				border-right: 1px solid rgb(255,255,255);
-				height: 18px;
-				width: 79px;
-				margin-right: 5px;
-				margin-top: 2px;
-			}
-		
-			.start_bar .tray .time {
-				line-height: 20px;
-				float: right;
-				font-size: 10px;
-				margin-right: 10px;
-			}
-		
-			.start_bar .tray .calendar {
-				float: left;
-				margin-top: 1px;
-				margin-left: 3px;
-			}
-			
-			{block:IfNotDisplayPhotoCaptions}.caption{
-				display:none;
-			}{/block:IfNotDisplayPhotoCaptions}
-
-			{block:IfNotDisplayHomeIcon}.home{
-				display:none;
-			}{/block:IfNotDisplayHomeIcon}
-
-			{block:IfNotDisplayAskIcon}.ask{
-				display:none;
-			}{/block:IfNotDisplayAskIcon}
-
-			{block:IfNotDisplaySubmitIcon}.submit{
-				display:none;
-			}{/block:IfNotDisplaySubmitIcon}
-
-			{block:IfNotDisplayPagesIcon}.pages{
-				display:none;
-			}{/block:IfNotDisplayPagesIcon}
-
-			{block:IfNotDisplayArchiveIcon}.archive{
-				display:none;
-			}{/block:IfNotDisplayArchiveIcon}
-		
-			{CustomCSS}
+        
+            #desktop {
+                margin: 20px auto 0 auto;
+                width: 480px;
+                z-index: 3;
+                position: relative;
+            }   
+        
+            .window {
+                width: 480px;
+                max-width: 480px;
+                margin: 0 0 30px;
+            }
+        
+            .window .top {
+                height: 44px;
+            }
+        
+            .window .top .info {
+                top: 26px;
+                left: 10px;
+                position: relative;
+                width: 300px;
+                z-index: 4;
+                font-size: 11px;
+                line-height: 13px;
+            }
+        
+            .window .middle, div.notes, div.attribution {
+                background-repeat: repeat-y;
+                padding: 4px 26px 4px 10px;
+            }
             
-            blockquote{margin-left:10px;padding-left:10px;border-left:1px solid #000;}
-		</style>
-	
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
-	
-		<script type="text/javascript">
-			function showClock(){
-				var currentTime = new Date();
-				var hours = currentTime.getHours();
-				var minutes = currentTime.getMinutes();
+            .middle .caption {
+                margin-top: 5px;
+            }
+        
+            .window .bottom {
+                height: 22px;
+            }
+        
+            .start_bar {
+                position: fixed;
+                background-color: rgb(192,192,192);
+                bottom: 0;
+                height: 28px;
+                width: 100%;
+                z-index: 4;
+            }
+        
+            .start_menu {
+                position: fixed;
+                z-index: 3;
+                bottom: 28px;
+                display: none;
+            }
+        
+            .start_bar .top_border {
+                border-bottom: 1px solid rgb(255,255,255);
+                border-top: 1px solid rgb(223,223,223);
+            }
+        
+            .start_bar .start_button {
+                float: left;
+                border-top: 2px solid white;
+                border-left: 2px solid white;
+                border-bottom: 2px solid gray;
+                border-right: 2px solid gray;
+                height: 18px;
+                width: 54px;
+                margin-left: 2px;
+                margin-top: 2px;
+            }
+        
+            .sb_click {
+                border-bottom: 2px solid white !important;
+                border-right: 2px solid white !important;
+                border-top: 2px solid gray !important;
+                border-left: 2px solid gray !important;
+            }
+        
+            .start_bar .start_button .text{
+                float: right;
+                display: inline;
+                margin-right: 4px;
+                line-height: 18px;
+                font-weight: bold;
+            }
+        
+            .start_bar .start_button .logo{
+                float: left;
+                margin-top: 2px;
+                margin-left: 2px;
+            }
+        
+            .start_bar .big_seperator {
+                float: left;
+                border-left: 1px solid rgb(128,128,128);
+                border-right: 1px solid rgb(255,255,255);
+                height: 22px;
+                margin-top: 2px;
+                margin-left: 2px;
+            }
+        
+            .start_bar .small_seperator {
+                float: left;
+                border-left: 1px solid rgb(255,255,255);
+                border-top: 1px solid rgb(255,255,255);
+                border-right: 1px solid rgb(128,128,128);
+                border-bottom: 1px solid rgb(128,128,128);
+                background-color: rgb(192,192,192);
+                width: 1px;
+                height: 16px;
+                margin-top: 4px;
+                margin-left: 2px;
+            }
+        
+            .start_bar .application_icons {
+                float: left;
+                margin-top: 5px;
+                margin-left: 7px;
+                margin-right: 7px;
+            }
+        
+            .start_bar .tray {
+                float: right;
+                border-top: 1px solid rgb(128,128,128);
+                border-left: 1px solid rgb(128,128,128);
+                border-bottom: 1px solid rgb(255,255,255);
+                border-right: 1px solid rgb(255,255,255);
+                height: 18px;
+                width: 79px;
+                margin-right: 5px;
+                margin-top: 2px;
+            }
+        
+            .start_bar .tray .time {
+                line-height: 18px;
+                float: right;
+                font-size: 10px;
+                margin-right: 10px;
+            }
+        
+            .start_bar .tray .calendar {
+                float: left;
+                margin-top: 1px;
+                margin-left: 3px;
+            }
+            
+            /* COMMON */
+            
+            blockquote {
+                margin-left: 10px;
+                padding-left: 10px;
+                border-left: 1px solid #000;
+            }
+            
+            #infscr-loading {
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+            }
+            
+            #install {
+                background-image: url('http://static.tumblr.com/thpaaos/dHHkt0jor/install_theme.png');
+                display: block !important;
+                width: 96px;
+                height: 20px;
+                position: absolute;
+                top: 26px;
+                right: 3px;
+                z-index: 1337;
+            }
+            
+            .middle img {
+                display: block;
+            }
+            
+            .middle p:first-child, ul:first-child, ol:first-child, blockquote:first-child {
+                margin-top: 0;
+            }
+            
+            /*.middle p:only-child, ul:only-child, ol:only-child, blockquote:only-child {
+                margin-top: 0;
+                margin-bottom: 0;   
+            }*/
+            
+            .middle p:last-child, ul:last-child, ol:last-child, blockquote:last-child {
+                margin-bottom: 0;
+            }
+            
+            /* END COMMON */
+            
+            {block:IfNotDisplayPhotoCaptions}.caption{
+                display:none;
+            }{/block:IfNotDisplayPhotoCaptions}
 
-				if (minutes < 10) {
-					minutes = "0" + minutes;
-				}
-						
-				var suffix = "AM";
-				if (hours >= 12) {
-					suffix = "PM";
-					hours = hours - 12;
-				}
-						
-				if (hours == 0) {
-					hours = 12;
-				}
-			
-				var timeString = hours + ":" + minutes + " " + suffix;
-		
-				$("#showClock").html(timeString);
-			}
-			
-			$(document).ready(function(){
-				showClock();
-				setInterval(showClock, 600);
-				
-				$(".start_button").click(function(){
-					$(".start_button").toggleClass("sb_click");
-					$(".start_menu").slideToggle();
-				});
-			
-				$('#desktop').infinitescroll({
-					navSelector	 : ".navigation",
-					nextSelector : "a.next",
-					itemSelector : ".window",
-					loadingImg	 : ""
-				});
-			});
-		</script>
-	</head>
+            {block:IfNotDisplayHomeIcon}.home{
+                display:none;
+            }{/block:IfNotDisplayHomeIcon}
 
-	<body>
-		<div class="wrapper">
-			<div class="icons">
-				<a href="/" class="home">
-					<div class="my_computer">&nbsp;</div>
-					<div class="icon_label">{Title}</div>
-				</a>
-			
-				{block:AskEnabled}
-					<a href="/ask" class="ask">
-						<div class="my_documents"></div>
-						<div class="icon_label">{AskLabel}</div>
-					</a>
-				{/block:AskEnabled}
-				
-				{block:SubmissionsEnabled}
-					<a href="/submit" class="submit">
-						<div class="network_neighborhood"></div>
-						<div class="icon_label">{SubmitLabel}</div>
-					</a>
-				{/block:SubmissionsEnabled}
+            {block:IfNotDisplayAskIcon}.ask{
+                display:none;
+            }{/block:IfNotDisplayAskIcon}
 
-				{block:HasPages}
-					{block:Pages}
-						<a href="{URL}" class="pages">
-							<div class="folder"></div>
-							<div class="icon_label">{Label}</div>
-						</a>	
-					{/block:Pages}
-				{/block:HasPages}
+            {block:IfNotDisplaySubmitIcon}.submit{
+                display:none;
+            }{/block:IfNotDisplaySubmitIcon}
 
-				<a href="/archive" class="archive">
-					<div class="recycle_bin"></div>
-					<div class="icon_label">Archive</div>
-				</a>
-			</div>
-			<div id="desktop">
-				{block:Posts}
-					<div class="window">
-						<a href="{Permalink}">
-							<div class="top">
-								{block:Date}
-									<div class="info">
-										Posted on {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} at {12Hour}:{Minutes} {CapitalAmPm}{block:NoteCount}, with {NoteCountWithLabel}{/block:NoteCount}
-									</div>
-								{/block:Date}
-							</div>
-						</a>
-						<div class="middle">
-							{block:Text}
-								{block:Title}
-									<div class="title">{Title}</div>
-								{/block:Title}
-								<div class="body">
-									{Body}
-								</div>
-							{/block:Text}
+            {block:IfNotDisplayPagesIcon}.pages{
+                display:none;
+            }{/block:IfNotDisplayPagesIcon}
 
-							{block:Photo}
-								<img src="{PhotoURL-400}" alt="{PhotoAlt}" />
-								{block:Caption}
-									<div class="caption">
-										{Caption}
-									</div>
-								{/block:Caption}
-							{/block:Photo}
+            {block:IfNotDisplayArchiveIcon}.archive{
+                display:none;
+            }{/block:IfNotDisplayArchiveIcon}
+        
+            {CustomCSS}
+        </style>
+    
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
+    
+        <script type="text/javascript">
+            function showClock(){
+                var currentTime = new Date();
+                var hours = currentTime.getHours();
+                var minutes = currentTime.getMinutes();
 
-							{block:Photoset}
-								{Photoset-400}
-								{block:Caption}
-									<div class="caption">
-										{Caption}
-									</div>
-								{/block:Caption}
-							{/block:Photoset}
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                        
+                var suffix = "AM";
+                if (hours >= 12) {
+                    suffix = "PM";
+                    hours = hours - 12;
+                }
+                        
+                if (hours == 0) {
+                    hours = 12;
+                }
+            
+                var timeString = hours + ":" + minutes + " " + suffix;
+        
+                $("#showClock").html(timeString);
+            }
+            
+            $(document).ready(function(){
+                showClock();
+                setInterval(showClock, 600);
+                
+                $(".start_button").click(function(){
+                    $(".start_button").toggleClass("sb_click");
+                    $(".start_menu").slideToggle();
+                });
+            
+                $('#desktop').infinitescroll({
+                    navSelector  : ".navigation",
+                    nextSelector : "a.next",
+                    itemSelector : ".window"
+                });
+            });
+        </script>
+    </head>
 
-							{block:Quote}
-								<div class="title">"{Quote}"</div>
-								{block:Source}
-									<div class="body">
-										&mdash; {Source}
-									</div>
-								{/block:Source}
-							{/block:Quote}
+    <body>
+        <div class="wrapper">
+            <div class="icons">
+                <a href="/" class="home">
+                    <div class="my_computer"></div>
+                    <div class="icon_label">{Title}</div>
+                </a>
+            
+                {block:AskEnabled}
+                    <a href="/ask" class="ask">
+                        <div class="my_documents"></div>
+                        <div class="icon_label">{AskLabel}</div>
+                    </a>
+                {/block:AskEnabled}
+                
+                {block:SubmissionsEnabled}
+                    <a href="/submit" class="submit">
+                        <div class="network_neighborhood"></div>
+                        <div class="icon_label">{SubmitLabel}</div>
+                    </a>
+                {/block:SubmissionsEnabled}
 
-							{block:Link}
-								<a href="{URL}" class="title" {Target}>{Name} »</a>
-								{block:Description}
-									<div class="body">
-										{Description}
-									</div>
-								{/block:Description}
-							{/block:Link}
+                {block:HasPages}
+                    {block:Pages}
+                        <a href="{URL}" class="pages">
+                            <div class="folder"></div>
+                            <div class="icon_label">{Label}</div>
+                        </a>    
+                    {/block:Pages}
+                {/block:HasPages}
 
-							{block:Chat}
-								{block:Title}
-									<div class="title">{Title}</div>
-								{/block:Title}
-								<div class="body">
-									{block:Lines}
-										{block:Label}
-											<span class="label">{Label}</span>
-										{/block:Label}
-										{Line}
-									{/block:Lines}		
-								</div>
-							{/block:Chat}
+                <a href="/archive" class="archive">
+                    <div class="recycle_bin"></div>
+                    <div class="icon_label">Archive</div>
+                </a>
+            </div>
+            <div id="desktop">
+                {block:Posts}
+                    <div class="window">
+                        <a href="{Permalink}">
+                            <div class="top">
+                                {block:Date}
+                                    <div class="info">
+                                        Posted on {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} at {12Hour}:{Minutes} {CapitalAmPm}{block:NoteCount}, with {NoteCountWithLabel}{/block:NoteCount}
+                                    </div>
+                                {/block:Date}
+                            </div>
+                        </a>
+                        <div class="middle">
+                            {block:Text}
+                                {block:Title}
+                                    <div class="title">
+                                        {Title}
+                                    </div>
+                                {/block:Title}
+                                <div class="body">
+                                    {Body}
+                                </div>
+                            {/block:Text}
 
-							{block:Video}
-							{Video-400}
-								{block:Caption}
-									<div class="caption">
-										{Caption}
-									</div>
-								{/block:Caption}
-							{/block:Video}
+                            {block:Photo}
+                                <img src="{PhotoURL-500}" class="attempt_resize" alt="{PhotoAlt}" />
+                                {block:Caption}
+                                    <div class="caption">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
+                            {/block:Photo}
 
-							{block:Audio}
-								{AudioPlayerBlack}
-								{block:Caption}
-									<div class="body">
-										{Caption}
-									</div>
-								{/block:Caption}
-							{/block:Audio}
-						</div>
-						{block:PermalinkPage}
-							<div class="attribution">
-								{block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource} 
-							</div>
-							<div class="notes">
-								{block:PostNotes}  
-									{PostNotes}
-								{/block:PostNotes}
-							</div>
-						{/block:PermalinkPage}
-						<div class="bottom"></div>
-					</div>
-				{/block:Posts}
-				{block:Pagination}
-					<div class="navigation">
-						{block:NextPage}
-							<a class="next" href="{NextPage}">Next</a>
-						{/block:NextPage}
-						{block:PreviousPage}
-							<a class="prev" href="{PreviousPage}">Previous</a>
-						{/block:PreviousPage}
-					</div>
-				{/block:Pagination}
-			</div>
-			<div class="start_menu">
-			</div>
-			<div class="start_bar">
-				<div class="top_border"></div>
-				<div class="start_button">
-					<span class="logo">
-					</span>
-					<span class="text">
-						Start
-					</span>
-				</div>
-				<span class="big_seperator">
-				</span>
-				<span class="small_seperator">
-				</span>
-				<span class="application_icons">
-				</span>
-				<span class="big_seperator">
-				</span>
-				<span class="small_seperator">
-				</span>
-				<div class="tray">
-					<span class="calendar">
-					</span>
-					<span class="time" id="showClock">
-						00:00 AM
-					</span>
-				</div>
-			<div>
-			<div style="position:fixed;bottom:33px;right:10px;opacity:0.9;font-size:10px;z-index:1337;">
-				<a href="http://themes.edada.ms">ed's themes</a>
-			</div>
-		</div>
-	</body>
+                            {block:Photoset}
+                                {Photoset-400}
+                                {block:Caption}
+                                    <div class="caption">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
+                            {/block:Photoset}
+
+                            {block:Quote}
+                                <div class="title">
+                                    "{Quote}"
+                                </div>
+                                {block:Source}
+                                    <div class="body">
+                                        &mdash; {Source}
+                                    </div>
+                                {/block:Source}
+                            {/block:Quote}
+
+                            {block:Link}
+                                <a href="{URL}" class="title" {Target}>
+                                    {Name} »
+                                </a>
+                                {block:Description}
+                                    <div class="body">
+                                        {Description}
+                                    </div>
+                                {/block:Description}
+                            {/block:Link}
+
+                            {block:Chat}
+                                {block:Title}
+                                    <div class="title">
+                                        {Title}
+                                    </div>
+                                {/block:Title}
+                                <div class="body">
+                                    {block:Lines}
+                                        <div class="line">
+                                            {block:Label}
+                                                <span class="label">
+                                                    {Label}
+                                                </span>
+                                            {/block:Label}
+                                            <span class="text">
+                                                {Line}
+                                            <span>
+                                        </div>
+                                    {/block:Lines}      
+                                </div>
+                            {/block:Chat}
+
+                            {block:Video}
+                            {Video-400}
+                                {block:Caption}
+                                    <div class="caption">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
+                            {/block:Video}
+
+                            {block:Audio}
+                                {AudioPlayerBlack}
+                                {block:Caption}
+                                    <div class="body">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
+                            {/block:Audio}
+                        </div>
+                        {block:PermalinkPage}
+                            <div class="attribution">
+                                {block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource} 
+                            </div>
+                            <div class="notes">
+                                {block:PostNotes}  
+                                    {PostNotes}
+                                {/block:PostNotes}
+                            </div>
+                        {/block:PermalinkPage}
+                        <div class="bottom"></div>
+                    </div>
+                {/block:Posts}
+                {block:Pagination}
+                    <div class="navigation">
+                        {block:NextPage}
+                            <a class="next" href="{NextPage}">Next</a>
+                        {/block:NextPage}
+                        {block:PreviousPage}
+                            <a class="prev" href="{PreviousPage}">Previous</a>
+                        {/block:PreviousPage}
+                    </div>
+                {/block:Pagination}
+            </div>
+            <div class="start_menu">
+            </div>
+            <div class="start_bar">
+                <div class="top_border"></div>
+                <div class="start_button">
+                    <span class="logo">
+                    </span>
+                    <span class="text">
+                        Start
+                    </span>
+                </div>
+                <span class="big_seperator">
+                </span>
+                <span class="small_seperator">
+                </span>
+                <span class="application_icons">
+                </span>
+                <span class="big_seperator">
+                </span>
+                <span class="small_seperator">
+                </span>
+                <div class="tray">
+                    <span class="calendar">
+                    </span>
+                    <span class="time" id="showClock">
+                        00:00 AM
+                    </span>
+                </div>
+            </div>
+        </div>
+        <a href="http://themes.edada.ms" id="install"></a> <!-- Please do not remove this. I worked hard to make this theme, it would mean a lot to me if you kept this link intact. Thank you. -->
+    </body>
 </html>

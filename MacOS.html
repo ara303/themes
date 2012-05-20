@@ -84,10 +84,9 @@
                 float: left;
             }
             
-            .menu_bar .tab {
+            .menu_bar .tab .name {
                 margin: 0 0 0 10px;
                 padding: 0 5px;
-                font-weight: bold;
                 float: left;
                 line-height: 20px;
             }
@@ -97,7 +96,7 @@
                 color: white;
             }
             
-            .menu_bar .tab_menu {
+            .menu_bar .tab .menu {
                 position: fixed;
                 background-color: #D5D5D5;
                 border: 1px solid rgba(0, 0, 0, 0.5);
@@ -382,16 +381,16 @@
 		       });
 		   })
 
-		   function hideAllBut(type) {
-		       var type = 'type_' + type;
-		       $('.post').each(function() {
-		     if(!$(this).hasClass(type)) {
-		         $(this).slideUp('slow');
-		    } else {
-		         $(this).slideDown('slow');
-		    }
-		    });
-		   }
+			function hideAllBut(type) {
+				var type = 'type_' + type;
+				$('.post').each(function() {
+					if(!$(this).hasClass(type)) {
+						$(this).slideUp('slow');
+					} else {
+		         		$(this).slideDown('slow');
+		    		}
+		    	});
+			 }
 		});
 		</script>
     </head>
@@ -403,35 +402,51 @@
                 <a href="/">
 					<span class="apple_logo"></span>
 				</a>
-                <span class="tab" id="file">File</span>
-				<ul class="tab_menu" id="file_menu">
-					<li>This theme by</li>
-					<li>Ed Adams<li>
-                   	<br>
-					<li>Images & art by</li>
-					<li>Apple</li>
-				</ul>
-                <span class="tab">Edit</span>
-                <span class="tab" id="options">Options</span>
-				<ul class="tab_menu" id="options_menu">
-					<li id="allowDragging">Allow Dragging</li>
-					<li id="showWidgets">Show Extra Features</li>
-					<li id="hideWidgets">Hide Extra Features</li>
-					<li id="launchCalculator">Launch Calculator</li>
-				</ul>
-                <span class="tab" id="filters">Filters</span>
-                <ul class="tab_menu" id="filters_menu">
-					<li id="filterText">Filter Text</li>
-                    <li id="filterPhoto">Filter Photo</li>
-                   	<li id="filterPhotoset">Filter Photoset</li>
-                  	<li id="filterQuote">Filter Quote</li>
-                 	<li id="filterLink">Filter Link</li>
-                  	<li id="filterChat">Filter Chat</li>
-                   	<li id="filterAudio">Filter Audio</li>
-                   	<li id="filterVideo">Filter Video</li>
-                   	<br>
-                   	<li id="filterReset"><center>Reset</center></li>
-				</ul>
+                <span class="tab">
+					<span class="name" id="file">
+						File
+					</span>
+					<ul class="menu" id="file_menu">
+						<li>This theme by</li>
+						<li>Ed Adams<li>
+                   		<br>
+						<li>Images &amp; art by</li>
+						<li>Apple</li>
+					</ul>
+				</span>
+                <span class="tab">
+					<span class="name" id="edit">
+						Edit
+					</span>
+				</span>
+                <span class="tab">
+					<span class="name" id="options">
+						Options
+					</span>
+					<ul class="menu" id="options_menu">
+						<li id="allowDragging">Allow Dragging</li>
+						<li id="doFullScreen">Enable Full Screen</li>
+						<li id="showWidgets">Show Extras</li>
+						<li id="hideWidgets">Hide Extra</li>
+						<li id="launchCalculator">Launch Calculator</li>
+					</ul>
+				</span>
+                <span class="tab">
+ 					<span class="name" id="filters">
+						Filters
+					</span>
+                	<ul class="menu" id="filters_menu">
+						<li id="filterText">Filter Text</li>
+                    	<li id="filterPhoto">Filter Photo</li>
+                   		<li id="filterPhotoset">Filter Photoset</li>
+                  		<li id="filterQuote">Filter Quote</li>
+                 		<li id="filterLink">Filter Link</li>
+                  		<li id="filterChat">Filter Chat</li>
+                   		<li id="filterAudio">Filter Audio</li>
+                   		<li id="filterVideo">Filter Video</li>
+                   		<li id="filterReset"><center>Reset</center></li>
+					</ul>
+				</span>
                 <span class="mac_logo"></span>
                 <span class="clock" id="showClock">00:00 PM</span>
                 <div class="right_corner"></div>
