@@ -7,10 +7,22 @@
         <link rel="alternate" type="application/rss+xml" href="{RSS}" />
         <meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
 
-        <meta name="if:Infinite Scrolling" content="1" />
-        <meta name="if:Rounded Corners" content="1" />
-        <meta name="if:Underline Hyperlinks" content="0" />
+        <meta name="color:Text" content="#080808" />
+        <meta name="color:Links" content="#777777" />
+        <meta name="color:Links on Hover" content="#CCCCCC" />
+        <meta name="color:Background" content="#080808" />
+        <meta name="color:Post Background" content="#FFFFFF" />
+        
+        <meta name="font:Posts" content="Helvetica" />
+        <meta name="font:Header" content="Helvetica" />
+        
+        <meta name="image:Background" content="" />
+        <meta name="image:Header" content="" />
+        
         <meta name="if:Display Captions" content="1" />
+        <meta name="if:Infinite Scrolling" content="1" />
+        <meta name="if:Underline Hyperlinks" content="0" />
+        <meta name="if:Rounded Corners" content="1" />
         <meta name="if:Hide Title" content="0" />
         <meta name="if:Hide Description" content="0" />
         <meta name="if:Hide Ask" content="0" />
@@ -20,34 +32,32 @@
         <meta name="if:Hide RSS" content="0" />
         <meta name="if:Background On Header" content="1" />
         <meta name="if:Background On Posts" content="1" />
-        <meta name="font:Text" content="Helvetica" />
-        <meta name="color:Text" content="#444" />
-        <meta name="color:Links" content="#ff3b8e" />
-        <meta name="color:Links on Hover" content="#ff3b8e" />
-        <meta name="color:Posts" content="#ffffff" />
-        <meta name="color:Page Background" content="#000000" />
-        <meta name="image:Background" content="" />
-        <meta name="image:Header" content="" />
     
         <style type="text/css">
            body {
-                background: url('{image:Background}') {color:Page Background} fixed;
+                background: {color:Background} url('{image:Background}') fixed;
                 font-size: 12px;
-                font-family: {font:Text};
                 color: {color:Text};
                 margin: 0;
                 padding: 0;
             }
         
             a {
-                color: {color:Links};
-                {block:IfUnderlineHyperlinks}text-decoration: underline;{/block:IfUnderlineHyperlinks}
-                {block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
-            }   
-        
-            a:hover {
-                color: {color:Links on Hover};
-            }
+    			color: {color:Links};
+				{block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
+				transition: color 0.5s linear;
+				-webkit-transition: color 0.5s linear;
+				-moz-transition: color 0.5s linear;
+				-o-transition: color 0.5s linear;
+			}
+	
+			a:hover {
+				color: {color:Links on Hover};
+				transition: color 0.5s linear;
+				-webkit-transition: color 0.5s linear;
+				-moz-transition: color 0.5s linear;
+				-o-transition: color 0.5s linear;
+			}
         
             /* --- Page layout --- */
 
@@ -57,10 +67,11 @@
             }
         
             .header {
+                font-family: {font:Header};
                 text-align: center;
                 margin: 10px 5px 5px 5px;
                 padding: 10px; 
-                background-color: {color:Posts};
+                background-color: {color:Post Background};
                 {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
             }
 
@@ -70,14 +81,14 @@
                 font-weight: bold;
             }
         
+            .header .description {
+                margin-top: 5px;
+            }
+            
             img.description_image {
                 display: block;
                 margin: auto;
                 padding-top: 5px;
-            }
-        
-            .header .description {
-                margin-top: 5px;
             }
         
             .header .links {
@@ -95,10 +106,11 @@
             /* --- Handle posts --- */
         
             .post {
+                font-family: {font:Posts};
                 width: 400px;
                 margin: 5px;
                 float: left;
-                background-color: {color:Posts};
+                background-color: {color:Post Background};
                 {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
                 z-index: 1;
             }
@@ -109,44 +121,25 @@
             .chat,
             .audio,
             .ask,
-            .post_caption{
+            .caption{
                 padding: 10px;
             }
-        
-            .photo,
-            .video{ 
-                background-color: none;
-            }
-
-            .post.permalink-page {
+            
+            .permalink-page {
                 width: 500px;
                 float: none;
                 clear: both;
                 margin: 10px auto 0 auto;
             }
 
-            .post_title {
+            .title {
                 font-size: 18px;
-                line-height: 25px;
                 font-weight: bold;
+                margin:  0 0 3px 0;
             }
         
-            .post_body {
+            .body {
                 font-size: 12px;
-                line-height: 13px;
-            }  
-        
-            .attribution {
-                padding: 5px;
-                font-size: 10px;
-            }
-        
-            .notes-container {
-                width: 480px;
-                margin: 10px auto 0 auto;
-                background: white;
-                border-radius: 5px;
-                padding: 10px;
             }
         
             .permalink {
@@ -168,11 +161,39 @@
                 filter: opacity(90);
             }
         
-            ol.notes{ /* Reset notes list styling */
-                list-style-type: none;
-                padding: 0;
-                margin: 0;
+            /* META */
+            
+            .meta { /* Strange behaviour when combining .permalink-page & .caption, so we won't */
+                width: 480px;
+                padding: 10px;
+                background-color: white;
             }
+    		
+			.meta .source, .meta .reblogged_from, .meta .tags {
+				margin-top: 3px;
+			}
+            
+            .meta .source, .meta .reblogged_from {
+                font-size: 11px;
+            }
+			
+			.meta .notes {
+				margin-top: 15px;
+			}
+			
+			ol.notes{
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+			}
+			
+			li.note.with_commentary {
+				margin-bottom: 10px;
+			}
+			
+			.notes span.action {
+				vertical-align: 4px;
+			}
         
             /* -- Navigation stuff --- */
   
@@ -185,14 +206,18 @@
         
             #navigation .next { /* Back */
                 float: left;
-                background-color: {color:Posts};
-                padding: 4px;
+                background-color: {color:Post Background};
+                padding: 5px;
+                font-family: {font:Posts};
+                {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
             }
             
             #navigation .previous { /* Forward */
                 float: right;
-                background-color: {color:Posts};
-                padding: 4px;
+                background-color: {color:Post Background};
+                padding: 5px;
+                font-family: {font:Posts};
+                {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
             }
   
             /* --- Aesthetic improvements --- */
@@ -206,37 +231,54 @@
                 background: white; /* Unless background is off. */
             }
         
-            img.post_body, img.post_caption {
+            img.body, img.caption {
                 max-width: 100%;
             }
 
             .text .permalink, .audio .permalink{
                 margin-left: -10px;
             }
-        
-            p:first-child {
-                margin-top: 0;
+            
+            /* COMMON */
+            
+            blockquote {
+                margin-left: 10px;
+                padding-left: 10px;
+                border-left: 1px solid #000;
             }
-
-            p:last-child {
-                margin-bottom: 0;
-            }
-        
+            
             #infscr-loading {
                 display: none !important;
                 opacity: 0 !important;
                 visibility: hidden !important;
             }
-        
-            .footer {
-                position: fixed;
-                bottom: 10px;
-                right: 10px;
-                font-size: 9px;
-                opacity: 0.9;
+            
+            #install {
+                background-image: url('http://static.tumblr.com/thpaaos/dHHkt0jor/install_theme.png');
+                display: block !important;
+                width: 96px;
+                height: 20px;
+                position: absolute;
+                top: 26px;
+                right: 3px;
+                z-index: 1337;
             }
+            
+            a img {
+                border: 0;    
+            }
+            
+            .body p:first-child, .body ul:first-child, .body ol:first-child, .body blockquote:first-child, .caption p:first-child, .caption ul:first-child, .caption ol:first-child, .caption blockquote:first-child {
+                margin-top: 0;
+            }
+            
+            .body p:last-child, .body ul:last-child, .body ol:last-child, .body blockquote:last-child, .caption p:last-child, .caption ul:last-child, .caption ol:last-child, .caption blockquote:last-child {
+                margin-bottom: 0;
+            }
+            
+            /* APPEARANCE */
         
-            {block:IfNotDisplayCaptions}.post_caption{
+            {block:IfNotDisplayCaptions}.caption{
                 display: none;
             }{/block:IfNotDisplayCaptions}
         
@@ -279,7 +321,7 @@
             {CustomCSS}
         </style>
     
-        {block:IfInfiniteScrolling}{block:IndexPage}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/pOHlzg7ar/jquery.min.js"></script>
+        {block:IndexPage}<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/pOHlzg7ar/jquery.min.js"></script>
         <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/Umwlzg7b6/jquery.masonry.min.js"></script>
         <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
         
@@ -291,10 +333,12 @@
                         itemSelector: '.post'
                     });
                 });
-                $container.infinitescroll({
+                
+                {block:IfInfiniteScrolling}$container.infinitescroll({
                     navSelector: '#navigation', 
                     nextSelector: '#next-page', 
-                    itemSelector: '.post'
+                    itemSelector: '.post',
+                    bufferPx: 400
                 },
                 function( newElements ) {
                     var $newElems = $( newElements ).css({ opacity: 0 });
@@ -302,9 +346,9 @@
                         $newElems.animate({ opacity: 1 });
                         $container.masonry( 'appended', $newElems, true ); 
                     });
-                });
+                });{/block:IfInfiniteScrolling}{/block:IndexPage}
             });
-        </script>{/block:IndexPage}{/block:IfInfiniteScrolling}
+        </script>
     </head>
     <body>
         <div class="page_container">
@@ -312,14 +356,14 @@
                 <div class="heading">
                     <a href="/">{Title}</a> 
                 </div>
-                {block:IfHeaderImage}  
-                    <img class="description_image" src="{image:Header}" alt="{Title}" />
-                {/block:IfHeaderImage}
                 {block:Description}
                     <div class="description">
                         {Description}
                     </div>
                 {/block:Description}  
+                {block:IfHeaderImage}  
+                    <img class="description_image" src="{image:Header}" alt="{Title}" />
+                {/block:IfHeaderImage}
                 <div class="links">  
                     {block:AskEnabled}
                         <a class="ask" href="/ask">{AskLabel}</a>
@@ -339,92 +383,119 @@
                     <div class="post{block:PermalinkPage} permalink-page{/block:PermalinkPage}">
                         {block:Text}
                             <div class="text">
-                                <div class="post_title">{Title}</div>
-                                <div class="post_body">{Body}</div>
+                                <div class="title">{Title}</div>
+                                <div class="body">{Body}</div>
                             </div>
                         {/block:Text}
                         {block:Photo}
                             <div class="photo">
                                 <img src="{block:IndexPage}{PhotoURL-400}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-500}{/block:PermalinkPage}" alt="{PhotoAlt}" />
-                            
+                                {block:Caption}
+                                    <div class="caption">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
                             </div>
                         {/block:Photo}
                         {block:Photoset}
                             <div class="photoset">
                                 {block:IndexPage}{Photoset-400}{/block:IndexPage}{block:PermalinkPage}{Photoset-500}{/block:PermalinkPage}
-                                <div class="post_caption">
-                                    {block:Caption}{Caption}{/block:Caption}
-                                </div>
+                                {block:Caption}
+                                    <div class="caption">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
                             </div>
                         {/block:Photoset}
                         {block:Quote}
                             <div class="quote">
-                                <div class="post_body">"{Quote}"</div>
+                                <div class="title">"{Quote}"</div>
                                 {block:Source}
-                                    <div class="post_body"><strong>&ndash; {Source}</strong></div>
+                                    <div class="body">&mdash; {Source}</div>
                                 {/block:Source}
                             </div>
                         {/block:Quote}
                         {block:Link}
                             <div class="link">
-                                <a class="post_title" href="{URL}" {Target}>{Name}</a>
-                                <div class="post_body">
-                                    {block:Description}{Description}{block:Description}
-                                </div>
+                                <a class="title" href="{URL}" {Target}>{Name} »</a>
+                                {block:Description}
+                                    <div class="body">
+                                        {Description}
+                                    </div>
+                                {/block:Description}
                             </div>
                         {/block:Link}
                         {block:Chat}
                             <div class="chat">
                                 {block:Title}
-                                    <div class="post_title">{Title}</div>
+                                    <div class="title">{Title}</div>
                                 {/block:Title}
                                 {block:Lines}
-                                    <div class="post_body">{block:Label}<strong>{Label}</strong>{/block:Label}&nbsp;{Line}</div>
+                                    <div class="body">{block:Label}<strong>{Label}</strong>{/block:Label}&nbsp;{Line}</div>
                                 {/block:Lines}
                             </div>
                         {/block:Chat}
                         {block:Audio}
                             <div class="audio">
                                 {AudioPlayer}
-                                <div class="post_body">
-                                    {block:Caption}{Caption}{block:Caption}
-                                </div>
+                                {block:Caption}
+                                    <div class="body">
+			                            {Caption}
+                                    </div>
+		                        {/block:Caption}
                             </div>
                         {/block:Audio}
                         {block:Video}
                             <div class="video">
                                 {block:IndexPage}{Video-400}{/block:IndexPage}{block:PermalinkPage}{Video-500}{/block:PermalinkPage}
-                                <div class="post_caption">
-                                    {block:Caption}{Caption}{block:Caption}
-                                </div>
+                                {block:Caption}
+                                    <div class="caption">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
                             </div>
                         {/block:Video}
                         {block:Answer}
                             <div class="ask">
-                                <div class="post_title">{Asker} asked {Question}</div>
-                                <div class="post_body">{Answer}</div>
+                                <div class="title">{Asker} asked {Question}</div>
+                                <div class="body">{Answer}</div>
                             </div>
                         {/block:Answer}
                         {block:Date}
-                                {block:IndexPage}
-                                    <div class="permalink">
-                                        <a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
-                                    </div>
-                                {/block:IndexPage}
-                                {block:PermalinkPage}
-                                    <div class="attribution">               
-                                        {block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource}
-                                    </div>
-                                {/block:PermalinkPage}
-                            {/block:Date}
-                    </div>
-                        {block:PermalinkPage}
-                            {block:PostNotes}
-                                <div class="notes-container">
-                                    {PostNotes}
+                            {block:IndexPage}
+                                <div class="permalink">
+                                    <a href="{Permalink}">{NoteCountWithLabel}, posted {TimeAgo}</a>
                                 </div>
-                            {/block:PostNotes}
-                        {/block:PermalinkPage}
+                            {/block:IndexPage}
+                        {/block:Date}
+                    </div>
+                    {block:PermalinkPage}{block:Date}
+    					<div class="post permalink-page caption meta" style="display: block;">
+							<div class="posted">
+								Posted: {DayOfWeek} {DayOfMonth}{DayOfMonthSuffix} {Month} at {12Hour}:{Minutes}{AmPm}
+							</div>
+							{block:HasTags}
+								<div class="tags">
+									Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}
+								</div>
+							{/block:HasTags}
+							{block:ContentSource}
+								<div class="source">
+									Source: <a href="{SourceURL}">{SourceTitle}</a>
+								</div>
+								{block:RebloggedFrom}
+									<div class="reblogged_from">
+										Reblogged From: <a href="{ReblogParentURL}">{ReblogParentName}</a>
+									</div>
+								{/block:RebloggedFrom}
+							{/block:ContentSource}
+							{block:PostNotes}
+								<div class="notes">
+									{PostNotes}
+								</div>
+							{/block:PostNotes}
+						</div>
+					{/block:Date}{/block:PermalinkPage}
                 {/block:Posts}
             </div>
             {block:Pagination}
@@ -441,9 +512,7 @@
                     {/block:PreviousPage}
                 </div>
             {/block:Pagination}
-            <div class="footer">
-                <a href="http://themes.edada.ms">ed's themes</a>
-            </div>
         </div>
+        <a href="http://themes.edada.ms/" id="install"></a> <!-- Please do not remove this. -->
     </body>
 </html>
