@@ -1,6 +1,6 @@
 <html>
     <head>
-        <!-- "Win98" (v1) theme by edada.ms -->
+        <!-- "Win98" (v2), by edada.ms -->
         <title>{Title}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
@@ -350,17 +350,6 @@
                 visibility: hidden !important;
             }
             
-            #install {
-                background-image: url('http://static.tumblr.com/thpaaos/dHHkt0jor/install_theme.png');
-                display: block !important;
-                width: 96px;
-                height: 20px;
-                position: absolute;
-                top: 26px;
-                right: 3px;
-                z-index: 1337;
-            }
-            
             .middle img {
                 display: block;
             }
@@ -411,54 +400,8 @@
             {CustomCSS}
         </style>
     
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/KYxm4e27x/jquery.min.js"></script>
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
-    
-        <script type="text/javascript">
-            function showClock(){
-                var currentTime = new Date();
-                var hours = currentTime.getHours();
-                var minutes = currentTime.getMinutes();
-
-                if (minutes < 10) {
-                    minutes = "0" + minutes;
-                }
-                        
-                var suffix = "AM";
-                if (hours >= 12) {
-                    suffix = "PM";
-                    hours = hours - 12;
-                }
-                        
-                if (hours == 0) {
-                    hours = 12;
-                }
-            
-                var timeString = hours + ":" + minutes + " " + suffix;
-        
-                $("#showClock").html(timeString);
-            }
-            
-            $(document).ready(function(){
-                showClock();
-                setInterval(showClock, 600);
-                
-                $(".start_button").click(function(){
-                    $(".start_button").toggleClass("sb_click");
-                    $(".start_menu").slideToggle();
-                });
-                
-                $(".ok_button").click(function(){
-                    $(this).parent().parent().fadeOut();
-                })
-            
-                $('#desktop').infinitescroll({
-                    navSelector  : ".navigation",
-                    nextSelector : "a.next",
-                    itemSelector : ".window"
-                });
-            });
-        </script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/bTQm8gyse/win98.js"></script>
     </head>
 
     <body>
@@ -666,6 +609,5 @@
                 </div>
             </div>
         </div>
-        <a href="http://themes.edada.ms" id="install"></a> <!-- Please do not remove this. I worked hard to make this theme, it would mean a lot to me if you kept this link intact. Thank you. -->
     </body>
 </html>

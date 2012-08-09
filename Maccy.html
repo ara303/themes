@@ -1,6 +1,6 @@
 <html>
     <head>
-        <!-- "MacOS" (beta1) theme by edada.ms -->
+        <!-- "Maccy" (v1), by edada.ms -->
         <title>{Title}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
@@ -9,8 +9,10 @@
 
         <meta name="color:Background" content="#888DC0" />
 
-        <meta name="if:Use Image Background" content="0" />
+        <meta name="image:Background" content="" />
+        
         <meta name="if:Display Captions" content="1" />
+        <meta name="if:Display Description" content="1" />
         <meta name="if:Display Home Icon" content="1" />
         <meta name="if:Display Ask Icon" content="1" />
         <meta name="if:Display Submit Icon" content="1" />
@@ -23,10 +25,10 @@
             }
         
             body {
+                background: {color:Background} url('{image:Background}') repeat fixed;
                 padding: 0;
                 margin: 0;
-                {block:IfUseImageBackground}background: url('http://static.tumblr.com/fpdiq1j/Jasm3tn2g/wallpaper.png') fixed;{/block:IfUseImageBackground}
-                {block:IfNotUseImageBackground}background-color: {color:Background};{/block:IfNotUseImageBackground}                
+                height: 100%;  
                 z-index: -1;
                 font-family: 'Arial', sans-serif;
                 font-size: 12px;
@@ -41,8 +43,8 @@
                 text-decoration: underline;
             }
             
-            .menu_bar .left_corner, .menu_bar .apple_logo, .menu_bar .mac_logo, .menu_bar .right_corner, .icons .computer, .icons .info, .icons .folder, .icons .page, .icons .trash, .window .top, .window .bottom, .dock .left_corner, .dock .right_corner {
-                background-image: url('http://static.tumblr.com/fpdiq1j/q1gm40vc0/master_sprite_smaller.png');
+            .menu_bar .left_corner, .menu_bar .apple_logo, .menu_bar .mac_logo, .menu_bar .right_corner, .icons .computer, .icons .info, .icons .folder, .icons .page, .icons .trash, .window .top, .window .bottom, .description .top, .description .bottom, .dock .left_corner, .dock .right_corner, .ok_button {
+                background-image: url('http://static.tumblr.com/fpdiq1j/SbBm5x8aj/master_sprite.png');
                 display: block;
                 margin: auto;
             }
@@ -84,30 +86,46 @@
                 float: left;
             }
             
-            .menu_bar .tab .name {
+            .menu_bar #nav .menu .name {
                 margin: 0 0 0 10px;
                 padding: 0 5px;
                 float: left;
+                font-size: 12px;
                 line-height: 20px;
             }
             
             .tab_click {
-                background-color: darkBlue;
+                background-color: #00008B;
                 color: white;
             }
             
-            .menu_bar .tab .menu {
+            .menu_bar #nav .menu .dropdown {
                 position: fixed;
                 background-color: #D5D5D5;
-                border: 1px solid rgba(0, 0, 0, 0.5);
+                border-right: 1px solid rgba(0, 0, 0, 0.5);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+                border-left: 1px solid rgba(0, 0, 0, 0.5);
                 color: black;
-                font-weight: bold;
+                line-height: 17px;
                 border-radius: 0px 0px 4px 4px;
-                top: 19px;
-                margin-left: -47px;
-                padding: 5px;
+                top: 20px;
+                padding: 1px 5px;
                 z-index: 6;
+                margin: 0;
+                list-style-type: none;
                 display: none;
+            }
+            
+            .menu a {
+                color: black;
+                text-decoration: none;
+            }
+            
+            ul#nav, li.menu, ul.dropdown {
+                padding: 0;
+                margin: 0;
+                display: inline;
+                list-style-type: none;
             }
             
             .menu_bar .clock {
@@ -128,7 +146,7 @@
                 position: fixed;
                 z-index: 1;
                 top: 68px;
-                right: 20px;
+                right: 3%;
             }
             
             .icons .computer {
@@ -171,25 +189,37 @@
                 width: 75px;
             }
             
-            .info {
-                background: url('http://www.guidebookgallery.org/pics/gui/applications/multimedia/sound/macos80.png');
+            .description {
                 position: fixed;
-                z-index: 3;
-                width: 269px;
-                height: 81px;
-                bottom: 20px;
-                right: 20px;
-                display: none
+                top: 100px;
+                left: 3%;
+                z-index: 4;
+                width: 255px;
             }
             
-            .info .content {
-                position: relative;
-                top: 24px;
-                left: 9px;
-                background: white;
-                font-size: 11px;
-                max-width: 250px;
-                height: 48px;
+            .description .top {
+                background-position: 0 -76px;
+                width: 255px;
+                height: 23px;
+            }
+            
+            .description .middle {
+                background: url('http://static.tumblr.com/fpdiq1j/lN6m5x85p/about_middle.png') repeat-y;
+                width: 235px;
+                padding: 0 10px 1px 10px;
+            }
+            
+            .description .ok_button {
+                background-position: -255px -76px;
+                margin: 9px auto;
+                width: 80px;
+                height: 26px;
+            }
+            
+            .description .bottom {
+                background-position: 0px -99px;
+                width: 255px;
+                height: 8px;
             }
             
             .applications {
@@ -220,10 +250,10 @@
                 margin-bottom: 20px;
             }
 
-            .window .bottom a { /*permalink*/
+            .window .bottom a {
                 font-size: 11px;
+                line-height: 16px;
                 position: relative;
-                top: 1px;
                 left: 10px;
             }
 
@@ -247,23 +277,35 @@
                 z-index: 5;
             }
             
+            .caption {
+                margin: 3px 0 0 0;
+            }
+            
             .title {
                 font-size: 1.4em;
-                margin-bottom: 3px;
+                margin: 0 0 3px 0;
             }
             
             .body .label {
                 font-weight: bold;
             }
             
-            .body img, .caption img {
+            .body img, .caption img, .description img {
                 max-width: 100%;
                 overflow: hidden;
+            }
+            
+            .iab {
+                display: block;
             }
 
             {block:IfNotDisplayCaptions}.caption{
                 display:none;
             }{/block:IfNotDisplayCaptions}
+            
+            {block:IfNotDisplayDescription}.description{
+                display:none;
+            }{/block:IfNotDisplayDescription}
 
             {block:IfNotDisplayHomeIcon}.home{
                 display:none;
@@ -285,116 +327,123 @@
                 display:none;
             }{/block:IfNotDisplayArchiveIcon}
             
-            #infsrc-loading { display: none !important; }
+            /* META */
+        	
+            .meta .posted {
+                margin-top: 10px;
+                padding-top: 5px;
+                border-top: 1px dashed rgba(0,0,0,0.5);
+            }
+            
+			.meta .source, .meta .reblogged_from, .meta .tags {
+				margin-top: 3px;
+			}
+            
+            .meta .source, .meta .reblogged_from {
+                font-size: 11px;
+            }
+            
+			.meta .notes {
+				margin-top: 10px;
+			}
+			
+			ol.notes{
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+			}
+			
+			li.note.with_commentary {
+				margin-bottom: 10px;
+			}
+			
+			.notes span.action {
+				vertical-align: 4px;
+			}
+            
+            /* COMMON */
+            
+            blockquote {
+                margin-left: 10px;
+                padding-left: 10px;
+                border-left: 2px solid rgba(0,0,0,0.50);
+            }
+            
+            #infscr-loading {
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                text-indent: -9999px;
+            }
+            
+            .middle img {
+                max-width: 100%;
+            }
+            
+            .middle a img {
+                border: 0;    
+            }
+            
+            iframe.photoset {
+                display: block;
+            }
+            
+            .middle p:first-child, ul:first-child, ol:first-child, blockquote:first-child {
+                margin-top: 0;
+            }
+            
+            /*.middle p:only-child, ul:only-child, ol:only-child, blockquote:only-child {
+                margin-top: 0;
+                margin-bottom: 0;   
+            }*/
+            
+            .middle p:last-child, ul:last-child, ol:last-child, blockquote:last-child {
+                margin-bottom: 0;
+            }
         
             {CustomCSS}
+            
+            /* CSS specific to the JS */
+            
+            #file_menu {
+                left: 38px;
+            }
+            
+            #edit_menu {
+                left: 89px;
+            }
+            
+            #filters_menu {
+                left: 139px;
+            }
+            
+            #options_menu {
+                left: 193px;
+            }
+            
+            .calculator {
+                display: none;
+                position: absolute;
+                bottom: 50px;
+                left: 3%;
+            }
+            
+            .calculator .display {
+                background-color: white;
+                height: 16px;
+                width: 80px;
+                text-align: right;
+                position: absolute;
+                top: 28px;
+                left: 10px;
+                font-size: 10px;
+            }
         </style>
 
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/tX3lzjorq/jquery.infinitescroll.min.js"></script>
-        <script type="text/javascript">
-		function showClock(){
-		    var currentTime = new Date();
-		    var hours = currentTime.getHours();
-		    var minutes = currentTime.getMinutes();
-		    if (minutes < 10) {
-		        minutes = "0" + minutes;
-		    }
-		    var suffix = "AM";
-		    if (hours >= 12) {
-		        suffix = "PM";
-		        hours = hours - 12;
-		    }       
-		    if (hours == 0) {
-		        hours = 12;
-		    }
-		    var timeString = hours + ":" + minutes + " " + suffix;
-		    $("#showClock").html(timeString);
-		}
-
-		$(document).ready(function(){
-		   showClock();
-		   setInterval(showClock, 600);
-
-		   $('.desktop').infinitescroll({
-		       navSelector  : ".navigation",
-		       nextSelector : "a.next",
-		       itemSelector : ".applications"
-		   });
-
-		   $(".mac_logo").click(function () {
-		       $(".info").fadeToggle();
-		       //$(".info").draggable();
-		   });
-
-			$("#file").click(function () {
-			    $("#file_menu").slideToggle();
-				$(this).toggleClass('tab_click');
-			});
-
-			$("#options").click(function () {
-			    $("#options_menu").slideToggle();
-				$(this).toggleClass('tab_click');
-			});
-
-			$("#filters").click(function () {
-		   		$("#filters_menu").slideToggle();
-				$(this).toggleClass('tab_click');
-			});
-
-		   $('#filterText').click( function() {
-		       hideAllBut('text');
-		   });
-
-		   $('#filterPhoto').click( function() {
-		       hideAllBut('photo');
-		   });
-
-		   $('#filterPhotoset').click( function() {
-		       hideAllBut('photoset');
-		   });
-
-		   $('#filterQuote').click( function() {
-		       hideAllBut('quote');
-		   });
-
-		   $('#filterLink').click( function() {
-		       hideAllBut('link');
-		   });
-
-		   $('#filterChat').click( function() {
-		       hideAllBut('chat');
-		   });
-
-		   $('#filterAudio').click( function() {
-		       hideAllBut('audio');
-		   });
-
-		   $('#filterVideo').click( function() {
-		       hideAllBut('video');
-		   });
-
-		   $('#filterReset').click( function() {
-		       $('.post').each(function(){
-		           $(this).slideDown('slow');
-		       });
-		   })
-
-			function hideAllBut(type) {
-				var type = 'type_' + type;
-				$('.post').each(function() {
-					if(!$(this).hasClass(type)) {
-						$(this).slideUp('slow');
-					} else {
-		         		$(this).slideDown('slow');
-		    		}
-		    	});
-			 }
-		});
-		</script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/VgBm8gxvq/maccy.js"></script>
     </head>
-    
     <body>
         <div class="desktop">
             <div class="menu_bar">
@@ -402,51 +451,61 @@
                 <a href="/">
 					<span class="apple_logo"></span>
 				</a>
-                <span class="tab">
-					<span class="name" id="file">
-						File
-					</span>
-					<ul class="menu" id="file_menu">
-						<li>This theme by</li>
-						<li>Ed Adams<li>
-                   		<br>
-						<li>Images &amp; art by</li>
-						<li>Apple</li>
-					</ul>
-				</span>
-                <span class="tab">
-					<span class="name" id="edit">
-						Edit
-					</span>
-				</span>
-                <span class="tab">
-					<span class="name" id="options">
-						Options
-					</span>
-					<ul class="menu" id="options_menu">
-						<li id="allowDragging">Allow Dragging</li>
-						<li id="doFullScreen">Enable Full Screen</li>
-						<li id="showWidgets">Show Extras</li>
-						<li id="hideWidgets">Hide Extra</li>
-						<li id="launchCalculator">Launch Calculator</li>
-					</ul>
-				</span>
-                <span class="tab">
- 					<span class="name" id="filters">
-						Filters
-					</span>
-                	<ul class="menu" id="filters_menu">
-						<li id="filterText">Filter Text</li>
-                    	<li id="filterPhoto">Filter Photo</li>
-                   		<li id="filterPhotoset">Filter Photoset</li>
-                  		<li id="filterQuote">Filter Quote</li>
-                 		<li id="filterLink">Filter Link</li>
-                  		<li id="filterChat">Filter Chat</li>
-                   		<li id="filterAudio">Filter Audio</li>
-                   		<li id="filterVideo">Filter Video</li>
-                   		<li id="filterReset"><center>Reset</center></li>
-					</ul>
-				</span>
+                <ul id="nav">
+                    <li class="menu">
+					    <span class="name" id="file">
+						    About
+					    </span>
+					    <ul class="dropdown" id="file_menu">
+						    <li>Theme by</li>
+						    <li><a href="http://edada.ms">Ed Adams</a><li>
+						    <li>Art by</li>
+						    <li><a href="http://apple.com">Apple</a></li>
+                            <li>Powered by</li>
+                            <li><a href="http://tumblr.com">Tumblr</a></li>
+					    </ul>
+                    </li>
+                    <li class="menu">
+					    <span class="name" id="edit">
+						    Links
+					    </span>
+                        <ul class="dropdown" id="edit_menu">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/ask">Ask</a></li>
+                            <li><a href="/submit">Submit</a></li>
+                            <li><a href="/archive">Archive</a></li>
+                            <li><a href="/rss">RSS</a></li>
+                            <li><a href="/random">Random Post</a></li>
+                        </ul>
+                    </li>
+				    <li class="menu">
+ 					    <span class="name" id="filters">
+						    Filters
+					    </span>
+                	    <ul class="dropdown" id="filters_menu">
+						    <li id="filterText">Filter Text</li>
+                    	    <li id="filterPhoto">Filter Photo</li>
+                   		    <li id="filterPhotoset">Filter Photoset</li>
+                  		    <li id="filterQuote">Filter Quote</li>
+                 		    <li id="filterLink">Filter Link</li>
+                  		    <li id="filterChat">Filter Chat</li>
+                   		    <li id="filterAudio">Filter Audio</li>
+                   		    <li id="filterVideo">Filter Video</li>
+                            <li id="filterAsks">Filter Asks</li>
+                   		    <li id="filterReset"><em>Reset</em></li>
+                        </ul>
+					</li>
+                    <li class="menu">
+    				    <span class="name" id="options">
+						    Options
+					    </span>
+					    <ul class="dropdown" id="options_menu">
+						    <li id="allowDragging">Allow Dragging</li>
+						    <li id="doFullScreen">Enable Full Screen</li>
+                            <li id="launchCalculator">Launch Calculator</li>
+					    </ul>
+                    </li>
+				</ul>
                 <span class="mac_logo"></span>
                 <span class="clock" id="showClock">00:00 PM</span>
                 <div class="right_corner"></div>
@@ -485,14 +544,20 @@
                     <div class="label">Archive</div>
                 </a>
             </div>
-            <div class="info">
-                <div class="content">
-                    This is a Tumblr blog, using a theme designed to look like Mac OS 8. It was made by <a href="http://edada.ms">Ed</a>, who will soon make it available for everyone to use. 
+            <div class="calculator"><img src="http://static.tumblr.com/fpdiq1j/T0Am4qtp9/calculator.png" /><div class="display"></div></div>
+            {block:Description}
+                <div class="description">
+                    <div class="top"></div>
+                    <div class="middle">
+                        {Description}
+                        <div class="ok_button" id="closeDescription"></div>
+                    </div>
+                    <div class="bottom"></div>
                 </div>
-            </div>
-            <div class="applications">
+            {/block:Description}
+            <div class="applications" style="width: 650px;">
                 {block:Posts}
-					<div class="window type_{PostType}">
+					<div class="window type_{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}" style="float: right;">
                     	<div class="top"></div>
 	                    <div class="middle">
 	                       {block:Text}
@@ -507,7 +572,7 @@
 	                        {/block:Text}
 
 	                        {block:Photo}
-	                            <img src="{PhotoURL-500}" alt="{PhotoAlt}" />
+	                            <img class="iab" src="{PhotoURL-500}" alt="{PhotoAlt}" />
 	                            {block:Caption}
 	                                <div class="caption">
 	                                    {Caption}
@@ -575,19 +640,35 @@
 	                                    </div>
 	                                {/block:Caption}
 	                            {/block:Audio}
-                        
-	                            {block:PermalinkPage}
-	                                <div class="attribution">
-	                                    {block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource} 
-	                                </div>
-	                                <div class="notes">
-	                                    {block:PostNotes}  
-	                                        {PostNotes}
-	                                    {/block:PostNotes}
-	                                </div>
-	                            {/block:PermalinkPage}
+                                {block:PermalinkPage}{block:Date}
+	                                <div class="meta" style="display: block;">
+    						            <div class="posted">
+								            Posted: {DayOfWeek} {DayOfMonth}{DayOfMonthSuffix} {Month} at {12Hour}:{Minutes}{AmPm}
+							            </div>
+							            {block:HasTags}
+								            <div class="tags">
+									            Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}
+								            </div>
+							            {/block:HasTags}
+							            {block:ContentSource}
+							            	<div class="source">
+									            Source: <a href="{SourceURL}">{SourceTitle}</a>
+								            </div>
+								            {block:RebloggedFrom}
+									            <div class="reblogged_from">
+										            Reblogged From: <a href="{ReblogParentURL}">{ReblogParentName}</a>
+									            </div>
+								            {/block:RebloggedFrom}
+							            {/block:ContentSource}
+							            {block:PostNotes}
+								            <div class="notes">
+								            	{PostNotes}
+								            </div>
+							            {/block:PostNotes}
+						            </div>
+	                            {/block:Date}{/block:PermalinkPage}
 	                        </div>
-	                    <div class="bottom">
+	                    <div class="bottom" style="float: none; clear: both;">
 	                        {block:Date}
 	                            <a href="{Permalink}">
 	                                Posted on {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} at {12Hour}:{Minutes} {CapitalAmPm}{block:NoteCount}, with {NoteCountWithLabel}{/block:NoteCount}
@@ -612,20 +693,5 @@
                 <div class="right_corner"></div>
             </div>
         </div>
-        <!-- Start Gaug.es -->
-            <script type="text/javascript">
-                var _gauges = _gauges || [];
-                (function() {
-                    var t   = document.createElement('script');
-                    t.type  = 'text/javascript';
-                    t.async = true;
-                    t.id    = 'gauges-tracker';
-                    t.setAttribute('data-site-id', '4faadab8f5a1f53703000022');
-                    t.src = '//secure.gaug.es/track.js';
-                    var s = document.getElementsByTagName('script')[0];
-                    s.parentNode.insertBefore(t, s);
-                    })();
-            </script>
-        <!-- End Gaug.es -->
     </body>
 </html>

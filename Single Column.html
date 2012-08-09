@@ -1,6 +1,6 @@
 <html>
     <head>
-        <!-- "Single Column" (beta5) theme by edada.ms -->
+        <!-- "Single Column" (v1), by edada.ms -->
         <title>{Title}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
@@ -343,7 +343,7 @@
         
         <link rel="stylesheet" media="screen" href="http://static.tumblr.com/fpdiq1j/OLWm5mcqd/meta_and_controls.css" />
         
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/UhNm5mdj5/single_column.js"></script>
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/ymvm5z9l4/single_column.js"></script>
         
         <script type="text/javascript">
             $(document).ready(function() {
@@ -360,32 +360,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <div class="sidebar">
-                <div class="header">
-                    <a href="/">{Title}</a>
-                </div>
-                {block:IfSidebarImage}<img class="image" src="{image:Sidebar}" />{/block:IfSidebarImage}
-                {block:Description}
-                    <div class="description">
-                        {Description}
-                    </div>
-                {/block:Description}
-                <div class="links">
-                    {block:HasPages}{block:Pages}
-                        <a href="{URL}" class="links-pages">{Label}</a>
-                    {/block:Pages}{/block:HasPages}
-                    {block:AskEnabled}
-                        <a href="/ask" class="links-ask">{AskLabel}</a>
-                    {/block:AskEnabled}
-                    {block:SubmissionsEnabled}
-                        <a href="/submit" class="links-submit">{SubmitLabel}</a>
-                    {/block:SubmissionsEnabled}
-                    <a href="/archive" class="links-archive">Archive</a>
-                    <a href="{RSS}" class="links-rss">RSS</a>
-                </div>
-            </div>
-    
-            <div id="posts">
+             <div id="posts">
                 {block:Posts}
                     <div class="post">
                         <div class="controls"{block:PermalinkPage} style="display: none;"{/block:PermalinkPage}>
@@ -553,7 +528,32 @@
                     {/block:Date}{/block:PermalinkPage}
                 {/block:Posts}
             </div>
-        
+
+            <div class="sidebar">
+                <div class="header">
+                    <a href="/">{Title}</a>
+                </div>
+                {block:IfSidebarImage}<img class="image" src="{image:Sidebar}" />{/block:IfSidebarImage}
+                {block:Description}
+                    <div class="description">
+                        {Description}
+                    </div>
+                {/block:Description}
+                <div class="links">
+                    {block:HasPages}{block:Pages}
+                        <a href="{URL}" class="links-pages">{Label}</a>
+                    {/block:Pages}{/block:HasPages}
+                    {block:AskEnabled}
+                        <a href="/ask" class="links-ask">{AskLabel}</a>
+                    {/block:AskEnabled}
+                    {block:SubmissionsEnabled}
+                        <a href="/submit" class="links-submit">{SubmitLabel}</a>
+                    {/block:SubmissionsEnabled}
+                    <a href="/archive" class="links-archive">Archive</a>
+                    <a href="{RSS}" class="links-rss">RSS</a>
+                </div>
+            </div>
+
             {block:Pagination}
                 <div id="navigation">
                     {block:NextPage}
