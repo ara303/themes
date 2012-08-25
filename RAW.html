@@ -1,0 +1,215 @@
+<html>
+    <!-- RAW from themes.edada.ms -->
+    <head>
+        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
+        <meta name="color:Text" content="#222" />
+        <meta name="color:Link" content="#000000" />
+        <meta name="color:Link Hover" content="#CCCCCC" />
+        <meta name="if:Photo Captions" content="1" />
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700"></script>
+        <style>
+            html, body { margin: 0; padding: 0; }
+            
+            body {
+                font-size: 0.9em;
+                line-height: 1.1em;
+                overflow-x: hidden;
+                font-family: 'PT Sans';
+                color: {color:Text};
+            }
+            
+            a {
+                color: {color:Link};
+            }
+            
+            a:hover {
+                color: {color:Link Hover};
+            }
+        
+            header {
+                width: 17%;
+                float: left;
+                display: block;
+                height: 100%;
+                padding: 2% 1% 0 1%;
+                position: fixed;
+            }
+            
+            header img {
+                width: 100%;
+                max-width: 150px;
+                display: block;
+                margin: auto;
+            }
+            
+            header h4 {
+                font-weight: normal;
+                margin: 0;
+            }
+            
+            header aside, header h4, header nav {
+                margin: 5% 0;
+            }
+            
+            header nav {
+                font-size: smaller;
+            }
+            
+            .container {
+                width: 80%;
+                float: left;
+                display: block;
+                height: 100%;
+                margin: 2% 0 0 19%;
+            }
+            
+            article {
+                margin-bottom: 5%;
+            }
+            
+            article.text, article.link, article.chat, article.answer {
+                width: 70%;
+            }
+            
+            article img {
+                max-width: 100%;
+            }
+            
+            article p:empty, article h3:empty {
+                display: none;
+            }
+            
+            article p, article h3 {
+                margin-top: 0;
+            }
+            
+            article section {
+                font-size: smaller;
+            }
+            
+            body > nav {
+                width: 150px;
+                margin: 0 auto 1em;
+                height: 1em;
+                clear: both;
+            }
+            
+            nav .next {
+                float: right;
+            }
+            
+            nav .previous {
+                float: left;
+            }
+            
+            .hide_if_last:last-child {
+                display: none;
+            }
+            
+            {CustomCSS}
+        </style>
+        <script>
+        </script>
+    </head>
+    <body class="tumblr RAW {block:IndexPage}index-page{/block:IndexPage}{block:PermalinkPage}permalink-page{/block:PermalinkPage}">
+    
+        <div id="bg-grad"></div>
+    
+        <header>
+            <a href="/">
+                <img src="{PortraitURL-128}" />
+            </a>
+            <h4>{Title}</h4>
+            <aside>{block:Description}{Description}{/block:Description}</aside>
+            <nav><p>{block:HasPages}{block:Pages}<a href="{URL}">{Label}</a> / {/block:Pages}{/block:HasPages}{block:AskEnabled}<a href="/ask">Ask</a> / {/block:AskEnabled}{block:SubmissionsEnabled}<a href="/submit">Submit</a>{/block:SubmissionsEnabled}</p></nav>
+        </header>
+        <section class="container">
+            {block:Posts}
+                <article class="{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}">
+                    {block:Text}
+                        <h3>{Title}</h3>
+                        {Body}
+                    {/block:Text}
+                    
+                    {block:Photo}
+                        <img src="{PhotoURL-HighRes}" />
+                        {block:IfPhotoCaptions}{Caption}{/block:IfPhotoCaptions}
+                    {/block:Photo}
+                    
+                    {block:Photoset}
+                        {Photoset-700}
+                        {Caption}
+                    {/block:Photoset}
+                    
+                    {block:Quote}
+                        <h3>"{Quote}"</h3>
+                        - {Source}
+                    {/block:Quote}
+                    
+                    {block:Video}
+                        {Video-700}
+                        {Caption}
+                    {/block:Video}
+                    
+                    {block:Link}
+                        <h3><a href="{URL}">{Name} &rarr;</a></h3>
+                        {Description}
+                    {/block:Link}
+                    
+                    {block:Chat}
+                        <h3>{Title}</h3>
+                        {block:Lines}
+                            <p>
+                                {block:Label}{Label}{/block:Label} {Line}
+                            </p>
+                        {/block:Lines}
+                    {/block:Chat}
+                    
+                    {block:Audio}
+                        {block:AlbumArt}<img src="{AlbumArtURL}" />{/block:AlbumArt}
+                        {AudioPlayer}
+                        {Caption}
+                    {/block:Audio}
+                    
+                    {block:Answer}
+                        <h3>{Asker} asked {Question}</h3>
+                        {Answer}
+                    {/block:Answer}
+                    
+                    <section>
+                        {block:Date}
+                            <p>
+                                <a href="{Permalink}">{NoteCount}</a>
+                            <p>
+                            {block:PermalinkPage}
+                                <p style="display: none;">{block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{/block:ContentSource}{block:RebloggedFrom}, via: <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource}</p>
+                                <p>
+                                    Posted at {12Hour}:{Minutes} {CapitalAmPm} on {DayOfWeek} {DayOfMonth}{DayOfMonthSuffix} {Month}
+                                </p>
+                                <p>
+                                {block:HasTags}
+                                    <p>
+                                        Tagged: {block:Tags}<a href="{TagURL}">{Tag}</a><span class="hide_if_last">, </span>{/block:Tags}
+                                    </p>
+                                {/block:HasTags} 
+                                {block:PostNotes}
+                                    <p>
+                                        {PostNotes}
+                                    </p>
+                                {/block:PostNotes}
+                            {/block:PermalinkPage}
+                        {/block:Date}
+                    </section>
+                </article>
+            {/block:Posts}
+        </section>
+        <nav>
+            {block:NextPage}
+                <a class="next" href="{NextPage}">Next &rarr;</a>
+            {/block:NextPage}
+            {block:PreviousPage}
+                <a class="previous" href="{PreviousPage}">&larr; Previous</a>
+            {/block:PreviousPage}
+        </nav>
+    </body>
+</html>
