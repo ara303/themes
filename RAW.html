@@ -2,24 +2,20 @@
     <!-- RAW from themes.edada.ms -->
     <head>
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
-        {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
-        <link rel="shortcut icon" href="{Favicon}" />
-        <link rel="alternate" type="application/rss+xml" href="{RSS}" />
-        <meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
-        
         <meta name="color:Text" content="#222" />
         <meta name="color:Link" content="#000000" />
         <meta name="color:Link Hover" content="#CCCCCC" />
+        <meta name="font:Text" content="Arial">
         <meta name="if:Photo Captions" content="1" />
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700"></script>
+        <meta name="if:Display Title" content="1" />
+        <meta name="if:Display Icon" content="1" />
         <style>
-            html, body { margin: 0; padding: 0; }
-            
             body {
+                padding: 0;
+                margin: 0;
                 font-size: 0.9em;
                 line-height: 1.1em;
-                overflow-x: hidden;
-                font-family: 'PT Sans';
+                font-family: {font:Text};
                 color: {color:Text};
             }
             
@@ -84,7 +80,7 @@
                 display: none;
             }
             
-            article p, article h3 {
+            article > p, article > h3 {
                 margin-top: 0;
             }
             
@@ -116,15 +112,12 @@
         <script>
         </script>
     </head>
-    <body class="tumblr RAW {block:IndexPage}index-page{/block:IndexPage}{block:PermalinkPage}permalink-page{/block:PermalinkPage}">
-    
-        <div id="bg-grad"></div>
-    
+    <body class="tumblr RAW {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}">
         <header>
-            <a href="/">
-                <img src="{PortraitURL-128}" />
-            </a>
-            <h4>{Title}</h4>
+            {block:IfDisplayIcon}<a href="/">
+                <img src="{PortraitURL-128}" title="{Title}" />
+            </a>{/block:IfDisplayIcon}
+            {block:IfDisplayTitle}<h4>{Title}</h4>{/block:IfDisplayTitle}
             <aside>{block:Description}{Description}{/block:Description}</aside>
             <nav><p>{block:HasPages}{block:Pages}<a href="{URL}">{Label}</a> / {/block:Pages}{/block:HasPages}{block:AskEnabled}<a href="/ask">Ask</a> / {/block:AskEnabled}{block:SubmissionsEnabled}<a href="/submit">Submit</a>{/block:SubmissionsEnabled}</p></nav>
         </header>
@@ -165,7 +158,7 @@
                         <h3>{Title}</h3>
                         {block:Lines}
                             <p>
-                                {block:Label}{Label}{/block:Label} {Line}
+                                {block:Label}<strong>{Label}</strong>{/block:Label} {Line}
                             </p>
                         {/block:Lines}
                     {/block:Chat}
