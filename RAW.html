@@ -2,6 +2,11 @@
     <!-- RAW from themes.edada.ms -->
     <head>
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
+        {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
+        <link rel="shortcut icon" href="{Favicon}" />
+        <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+        <meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
+        
         <meta name="color:Text" content="#222" />
         <meta name="color:Link" content="#000000" />
         <meta name="color:Link Hover" content="#CCCCCC" />
