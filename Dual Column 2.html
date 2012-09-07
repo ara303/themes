@@ -31,10 +31,6 @@
         <meta name="if:Hide Pages" content="0" />
     
         <style type="text/css">
-            html {
-                -webkit-font-smoothing: antialiased;
-            }
-            
            body {
                 background: {color:Background} url('{image:Background}') fixed;
                 {block:IfBackgroundCover}background-size: cover;{/block:IfBackgroundCover}
@@ -69,7 +65,7 @@
                 visibility: hidden;
             }
         
-            /* --- Page layout --- */
+            /* LAYOUT */
 
             .container {
                 margin: auto;
@@ -130,15 +126,14 @@
               border-top: 0;
             }
             
-            /* --- Handle posts --- */
+            /* POSTS */
 
-            #posts {
+            .posts {
                 margin-left: 138px;
             }
 
-            .post, .meta {
+            .posts > div {
                 font-family: {font:Posts};
-                width: 400px;
                 margin: 10px;
                 float: left;
                 background-color: {color:Post Background};
@@ -146,43 +141,51 @@
                 z-index: 1;
                 {block:IfShadows}box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2),0 2px 4px rgba(0, 0, 0, 0.2);{/block:IfShadows}
             }
-        
-            .text, 
-            .quote,
-            .post .link,
-            .chat,
-            .ask,
-            .caption{
-                padding: 10px;
+
+            .posts > .photo,
+            .posts > .photoset,
+            .posts > .video,
+            .posts > .audio {
+                width: {block:IndexPage}4{/block:IndexPage}{block:PermalinkPage}5{/block:PermalinkPage}00px;
             }
-            
-            .post.permalink, .meta {
-                width: 500px;
-                float: left;
-                margin-left: 10px;
+
+            .posts > .text,
+            .posts > .link,
+            .posts > .quote,
+            .posts > .chat,
+            .posts > .answer {
+                padding: 10px;
+                width: {block:IndexPage}3{/block:IndexPage}{block:PermalinkPage}4{/block:PermalinkPage}80px;
             }
             
             .meta {
+                clear: both;
+                padding: 10px;
+                margin-left: 10px;
                 width: 480px;
             }
-
-            .title, a.title {
+            
+            .title {
                 font-size: 18px;
                 font-weight: bold;
                 line-height: 20px;
-                margin:  0 0 5px 0;
+                margin-bottom: 5px;
+            }
+            
+            .caption {
+                padding: 10px;
             }
         
-            /* -- Navigation stuff --- */
+            /* NAVIGATION */
   
-            #navigation {
+            .navigation {
                 clear: both;
                 font-size: 20px;
                 height: 30px;
                 padding: 20px 5px 20px 5px;
             }
         
-            #navigation .next { /* Back */
+            .navigation .next {
                 float: left;
                 background-color: {color:Post Background};
                 padding: 5px;
@@ -190,7 +193,7 @@
                 {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
             }
             
-            #navigation .previous { /* Forward */
+            .navigation .previous {
                 float: right;
                 background-color: {color:Post Background};
                 padding: 5px;
@@ -198,7 +201,7 @@
                 {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
             }
   
-            /* --- Aesthetic improvements --- */
+            /* MISC. */
         
             .photo img, .video iframe, .photoset, .audio img {
                 display: block;
@@ -252,7 +255,7 @@
             
             /* CONTROLS */
             
-            .post:hover .controls {
+            .posts > div:hover .controls {
                 opacity: 1;
                 transition: opacity 0.1s ease-in;
                 -webkit-transition: opacity 0.1s ease-in;
@@ -268,7 +271,7 @@
                 display: none !important;
             }{/block:IfHideTitle}
         
-            {block:IfNotDisplayCaptions}.caption{
+            {block:IfNotDisplayCaptions}.caption {
                 display: none;
             }{/block:IfNotDisplayCaptions}
         
@@ -280,7 +283,7 @@
                 width: 840px !important;
             }
             
-            #posts{ 
+            .posts { 
                 margin-left: 0px !important;
             }{/block:IfNotDisplaySidebar}
             
@@ -305,17 +308,22 @@
         
         <script type="text/javascript">
             {block:IndexPage}$(function(){
-                var $container = $('#posts');
+                var $container = $('.posts');
                 $container.imagesLoaded(function(){
                     $container.masonry({
-                        itemSelector: '.post'
+                        itemSelector: '.posts > div'
                     });
                 });
                 {block:IfInfiniteScrolling}$container.infinitescroll({
-                    navSelector: '#navigation', 
-                    nextSelector: '#next-page', 
-                    itemSelector: '.post',
-                    bufferPx: 4000
+                    navSelector: '.navigation', 
+                    nextSelector: '.next a', 
+                    itemSelector: '.posts > div',
+                    bufferPx: 4000,                        
+                    loading: {
+                        img: "http://static.tumblr.com/fpdiq1j/c6Hm9f3wz/loading.gif",
+                        msgText: "<div style='display: none;'>Loading</div>",
+                        finishedMsg: "<div style='display: none;'>Done</div>"
+                    }
                 },
                 function( newElements ) {
                     var $newElems = $( newElements ).css({ opacity: 0 });
@@ -339,8 +347,8 @@
             });
         </script>
     </head>
-    <body class="tumblr dualcolumn2 {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page {block:Posts}type_{PostType}{/block:Posts} id_{PostID}{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners}">
-        <div class="container" id="container">
+    <body class="tumblr dualcolumn2 {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners}">
+        <div class="container">
             <div class="des">
               <div class="pi">
                 <a href="/">
@@ -372,100 +380,84 @@
                 </div>
               </div>
             </div>
-            <div id="posts">
+            <div class="posts">
                 {block:Posts}
-                    <div class="post{block:PermalinkPage} permalink{/block:PermalinkPage}">
+                    <div class="{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}">
                         <div class="controls"{block:PermalinkPage} style="display: none;"{/block:PermalinkPage}>
                             <a class="notecount" href="{Permalink}#notes">{NoteCount}</a>
                             <span class="like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
                             <a href="{ReblogURL}" target="_blank" class="reblog"></a>
                         </div>
                         {block:Text}
-                            <div class="text">
-                                <div class="title">{Title}</div>
-                                <div class="body">{Body}</div>
-                            </div>
+                            <div class="title">{Title}</div>
+                            <div class="body">{Body}</div>
                         {/block:Text}
                         {block:Photo}
-                            <div class="photo">
-                                <img src="{block:IndexPage}{PhotoURL-400}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-500}{/block:PermalinkPage}" alt="{PhotoAlt}" {block:Caption}class="has-caption" {/block:Caption}/>
-                                {block:Caption}
-                                    <div class="caption">
-                                        {Caption}
-                                    </div>
-                                {/block:Caption}
-                            </div>
+                            <img src="{block:IndexPage}{PhotoURL-400}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-500}{/block:PermalinkPage}" alt="{PhotoAlt}"{block:Caption} class="has-caption"{/block:Caption} />
+                            {block:Caption}
+                                <div class="caption">
+                                    {Caption}
+                                </div>
+                            {/block:Caption}
                         {/block:Photo}
                         {block:Photoset}
-                            <div class="photoset">
-                                {block:IndexPage}{Photoset-400}{/block:IndexPage}{block:PermalinkPage}{Photoset-500}{/block:PermalinkPage}
-                                {block:Caption}
-                                    <div class="caption">
-                                        {Caption}
-                                    </div>
-                                {/block:Caption}
-                            </div>
+                            {block:IndexPage}{Photoset-400}{/block:IndexPage}{block:PermalinkPage}{Photoset-500}{/block:PermalinkPage}
+                            {block:Caption}
+                                <div class="caption">
+                                    {Caption}
+                                </div>
+                            {/block:Caption}
                         {/block:Photoset}
                         {block:Quote}
-                            <div class="quote">
-                                <div class="title">"{Quote}"</div>
-                                {block:Source}
-                                    <div class="body">&mdash; {Source}</div>
-                                {/block:Source}
-                            </div>
+                            <div class="title">"{Quote}"</div>
+                            {block:Source}
+                                <div class="body">
+                                    &mdash; {Source}
+                                </div>
+                            {/block:Source}
                         {/block:Quote}
                         {block:Link}
-                            <div class="link">
-                                <a class="title" href="{URL}" {Target}>{Name} »</a>
-                                {block:Description}
-                                    <div class="body">
-                                        {Description}
-                                    </div>
-                                {/block:Description}
-                            </div>
+                            <a class="title" href="{URL}" {Target}>{Name} »</a>
+                            {block:Description}
+                                <div class="body">
+                                    {Description}
+                                </div>
+                            {/block:Description}
                         {/block:Link}
                         {block:Chat}
-                            <div class="chat">
-                                {block:Title}
-                                    <div class="title">{Title}</div>
-                                {/block:Title}
-                                {block:Lines}
-                                    <div class="body">{block:Label}<strong>{Label}</strong>{/block:Label}&nbsp;{Line}</div>
-                                {/block:Lines}
-                            </div>
+                            {block:Title}
+                                <div class="title">{Title}</div>
+                            {/block:Title}
+                            {block:Lines}
+                                <div class="body">{block:Label}<strong>{Label}</strong>{/block:Label}&nbsp;{Line}</div>
+                            {/block:Lines}
                         {/block:Chat}
                         {block:Audio}
-                            <div class="audio">
-                                {block:AlbumArt}
-                                    <img src="{AlbumArtURL}" style="margin-bottom: 3px;" />
-                                {/block:AlbumArt}
-                                {AudioPlayer}
-                                {block:Caption}
-                                    <div class="caption" style="display: block !important;">
-                                        {Caption}
-                                    </div>
-                                {/block:Caption}
-                            </div>
+                            {block:AlbumArt}
+                                <img src="{AlbumArtURL}" style="margin-bottom: 3px;" />
+                            {/block:AlbumArt}
+                            {AudioPlayer}
+                            {block:Caption}
+                                <div class="caption" style="display: block !important;">
+                                    {Caption}
+                                </div>
+                            {/block:Caption}
                         {/block:Audio}
                         {block:Video}
-                            <div class="video">
-                                {block:IndexPage}{Video-400}{/block:IndexPage}{block:PermalinkPage}{Video-500}{/block:PermalinkPage}
-                                {block:Caption}
-                                    <div class="caption">
-                                        {Caption}
-                                    </div>
-                                {/block:Caption}
-                            </div>
+                            {block:IndexPage}{Video-400}{/block:IndexPage}{block:PermalinkPage}{Video-500}{/block:PermalinkPage}
+                            {block:Caption}
+                                <div class="caption">
+                                    {Caption}
+                                </div>
+                            {/block:Caption}
                         {/block:Video}
                         {block:Answer}
-                            <div class="ask">
-                                <div class="title">{Asker} asked: {Question}</div>
-                                <div class="body">{Answer}</div>
-                            </div>
+                            <div class="title">{Asker} asked: {Question}</div>
+                            <div class="body">{Answer}</div>
                         {/block:Answer}
                     </div>
                     {block:PermalinkPage}{block:Date}
-                        <div class="meta caption" style="display: block !important;">
+                        <div class="meta" style="display: block !important;">
                             <div class="notecount">
                                 {NoteCountWithLabel}
                             </div>
@@ -497,15 +489,15 @@
                 {/block:Posts}
             </div>
             {block:Pagination}
-                <div id="navigation">
+                <div class="navigation">
                     {block:NextPage}
                         <div class="next">
-                            <a id="next-page" href="{NextPage}">&larr; Back</a>
+                            <a href="{NextPage}">&larr; Back</a>
                         </div>
                     {/block:NextPage}
                     {block:PreviousPage}
                         <div class="previous">
-                            <a id="previous-page" href="{PreviousPage}">Forward &rarr;</a>
+                            <a href="{PreviousPage}">Forward &rarr;</a>
                         </div>
                     {/block:PreviousPage}
                 </div>
