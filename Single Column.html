@@ -26,6 +26,7 @@
         <meta name="if:Rounded Corners" content="0" />
         <meta name="if:Sidebar On Right" content="1" />
         <meta name="if:Fixed Sidebar" content="1" />
+        <meta name="if:Background Cover" content="0" />
         <meta name="if:Shadows" content="1" />
         <meta name="if:Hide Sidebar Image" content="0" />
         <meta name="if:Hide Title" content="0" />
@@ -37,6 +38,9 @@
         <meta name="if:Hide RSS" content="0" />
 
         <style type="text/css">
+
+            /* I fucking hate the 'dynamic padding' system I used for this. As soon as I get the chance, it's gone. -e */
+
             html, body {
                 padding: 0;
                 margin: 0;
@@ -48,6 +52,7 @@
                 font-size: 12px;
                 line-height: 15px;
                 color: {color:Text};
+                {block:IfBackgroundCover}background-size: cover;{/block:IfBackgroundCover}
             }
     
             a {
@@ -267,7 +272,7 @@
             
             /* CONTROLS */
             
-            .post:hover .controls {
+            .posts > div:hover .controls {
                 opacity: 1;
                 transition: opacity 0.1s ease-in;
                 -webkit-transition: opacity 0.1s ease-in;
@@ -327,8 +332,8 @@
                 {block:IfInfiniteScrolling}$("div.posts").infinitescroll({
                     navSelector: ".navigation", 
                     nextSelector: ".next a", 
-                    itemSelector: ".post",
-                    bufferPx: 400,                        
+                    itemSelector: ".posts > div",
+                    bufferPx: 4000,                        
                     loading: {
                         img: "http://static.tumblr.com/fpdiq1j/c6Hm9f3wz/loading.gif",
                         msgText: "<div style='display: none;'>Loading</div>",
@@ -336,12 +341,12 @@
                     }
                 });{/block:IfInfiniteScrolling}
                 var totalWidth = 128+500+{block:IfPadding}{text:Padding}{/block:IfPadding}{block:IfNotPadding}10{/block:IfNotPadding};
-                $("body > div.wrapper").css('width',totalWidth);
+                $("body div.wrapper").css('width',totalWidth);
                 $("div.sidebar div.links a").first().addClass('first_child');
             });
         </script>
     </head>
-    <body>
+    <body class="tumblr singlecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners}">
         <div class="wrapper">
              <div class="posts">
                 {block:Posts}
@@ -524,7 +529,7 @@
             </div>
 
             {block:Pagination}
-                <div id="navigation">
+                <div class="navigation">
                     {block:NextPage}
                         <div class="next">
                             <a href="{NextPage}" alt="Back">&larr; Back</a>
