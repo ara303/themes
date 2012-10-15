@@ -160,7 +160,7 @@
             .text, 
             .link,
             .quote, 
-            .answer, 
+            .posts > .answer, 
             .chat,
             .caption {
                 padding: 10px;
@@ -275,6 +275,150 @@
             .body > p:first-child, .caption > p:first-child {
                 margin-top: 0;
             }
+            
+            /* ANSWER POSTS - EXPERIMENTAL */
+            
+            .posts > .answer > .question {
+                padding: 5px 6px;
+                background-color: #ccc;
+                border-radius: 3px;
+                font-size: 15px;
+                line-height: 17px;
+            }
+            
+            .question_arrow {
+                position: relative;
+                background: #ccc;
+            }
+            
+            .question_arrow:after {
+                top: 100%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .question_arrow:after {
+                border-color: rgba(0, 0, 0, 0);
+                border-top-color: #ccc;
+                border-width: 5px;
+                left: 7px;
+            }
+            
+            .asked_by {
+                height: 24px;
+                margin: 10px 0 0 0;
+            }
+
+            .asked_by div.asker {
+                line-height: 24px;
+                float: left;
+                display: block;
+                font-size: 12px;
+                margin-left: 6px;
+            }
+            
+            .asked_by div.asker a {
+                font-weight: bold;
+            }
+
+            .asked_by .avatar {
+                float: left;
+            }
+
+            .answer > .response > p {
+                margin: 10px 0 0 0;
+            }
+
+            /* AUDIO POSTS - EXPERIMENTAL */
+            
+            .flip_container {
+    width: 500px;
+    height: 500px;
+    perspective: 1000;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -o-perspective: 1000;
+    -ms-perspective: 1000;
+}
+
+.flip_container .artwork {
+    width: 500px;
+    height: 500px;   
+    transform-style: preserve-3d;
+    transition: 0.4s;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.4s;   
+    -moz-transform-style: preserve-3d;
+    -moz-transition: 0.4s;
+    -o-transform-style: preserve-3d;
+    -o-transition: 0.4s;
+    -ms-transform-style: preserve-3d;
+    -ms-transition: 0.4s;
+}
+
+.flip_container:hover .artwork {
+    transform: rotateY(180deg);    
+    -webkit-transform: rotateY(180deg); 
+    -moz-transform: rotateY(180deg);    
+    -o-transform: rotateY(180deg);  
+    -ms-transform: rotateY(180deg); 
+}
+
+.flip_container:hover .front {
+    z-index: 0;
+} 
+
+.flip_container .face {
+    position: absolute;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+}
+
+.flip_container .front {
+    background-size: 500px;
+    z-index: 10;
+}
+
+.flip_container .back {
+    transform: rotateY(180deg);    
+    -webkit-transform: rotateY(180deg);    
+    -moz-transform: rotateY(180deg);    
+    -o-transform: rotateY(180deg);  
+    -ms-transform: rotateY(180deg); 
+    background: #fff; 
+}
+
+.flip_container .back, .flip_container .front {
+    width: 500px;
+    height: 500px;
+}
+
+.flip_container .back .info {
+    margin: 180px auto 0 auto;
+}
+
+table, tbody, tr, td {
+    border: 0;
+    padding: 0;
+}
+
+table.info tr {
+    height: 25px;
+}
+
+table.info td.label {
+    font-size: smaller;
+    text-transform: uppercase;
+    padding-left: 10px;
+}
+
             
             /* CONTROLS */
             
@@ -448,9 +592,49 @@
 
                         {block:Audio}
                             {block:AlbumArt}
-                                <div class="media">
-                                    <img src="{AlbumArtURL}" alt="{block:TrackName}{TrackName}{/block:TrackName} - {block:Artist}{Artist}{/block:Artist}" />
-                                </div>
+                                <div class="flip_container">
+            <div class="artwork">
+                <div class="face front" style="background-image: url('{AlbumArtURL}');">
+                </div>
+                <div class="face back">
+                    <table class="info">
+                        <tbody>
+                            {block:TrackName}
+                                <tr>                                
+                                    <td class="label">Name:</td>
+                                    <td class="value">{TrackName}</td>
+                                </tr>
+                            {/block:TrackName}
+                            {block:Artist}
+                                <tr>
+                                    <td class="label">Artist:</td>
+                                    <td class="value">{Artist}</td>
+                                </tr>
+                            {/block:Artist}
+                            {block:Album}
+                                <tr>
+                                    <td class="label">Album:</td>
+                                    <td class="value">{Album}</td>
+                                </tr>
+                            {/block:Album}
+                            {block:PlayCount}
+                                <tr>
+                                    <td class="label">Plays:</td>
+                                    <td class="value">{FormattedPlayCount}</td>
+                                </tr>
+                            {/block:PlayCount}
+                            {block:ExternalAudio} 
+                                <tr>
+                                    <td class="label">
+                                        <a class="download" href="{ExternalAudioURL}">{lang:Download}</a>
+                                    </td>
+                                </tr>
+                            {/block:ExternalAudio} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
                             {/block:AlbumArt}
                             <div class="body" style="padding: 10px;">
                                 {AudioPlayerWhite}
@@ -461,10 +645,15 @@
                         {/block:Audio}      
             
                         {block:Answer}
-                            <div class="title">
-                                {lang:Asker asked 2}: {Question}
+                            <div class="question">
+                                {Question}
                             </div>
-                            <div class="body">
+                            <div class="question_arrow"></div>
+                            <div class="asked_by">
+                                <img class="avatar" src="{AskerPortraitURL-24}" />
+                                <div class="asker">{lang:Asked by Asker 2}</div>
+                            </div>
+                            <div class="response">
                                 {Answer}
                             </div>
                         {/block:Answer}
