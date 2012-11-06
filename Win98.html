@@ -12,6 +12,8 @@
         <meta name="color:Background" content="#008080" />
         <meta name="color:Link Color" content="#000000" />
         
+        <meta name="if:Enable Infinite Scrolling" content="1" />
+        <meta name="if:Background Image Cover" content="0" />
         <meta name="if:Display Photo Captions" content="1" />
         <meta name="if:Display Description" content="0" />
         <meta name="if:Display Home Icon" content="1" />
@@ -28,6 +30,7 @@
         
             body {
                 background: {color:Background} url('{image:Background}') repeat fixed;
+                {block:IfBackgroundImageCover}background-size: cover;{/block:IfBackgroundImageCover}
                 font-family: 'Arial', sans-serif;
                 font-size: 12px;
             }
@@ -178,6 +181,29 @@
                 z-index: 3;
                 position: relative;
             }   
+            
+            {block:IfEnableInfiniteScrolling}div.navigation, #infscr-loading {
+                display: none !important;
+            }{/block:IfEnableInfiniteScrolling}
+            
+            .navigation {
+                padding-bottom: 55px;
+                height: 20px;
+                font-weight: bold;
+            }
+            
+            .navigation .next, .navigation .previous {
+                background-color: #FFFFFF;
+                padding: 3px 4px;
+            }
+            
+            .navigation .next {
+                float: left;
+            }
+            
+            .navigation .previous {
+                float: right;
+            }
         
             .window {
                 width: 480px;
@@ -207,7 +233,21 @@
             .middle .caption {
                 margin-top: 5px;
             }
-        
+            
+            .middle .video_player embed { 
+                display: block;
+                width: 444px !important;
+                max-width: 444px !important;
+            }
+            
+            .middle .video_player iframe { 
+                display: block;
+                width: 444px !important;
+                max-width: 444px !important;
+                height: 249px !important;
+                max-height: 249px !important;
+            }
+            
             .window .bottom {
                 height: 22px;
             }
@@ -399,9 +439,14 @@
         
             {CustomCSS}
         </style>
+        
+        
     
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/bTQm8gyse/win98.js"></script>
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/S5Jmd2p8d/win98.js"></script>
+        <script type="text/javascript">
+            var has_infinite_scrolling = {block:IfEnableInfiniteScrolling}true{/block:IfEnableInfiniteScrolling}{block:IfNotEnableInfiniteScrolling}false{/block:IfNotEnableInfiniteScrolling};
+        </script>
     </head>
 
     <body>
@@ -437,7 +482,7 @@
 
                 <a href="/archive" class="archive">
                     <div class="recycle_bin"></div>
-                    <div class="icon_label">Archive</div>
+                    <div class="icon_label">{lang:Archive}</div>
                 </a>
             </div>
             {block:IfDisplayDescription}
@@ -486,7 +531,9 @@
                             {/block:Photo}
 
                             {block:Photoset}
-                                {Photoset-400}
+                                <div class="photoset_wrapper">
+                                    {Photoset-400}
+                                </div>
                                 {block:Caption}
                                     <div class="caption">
                                         {Caption}
@@ -539,7 +586,9 @@
                             {/block:Chat}
 
                             {block:Video}
-                            {Video-400}
+                                <div class="video_player">
+                                    {Video-500}
+                                </div>
                                 {block:Caption}
                                     <div class="caption">
                                         {Caption}
@@ -558,7 +607,7 @@
                         </div>
                         {block:PermalinkPage}
                             {block:ContentSource}<div class="attribution">(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom})</div>{/block:ContentSource}
-                            {block:HasTags}<div class="tags">Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+                            {block:HasTags}<div class="tags">{lang:Tagged}: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
                             {block:PostNotes}
                                 <div class="notes">  
                                     {PostNotes}
@@ -571,10 +620,10 @@
                 {block:Pagination}
                     <div class="navigation">
                         {block:NextPage}
-                            <a class="next" href="{NextPage}">Next</a>
+                            <a class="next" href="{NextPage}">{lang:Next}</a>
                         {/block:NextPage}
                         {block:PreviousPage}
-                            <a class="prev" href="{PreviousPage}">Previous</a>
+                            <a class="prev" href="{PreviousPage}">{lang:Previous}</a>
                         {/block:PreviousPage}
                     </div>
                 {/block:Pagination}
