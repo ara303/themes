@@ -8,9 +8,12 @@
         <meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
 
         <meta name="color:Background" content="#888DC0" />
+        <meta name="color:Link Color" content="#000000" />
 
         <meta name="image:Background" content="" />
         
+        <meta name="if:Enable Infinite Scrolling" content="1" />
+        <meta name="if:Background Image Cover" content="0" />
         <meta name="if:Display Captions" content="1" />
         <meta name="if:Display Description" content="1" />
         <meta name="if:Display Home Icon" content="1" />
@@ -26,6 +29,7 @@
         
             body {
                 background: {color:Background} url('{image:Background}') repeat fixed;
+                {block:IfBackgroundImageCover}background-size: cover;{/block:IfBackgroundImageCover}
                 padding: 0;
                 margin: 0;
                 height: 100%;  
@@ -35,7 +39,7 @@
             }
 
             a {
-                color: black;
+                color: {color:Link Color};
                 text-decoration: none;
             }
             
@@ -189,6 +193,26 @@
                 width: 75px;
             }
             
+            .navigation {
+                position: relative;
+                font-weight: bold;
+                padding: 0 0 20px 0;
+                height: 20px;
+            }
+            
+            .navigation .next, .navigation .previous {
+                padding: 3px 4px;
+                background-color: #FFFFFF;
+            }
+            
+            .navigation .next {
+                float: right;
+            }
+            
+            iframe[src="http://eathemes.tumblr.com/_iframe.html"] {
+                top: 43px !important;
+            }
+            
             .description {
                 position: fixed;
                 top: 100px;
@@ -328,7 +352,7 @@
             }{/block:IfNotDisplayArchiveIcon}
             
             /* META */
-        	
+            
             .meta .posted {
                 margin-top: 10px;
                 padding-top: 5px;
@@ -442,7 +466,10 @@
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/VgBm8gxvq/maccy.js"></script>
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/v0umd2qzt/maccy.js"></script>
+        <script type="text/javascript">
+            var has_infinite_scrolling = {block:IfEnableInfiniteScrolling}true{/block:IfEnableInfiniteScrolling}{block:IfNotEnableInfiniteScrolling}false{/block:IfNotEnableInfiniteScrolling};
+        </script>
     </head>
     <body>
         <div class="desktop">
@@ -555,9 +582,10 @@
                     <div class="bottom"></div>
                 </div>
             {/block:Description}
-            <div class="applications" style="width: 650px;">
+            <div class="applications" style="position: relative;
+left: 45px;">
                 {block:Posts}
-					<div class="window type_{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}" style="float: right;">
+					<div class="window type_{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}">
                     	<div class="top"></div>
 	                    <div class="middle">
 	                       {block:Text}
@@ -677,17 +705,17 @@
 	                    </div>
                 	</div>
 				{/block:Posts}
+                {block:Pagination}
+                    <div class="navigation">
+                        {block:NextPage}
+                            <a class="next" href="{NextPage}">{lang:Next} &rarr;</a>
+                        {/block:NextPage}
+                        {block:PreviousPage}
+                            <a class="previous" href="{PreviousPage}">&larr; {lang:Previous}</a>
+                        {/block:PreviousPage}
+                    </div>
+                {/block:Pagination}
             </div>
-            {block:Pagination}
-                <div class="navigation">
-                    {block:NextPage}
-                        <a class="next" href="{NextPage}">&larr; Back</a>
-                    {/block:NextPage}
-                    {block:PreviousPage}
-                        <a class="prev" href="{PreviousPage}">Forward &rarr;</a>
-                    {/block:PreviousPage}
-                </div>
-            {/block:Pagination}
             <div class="dock">
                 <div class="left_corner"></div>
                 <div class="right_corner"></div>
