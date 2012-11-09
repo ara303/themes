@@ -37,6 +37,7 @@
         <meta name="if:Hide Archive" content="0" />
         <meta name="if:Hide RSS" content="0" />
 
+        <link rel="stylesheet" type="text/css" href="http://dl.dropbox.com/u/16697297/themes/css/generic.css" />
         <style type="text/css">
             html, body {
                 padding: 0;
@@ -116,20 +117,35 @@
                 margin: auto;
                 width: 128px;
                 display: block;
-                {block:IfRoundedCorners}-moz-border-radius-topleft: 5px;
+                {block:IfNotHideSidebarImage}{block:IfRoundedCorners}-moz-border-radius-topleft: 5px;
                 -moz-border-radius-topright: 5px;
                 border-top-left-radius: 5px;
-                border-top-right-radius: 5px;{/block:IfRoundedCorners}
+                border-top-right-radius: 5px;{/block:IfRoundedCorners}{/block:IfNotHideSidebarImage}
             }
     
-            .sidebar .user_info .header, .sidebar .twitter .tweet_title  {
+            .sidebar .user_info .header {
                 font-size: 13px;
                 text-align: center;
+            }
+            
+            .sidebar .user_info .description img {
+                max-width: 100%;
+            }
+            
+            .sidebar .user_info > div {
                 margin-bottom: 2px;
+            }
+            
+            .sidebar .user_info > div:last-child { 
+                margin-bottom: 0;
             }
             
             .sidebar .user_info .header a {
                 color: {color:Text};
+            }
+            
+            .sidebar .twitter .tweet_title {
+                margin-bottom: 2px;
             }
     
             .sidebar .links a, .tweet_click {
@@ -145,7 +161,7 @@
             
             .sidebar .twitter .tweet_click, .tweet_title > a { 
                 text-decoration: none;
-                color: {color:Text}
+                color: {color:Text};
             }
     
             /* POSTS */
@@ -446,9 +462,6 @@
             {CustomCSS}
         </style>
         
-        <link rel="stylesheet" media="screen" href="http://raw.github.com/edadams/Themes/master/generic/all.css" />
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/bLdmd86qy/single_column.js"></script>
-        
         <!--[if lte IE 8]>
           <script>$('body').addClass('ie8_or_less');</script>
           <style type="text/css" media="screen">
@@ -472,6 +485,7 @@
           <style>
         <![endif]-->
         
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/bLdmd86qy/single_column.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 {block:IfInfiniteScrolling}$("div.posts").infinitescroll({
