@@ -2,7 +2,7 @@
 .caption p,
 .posts p {
     padding: 0;
-    margin: 10px 0;
+    margin: 10px 0 0 0;
 }
 
 .body p:first-child,
@@ -49,4 +49,79 @@ p.read_more_container {
 
 .label {
     font-weight: bold;
+}
+
+/* Includes old meta_and_controls.css */
+            
+.meta > div {
+  margin-bottom: 3px;
+}
+
+.meta ol.notes {
+    margin: 15px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+            
+.meta ol.notes li.note.with_commentary {
+    margin-bottom: 10px;
+}
+            
+.meta ol.notes span.action {
+    vertical-align: 4px;
+}
+
+.controls {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+    -webkit-transition: opacity 0.1s ease-out;
+    -moz-transition: opacity 0.1s ease-out;
+    -o-transition: opacity 0.1s ease-out;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+     filter: alpha(opacity=0);
+}
+
+.controls .notecount, .controls .zoom, .controls .like, .controls .reblog {
+    background-image: url('http://static.tumblr.com/fpdiq1j/ZCKm9zu3o/buttons_sprites.png');
+    float: left;
+    margin: 0 0 0 3px;
+    cursor: pointer;
+}
+
+.controls .notecount {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    color: #FFFFFF;
+    font: bold 13px/18px Helvetica,Arial;
+    padding: 0 3px;
+    border-radius: 2px;
+    text-align: center;
+    min-width: 13px;
+    text-decoration: none;
+}
+
+.controls .zoom { /* TODO eventually implement this */
+    width: 22px;
+    height: 20px;
+    background-position: 0px 0px;
+}
+
+.controls .like {
+    width: 21px;
+    height: 20px;
+    background-position: 64px 0px;
+}
+
+.controls .unlike {
+    background-position: 43px 0px;
+}
+
+.controls .reblog {
+    width: 22px;
+    height: 20px;
+    background-position: 22px 0px;
 }

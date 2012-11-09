@@ -446,7 +446,6 @@
             {CustomCSS}
         </style>
         
-        <link rel="stylesheet" media="screen" href="http://static.tumblr.com/fpdiq1j/tXkm9zug3/meta_and_controls.css" />
         <link rel="stylesheet" media="screen" href="http://raw.github.com/edadams/Themes/master/generic/all.css" />
         <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/bLdmd86qy/single_column.js"></script>
         
@@ -659,31 +658,29 @@
 
                     {block:PermalinkPage}{block:Date}
                         <div class="meta" style="padding: 10px;">
-                            <div class="notecount">
+                            <div>
                                 {lang:TimeAgo with NoteCount notes}
                             </div>
-                            <div class="posted">
+                            <div>
                                 {lang:Posted on DayOfWeek Month DayOfMonthWithSuffix}
                             </div>
                             {block:HasTags}
-                                <div class="tags">
-                                    {lang:Tagged}: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}
+                                <div>
+                                    {lang:Tagged}: {block:Tags}<a class="each_tag" href="{TagURL}">#{Tag}</a> {/block:Tags}
                                 </div>
                             {/block:HasTags}
                             {block:ContentSource}
-                                <div class="source">
-                                    {lang:Source}: <a href="{SourceURL}">{SourceTitle}</a>
+                                <div>
+                                    {lang:Source}: <a class="source_url" href="{SourceURL}">{SourceTitle}</a>
                                 </div>
                                 {block:RebloggedFrom}
-                                    <div class="reblogged_from">
-                                        {lang:Reblogged from}: <a href="{ReblogParentURL}">{ReblogParentName}</a>
+                                    <div>
+                                        {lang:Reblogged from}: <a class="reblog_parent_url" href="{ReblogParentURL}">{ReblogParentName}</a>
                                     </div>
                                 {/block:RebloggedFrom}
                             {/block:ContentSource}
                             {block:PostNotes}
-                                <div class="notes">
-                                    {PostNotes}
-                                </div>
+                                {PostNotes}
                             {/block:PostNotes}
                         </div>
                     {/block:Date}{/block:PermalinkPage}
