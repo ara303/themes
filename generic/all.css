@@ -1,0 +1,52 @@
+.body p,
+.caption p,
+.posts p {
+    padding: 0;
+    margin: 10px 0;
+}
+
+.body p:first-child,
+.caption p:first-child,
+.posts p:first-child {
+    margin-top: 0;
+}
+
+blockquote {
+    margin: 10px 0 0 4px;
+    padding: 0 0 0 9px;
+    border-left: 3px solid rgba(0,0,0,0.25);
+}
+
+ol, ul {
+    padding-left: 20px;
+}
+
+.body img,
+.caption img {
+    display: block;
+    max-width: 100%;
+}
+
+a img {
+    border: 0;
+}
+
+ol.notes img.avatar {
+    width: 16px;
+}
+
+p.read_more_container {
+  margin: 0;
+}
+
+.pull_left {
+    float: left;
+}
+
+.pull_right {
+    float: right;
+}
+
+.label {
+    font-weight: bold;
+}
