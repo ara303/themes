@@ -1,0 +1,332 @@
+	<html>
+		<!-- minute, from themes.edada.ms -->
+		<head>
+			<title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
+			<style>
+				body {
+					margin: 0;
+					font: normal 0.8em/1.4em 'Helvetica Neue',Helvetica,Arial,sans-serif;
+					color: #222222;
+					opacity: 0.9;
+				}
+				
+				a {
+					color: #7A7A7A;
+					text-decoration: none;
+				}
+			
+				.wrapper { 
+					width: 544px;
+					margin: 30px auto;
+					border: 1px solid #E9E9E9;
+				}
+				
+				header {
+					background-color: #E6E6E6;
+					border-bottom: 1px solid #E9E9E9;
+					display: block;
+					padding: 20px;
+					height: 96px;
+				}
+				
+				header > img {
+					float: left;
+				}
+				
+				header > a {
+					color: #222222;
+					display: block;
+					float: left;
+					padding-left: 20px;
+					line-height: 96px;
+					font-size: 1.7em;
+					font-weight: 700;
+					text-shadow: 0 1px 1px #FFFFFF;
+				}
+				
+				section.posts { 
+					padding: 10px;
+					float: left;
+					width: 400px;
+				}
+				
+				section.side {
+					float: left;
+					border-left: 1px solid #E9E9E9;
+					width: 103px;
+					font-size: 0.9em;
+					padding: 0 10px 0 10px;
+					margin-top: 10px;	
+				}
+				
+				section.side.links a {
+					padding: 5px 8px;
+					margin-bottom: 5px;
+					display: block;
+					text-shadow: 0 1px 1px #FFFFFF;
+					color: #222222;
+					background-color: #E6E6E6;
+					-webkit-transition: all 0.3s;
+					-moz-transition: all 0.3s;
+				}
+				
+				section.side.links a:hover {
+					background-color: #DDDDDD;
+					-webkit-transition: all 0.3s;
+					-moz-transition: all 0.3s;
+				}
+				
+				section.side.links a:last-child {
+					margin-bottom: 0;
+				}
+				
+				aside {
+					padding: 10px 0 5px;
+					font-size: 0.8em;
+				}
+				
+				{block:IndexPage}aside a {
+					opacity: 0.6;
+					border-bottom: 1px dotted rgb(122, 122, 122);
+					padding-left: 1px;
+				}
+				
+				aside span {
+					height: 15px;
+					float: right;
+					opacity: 0.0;
+					max-width: 250px;
+					text-align: right;
+					overflow: hidden;
+				}
+				
+				aside span a {
+					margin-right: 4px;
+				}
+				
+				article:hover aside span {
+					opacity: 1.0;
+				}{/block:IndexPage}
+			
+				{block:PermalinkPage}aside {
+					border-top: 1px solid #E6E6E6;
+					margin-top: 10px;
+				}
+				
+				aside ol.notes {
+					margin: 3px 0 0 0;
+					padding: 0;
+					list-style: none;
+				}
+				
+				aside ol.notes span.action {
+					vertical-align: 5px;
+				}{/block:PermalinkPage}
+				
+				article {
+					border-bottom: 1px solid #E9E9E9;
+					margin-bottom: 15px;
+				}
+				
+				article img:not(.avatar) {
+					display: block;
+					width: 100%;
+				}
+				
+				article blockquote {
+					margin: 10px 0 0 0;
+					padding-left: 10px;
+					border-left: 3px solid #E9E9E9;
+				}
+				
+				article ul, article ol {
+					padding-left: 20px;
+					margin: 10px 0 0 0;
+				}
+				
+				article p {
+					margin: 10px 0 0 0;
+				}
+				
+				article p:first-child, article h3 {
+					margin-top: 0;
+				}
+				
+				nav {
+					padding: 0 5px;
+					height: 32px;
+				}
+				
+				nav .p, nav .n {
+					font-size: 52px;
+				}
+				
+				nav .n {
+					float: right;
+				}
+				
+				.cf:before,
+				.cf:after {
+				    content: " ";
+				    display: table;
+				}
+				
+				.cf:after {
+				    clear: both;
+				}
+			</style>
+		</head>
+		<body class='minute'>
+			<section class='wrapper'>
+				<header>
+					<img src='{PortraitURL-96}' alt='{Title}' />
+					<a href='/'>
+						{Title}
+					</a>
+				</header>
+				<section class='cf'>
+					<section class='posts'>
+						{block:Posts}
+							<article class='{PostType}'>
+								{block:Text}
+									{block:Title}
+										<h3 class='title'>
+											{Title}
+										</h3>
+									{/block:Title}
+									{Body}
+								{/block:Text}
+								{block:Photo}
+									{LinkOpenTag}
+										<img src='{PhotoURL-400}' alt='{PhotoAlt}' />
+									{LinkCloseTag}
+									{block:Caption}{Caption}{/block:Caption}
+								{/block:Photo}
+								{block:Photoset}
+									{Photoset-400}
+									{block:Caption}{Caption}{/block:Caption}
+								{/block:Photoset}
+								{block:Video}
+									{Video-400}
+									{block:Caption}{Caption}{/block:Caption}
+								{/block:Video}
+								{block:Quote}
+									<h3>
+										"{Quote}"
+									</h3>
+									{block:Source}{Source}{/block:Source}
+								{/block:Quote}
+								{block:Link}
+									<h3>
+										<a href='{URL}' {Target}>{Name}</a>
+									</h3>
+									{block:Description}
+										{Description}
+									{/block:Description}
+								{/block:Link}
+								{block:Chat}
+									{block:Title}
+										<h3>
+											{Title}
+										</h3>
+									{/block:Title}
+									{block:Lines}
+										<div class='line {Alt}'>
+											{block:Label}
+												<strong>
+													{Label}
+												</strong>
+											{block:Label}
+											{Line}
+										</div>
+									{/block:Lines}
+								{/block:Chat}
+								{block:Audio}
+									{block:AlbumArt}
+										<img src='{AlbumArtURL}' />
+									{/block:AlbumArt}
+									<div class='embed'>
+										{AudioEmbed-400}
+									</div>
+									<div class='native'>
+										{AudioPlayer}
+									</div>
+								{/block:Audio}
+								{block:Answer}
+									<h3>
+										{Asker} asked: {Question}
+									</h3>
+									{Answer}
+								{/block:Answer}
+								{block:Date}
+									<aside>
+										{block:IndexPage}
+											<a href='{Permalink}'>
+												{TimeAgo}
+											</a>
+											{block:HasTags}
+												<span>
+													{block:Tags}
+														<a href='{TagURL}'>
+															#{Tag}
+														</a> 
+													{/block:Tags}
+												</span>
+											{/block:HasTags}
+										{/block:IndexPage}
+										{block:PermalinkPage}
+											<div>
+												{TimeAgo}
+											</div>
+											<div>
+												{NoteCountWithLabel}
+											</div>
+											{block:HasTags}
+												<div>
+													{block:Tags}
+														<a href='{TagURL}'>
+															#{Tag}
+														</a>
+													{/block:Tags}
+												</div>
+											{/block:HasTags}
+											<div>
+												{PostNotes-16}
+											</div>
+										{/block:PermalinkPage}
+									</aside>
+								{/block:Date}
+								<section style='display: none;'>{block:ContentSource}{SourceURL}{/block:ContentSource}{block:RebloggedFrom}{ReblogParentURL}{/block:RebloggedFrom}</section>
+							</article>
+						{/block:Posts}
+					</section>
+					{block:Description}
+						<section class='side description'>
+							{Description}
+						</section>
+					{/block:Description}
+					{block:HasPages}
+						<section class='side links'>
+							{block:Pages}
+								<a href='{URL}'>{Label}</a>
+							{/block:Pages}
+						</section>
+					{/block:HasPages}
+				</section>
+				{block:Pagination}
+					<nav class='cf'>
+						{block:PreviousPage}
+							<a class='p' href='{PreviousPage}'>
+								&larr;
+							</a>
+						{/block:PreviousPage}
+						{block:NextPage}
+							<a class='n' href='{NextPage}'>
+								&rarr;
+							</a>
+						{/block:NextPage}
+					</nav>
+				{/block:Pagination}
+			</section>
+		</body>
+	</html>
