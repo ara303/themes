@@ -67,117 +67,6 @@
                 display: block;
             }
             
-            {block:IfEnableHeaderAnimation}.sidebar a .title:hover {
-                animation: title_dance 0.7s infinite;
-                -webkit-animation: title_dance 0.7s infinite;
-                -moz-animation: title_dance 0.7s infinite;
-                -o-animation: title_dance 0.7s infinite;
-            }
-            
-            @keyframes title_dance {
-                0% {
-                    font-size: 17px;
-                }
-                
-                20% {
-                    font-size: 22px;
-                }
-                
-                40% {
-                    font-size: 17px;
-                }
-                
-                60% {
-                    font-size: 27px;
-                }
-                
-                80% {
-                    font-size: 24px;
-                }
-                
-                100% {
-                    font-size: 17px;
-                }
-            }
-            
-            @-webkit-keyframes title_dance {
-                0% {
-                    font-size: 17px;
-                }
-                
-                20% {
-                    font-size: 22px;
-                }
-                
-                40% {
-                    font-size: 17px;
-                }
-                
-                60% {
-                    font-size: 27px;
-                }
-                
-                80% {
-                    font-size: 24px;
-                }
-                
-                100% {
-                    font-size: 17px;
-                }
-            }
-            
-            @-moz-keyframes title_dance {
-                0% {
-                    font-size: 17px;
-                }
-                
-                20% {
-                    font-size: 22px;
-                }
-                
-                40% {
-                    font-size: 17px;
-                }
-                
-                60% {
-                    font-size: 27px;
-                }
-                
-                80% {
-                    font-size: 24px;
-                }
-                
-                100% {
-                    font-size: 17px;
-                }
-            }
-            
-            @-o-keyframes title_dance {
-                0% {
-                    font-size: 17px;
-                }
-                
-                20% {
-                    font-size: 22px;
-                }
-                
-                40% {
-                    font-size: 17px;
-                }
-                
-                60% {
-                    font-size: 27px;
-                }
-                
-                80% {
-                    font-size: 24px;
-                }
-                
-                100% {
-                    font-size: 17px;
-                }
-            }{/block:IfEnableHeaderAnimation}
-            
             .sidebar ul, .sidebar ul li, ol.notes, ol.notes li.note, ul.meta, ul.meta li {
                 margin: 0;
                 padding: 0;
@@ -287,10 +176,11 @@
 
             {CustomCSS}
         </style>
+        {block:IfEnableHeaderAnimation}<link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/lurmh8vzk/title_animation.css" />{/block:IfEnableHeaderAnimation}
         <script src="http://static.tumblr.com/fpdiq1j/qgnmgy41l/compiled.js"></script>
         <script>
             $(function(){
-                $('.toggle').each(function(e){ // catch the event that's passed with this method - don't do anything with it, but catch it so IE doesn't throw a shitfit.
+                $('.toggle').each(function(e){
                     $(this).click(function(){
                         var toggles = '.' + $(this).attr('data-toggle-for');
                         $(toggles).slideToggle()
@@ -303,7 +193,7 @@
                     navSelector: 'nav',
                     itemSelector: '.posts > article',
                     nextSelector: 'nav .next',
-                    extraScrollPx: 300, 
+                    extraScrollPx: 400, 
                     loading: {
                         msgText: "<div style='display: none'>Loading...</div>",
                         finishedMsg: "<div style='display: none'>Finished!</div>"
@@ -311,14 +201,15 @@
                 }){/block:IfEnableInfiniteScrolling}
             })
         </script>
+        <!--[if IE]><style type="text/css">a img { border: 0; }</style><![endif]-->
+        <!--[if lt IE 9]><script src="http://static.tumblr.com/fpdiq1j/F09mh8vue/html5shiv.js"></script><![endif]-->
     </head>
-    <body>
+    <body class="tumblr untitled {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling}">
         <section class="sidebar">
-                <a href="/">
-            <section class="title">
+            <a href="/">
+                <section class="title">
                     {Title}
-            
-            </section>
+                </section>
             </a>
             <ul class="links">
                 {block:HasPages}
@@ -351,119 +242,117 @@
             </ul>
         </section>
         <section class="posts">
-		        {block:Posts}
-		            <article class="{PostType}">
-		                {block:Text}
-		                    <section class="content">
-		                        {block:Title}
-		                            <h3>{Title}</h3>
-		                        {/block:Title}
-		                        {Body}
-		                    </section>
-		                {/block:Text}
-		                {block:Photo}
-		                    {LinkOpenTag}
-		                        <img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{PhotoURL-500}" class="photo" alt="{PhotoAlt}" />
-		                    {LinkCloseTag}
-		                    {block:Caption}
-		                        <section class="content">
-		                            {Caption}
-		                        </section>
-		                    {/block:Caption}
-		                {/block:Photo}
-		                {block:Photoset}
-		                    {Photoset-500}
-		                    {block:Caption}
-		                        <section class="content">
-		                            {Caption}
-		                        </section>
-		                    {/block:Caption}
-		                {/block:Photoset}
-		                {block:Video}
-		                    {Video-500}
-		                    {block:Caption}
-		                        <section class="content">
-		                            {Caption}
-		                        </section>
-		                    {/block:Caption}
-		                {/block:Video}
-		                {block:Link}
-		                    <section class="content">
-		                        <h3><a href="{URL}" {Target}>{Name}</a></h3>
-		                        {Description}
-		                    </section>
-		                {/block:Link}
-		                {block:Quote}
-		                    <section class="content">
-		                        <h3>"{Quote}"</h3>
-		                        {block:Source}
-		                            <p>&ndash; {Source}</p>
-		                        {/block:Source}
-		                    </section>
-		                {/block:Quote}
-		                {block:Chat}
-		                    <section class="content">
-		                        {block:Title}
-		                            <h3>{Title}</h3>
-		                        {/block:Title}
-		                        {block:Lines}
-		                        	<p>
-		                            	{block:Label}<strong>{Label}</strong>{/block:Label} {Line}
-		                        	</p>
-		                        {/block:Lines}
-		                    </section>
-		                {/block:Chat}
-		                {block:Audio}
-		                    {block:AlbumArt}
-		                        <img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{AlbumArtURL}" />
-		                    {/block:AlbumArt}
-		                    <section class="content">
-		                        {AudioPlayer}
-		                        {block:Caption}
-		                            {Caption}
-		                        {/block:Caption}
-		                    </section>
-		                {/block:Audio}
-		                {block:Answer}
-		                    <section class="content">
-		                        <h3>{Asker} asked: {Question}</h3>
-		                        {Answer}
-		                    </section>
-		                {/block:Answer}
-		                {block:Date}
-                            {block:PermalinkPage}
-                                <section class="toggle" data-toggle-for="meta">
-                                    Info
-                                </section>
-                                <ul class="toggles_me meta">
-                                    <li>Posted {TimeAgo}</li>
-                                    {block:HasTags}<li>Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</li>{/block:HasTags}
-                                    {block:RebloggedFrom}<li>Reblogged From: <a href="{ReblogParentURL}">{ReblogParentName}</a></li>{/block:RebloggedFrom}
-                                    {block:ContentSource}<li>Source: <a href="{SourceURL}">{SourceTitle}</a></li>{/block:ContentSource}
-                                </ul>
-                                <section class="toggle" data-toggle-for="postnotes">{NoteCountWithLabel}</section>
-                                <section class="toggles_me postnotes">{PostNotes}</section>
-                            {/block:PermalinkPage}
-                            {block:IndexPage}
-		                        <aside class="permalink">
-		                            <a href="{Permalink}">{NoteCountWithLabel}</a>
-		                        </aside>
-                            {/block:IndexPage}
-                            <!-- {block:ContentSource}{SourceURL}{/block:ContentSource}{block:RebloggedFrom}{ReblogParentURL}{/block:RebloggedFrom}  -->
-		                {/block:Date}
-		            </article>
-		        {/block:Posts}
-                {block:Pagination}
-                    <nav>
-                        {block:PreviousPage}
-                            <a href="{PreviousPage}" class="previous">&larr; Previous</a>
-                        {/block:PreviousPage}
-                        {block:NextPage}
-                            <a href="{NextPage}" class="next">Next &rarr;</a>
-                        {/block:NextPage}
-                    </nav>
-                {/block:Pagination}
-            </section>
-                
+	        {block:Posts}
+	            <article class="{PostType}{block:Photoset}set{/block:Photoset}">
+	                {block:Text}
+	                    <section class="content">
+	                        {block:Title}
+	                            <h3>{Title}</h3>
+	                        {/block:Title}
+	                        {Body}
+	                    </section>
+	                {/block:Text}
+	                {block:Photo}
+	                    {LinkOpenTag}
+	                        <img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{PhotoURL-500}" class="photo" alt="{PhotoAlt}" />
+	                    {LinkCloseTag}
+	                    {block:Caption}
+	                        <section class="content">
+	                            {Caption}
+	                        </section>
+	                    {/block:Caption}
+	                {/block:Photo}
+	                {block:Photoset}
+	                    {Photoset-500}
+	                    {block:Caption}
+	                        <section class="content">
+	                            {Caption}
+	                        </section>
+	                    {/block:Caption}
+	                {/block:Photoset}
+	                {block:Video}
+	                    {Video-500}
+	                    {block:Caption}
+	                        <section class="content">
+	                            {Caption}
+	                        </section>
+	                    {/block:Caption}
+	                {/block:Video}
+	                {block:Link}
+	                    <section class="content">
+	                        <h3><a href="{URL}" {Target}>{Name}</a></h3>
+	                        {Description}
+	                    </section>
+	                {/block:Link}
+	                {block:Quote}
+	                    <section class="content">
+	                        <h3>"{Quote}"</h3>
+	                        {block:Source}
+	                            <p>&ndash; {Source}</p>
+	                        {/block:Source}
+	                    </section>
+	                {/block:Quote}
+	                {block:Chat}
+	                    <section class="content">
+	                        {block:Title}
+	                            <h3>{Title}</h3>
+	                        {/block:Title}
+	                        {block:Lines}
+	                        	<p>
+	                            	{block:Label}<strong>{Label}</strong>{/block:Label} {Line}
+	                        	</p>
+	                        {/block:Lines}
+	                    </section>
+	                {/block:Chat}
+	                {block:Audio}
+	                    {block:AlbumArt}
+	                        <img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{AlbumArtURL}" />
+	                    {/block:AlbumArt}
+	                    <section class="content">
+	                        {AudioPlayer}
+	                        {block:Caption}
+	                            {Caption}
+	                        {/block:Caption}
+	                    </section>
+	                {/block:Audio}
+	                {block:Answer}
+	                    <section class="content">
+	                        <h3>{Asker} asked: {Question}</h3>
+	                        {Answer}
+	                    </section>
+	                {/block:Answer}
+	                {block:Date}
+                        {block:PermalinkPage}
+                            <section class="toggle" data-toggle-for="meta">
+                                Info
+                            </section>
+                            <ul class="toggles_me meta">
+                                <li>Posted {TimeAgo}</li>
+                                {block:HasTags}<li>Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</li>{/block:HasTags}
+                                {block:RebloggedFrom}<li>Reblogged From: <a href="{ReblogParentURL}">{ReblogParentName}</a></li>{/block:RebloggedFrom}
+                                {block:ContentSource}<li>Source: <a href="{SourceURL}">{SourceTitle}</a></li>{/block:ContentSource}
+                            </ul>
+                            <section class="toggle" data-toggle-for="postnotes">{NoteCountWithLabel}</section>
+                            <section class="toggles_me postnotes">{PostNotes}</section>
+                        {/block:PermalinkPage}
+                        {block:IndexPage}
+	                        <aside class="permalink">
+	                            <a href="{Permalink}">{NoteCountWithLabel}</a>
+	                        </aside>
+                        {/block:IndexPage}
+	                {/block:Date}
+	            </article>
+	        {/block:Posts}
+            {block:Pagination}
+                <nav>
+                    {block:PreviousPage}
+                        <a href="{PreviousPage}" class="previous">&larr; Previous</a>
+                    {/block:PreviousPage}
+                    {block:NextPage}
+                        <a href="{NextPage}" class="next">Next &rarr;</a>
+                    {/block:NextPage}
+                </nav>
+            {/block:Pagination}
+        </section>
     </body>
 </html>
