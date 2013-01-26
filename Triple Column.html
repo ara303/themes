@@ -1,6 +1,6 @@
 <html>
     <head>
-		<!-- Triple Column from themes.edada.ms -->
+    	<!-- Triple Column from themes.edada.ms -->
 		<title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
 		{block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
 		<link rel="shortcut icon" href="{Favicon}" />
@@ -102,7 +102,7 @@
 
 			/* --- Posts specific --- */
 		
-			.post {
+			#posts > div {
 				font-family: {font:Posts};
 				width: 250px;
 				margin: 5px;
@@ -112,6 +112,14 @@
 				z-index: 1;
 				overflow: hidden;
                 {block:IfShadows}box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2),0 2px 4px rgba(0, 0, 0, 0.2);{/block:IfShadows}
+			}
+
+			#posts > .post.double {
+				width: 510px !important;
+			}
+
+			#posts > .post.triple {
+				width: 770px !important;
 			}
             
             .title {
@@ -162,11 +170,12 @@
 		
 			.post .photo img, .post .video, .post .photoset{
 				display: block; /* whitespace fix */
+				max-width: 100%;
 			}
 			
 			.post .photoset{
 				background-color: white;
-				border-radius: 5px; /* whitespace fix for photoset */
+				{block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners} /* whitespace fix for photoset */
 			}
 			
 			.post .video iframe {
@@ -275,7 +284,7 @@
                 var $container = $('#posts');
                 $container.imagesLoaded(function(){
                     $container.masonry({
-                        itemSelector: '.post'
+                        itemSelector: '#posts > div'
                     });
                 });
                 {block:IfInfiniteScrolling}$container.infinitescroll({
@@ -294,7 +303,7 @@
             });{/block:IndexPage}
         </script>
 	</head>
-	<body class="tumblr triplecolumn2 {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfDisplayCaptions}display_captions {/block:IfDisplayCaptions}{block:IfInfiniteScrolling}infinite_scrolling {/block:IfInfiniteScrolling}{block:IfRoundedCorners}rounded_corners {/block:IfRoundedCorners}{block:IfShadows}shadows{/block:IfShadows}">
+	<body class="tumblr triplecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfDisplayCaptions}display_captions {/block:IfDisplayCaptions}{block:IfInfiniteScrolling}infinite_scrolling {/block:IfInfiniteScrolling}{block:IfRoundedCorners}rounded_corners {/block:IfRoundedCorners}{block:IfShadows}shadows{/block:IfShadows}">
 		<div class="container">
 			<div class="header">
 				<div class="heading">
@@ -322,7 +331,7 @@
 			</div>
 			<div id="posts">
 				{block:Posts}
-					<div class="post">
+					<div class="post {TagsAsClasses}">
                         <div class="controls"{block:PermalinkPage} style="display: none;"{/block:PermalinkPage}>
                             <a class="notecount" href="{Permalink}#notes">{NoteCount}</a>
                             <span class="like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
@@ -337,7 +346,7 @@
 						
 						{block:Photo}
 							<div class="photo">
-								<img src="{block:IndexPage}{PhotoURL-250}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-500}{/block:PermalinkPage}"{block:Caption} class="has-caption"{/block:Caption} alt="{PhotoAlt}" />
+								<img src="{PhotoURL-HighRes}"{block:Caption} class="has-caption"{/block:Caption} alt="{PhotoAlt}" />
 								{block:Caption}
 									<div class="caption">
 										{Caption}
