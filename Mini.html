@@ -1,12 +1,11 @@
 <html>
     <!-- Mini, from themes.edada.ms -->
-	<head>
+    <head>
 		<title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
         <meta name="description" content="{MetaDescription}" />
         <link rel="shortcut icon" href="{Favicon}" />
-        <link rel="apple-touch-icon" href="{AvatarURL-128}" />
         <link rel="alternate" type="application/rss+xml" href="{RSS}" />
-        <meta name="font:Font" content="'Helvetica Neue',Helvetica,Arial,sans-serif" />
+        <meta name="font:Font" content=""Helvetica Neue",Helvetica,Arial,sans-serif" />
         <meta name="color:Header" content="#E6E6E6" />
         <meta name="color:Borders" content="#E9E9E9" />
         <meta name="color:Accent" content="#A7A7A7" />
@@ -50,7 +49,6 @@
 				font-size: 1.7em;
 				font-weight: 700;
 				text-shadow: 0 1px 1px #FFFFFF;
-                /* note: won't work in IE6/7 but I don't really care to suppoort them since this is html5 and whatever */
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -193,25 +191,26 @@
             
             {CustomCSS}
 		</style>
-		<!--[if lt IE 9]><script type='text/javascript' src='http://static.tumblr.com/hriofhd/Qj0m8pn7q/html5shiv.js'></script><![endif]-->
-	</head>
-	<body class='minute'>
-		<section class='wrapper'>
+        <!--[if IE]><style type="text/css">a img { border: 0; }</style><![endif]-->
+        <!--[if lt IE 9]><script src="http://static.tumblr.com/fpdiq1j/F09mh8vue/html5shiv.js"></script><![endif]-->
+        </head>
+	<body class="mini">
+		<section class="wrapper">
 			<header>
-				<a href='/'>
-                    <img src='{PortraitURL-96}' alt='{Title}' />
+				<a href="/">
+                    <img src="{PortraitURL-96}" alt="{Title}" />
 				</a>
-                <a class='title' href='/'>
+                <a class="title" href="/">
 					{Title}
 				</a>
 			</header>
-			<section class='cf'>
-				<section class='posts'>
+			<section class="cf">
+				<section class="posts">
 					{block:Posts}
-						<article class='{PostType}'>
+						<article class="{PostType}">
 							{block:Text}
 								{block:Title}
-									<h3 class='title'>
+									<h3 class="title">
 										{Title}
 									</h3>
 								{/block:Title}
@@ -219,7 +218,7 @@
 							{/block:Text}
 							{block:Photo}
 								{LinkOpenTag}
-									<img src='{PhotoURL-400}' class='full' alt='{PhotoAlt}' />
+									<img src="{PhotoURL-400}" class="full" alt="{PhotoAlt}" />
 								{LinkCloseTag}
 								{block:Caption}{Caption}{/block:Caption}
 							{/block:Photo}
@@ -239,7 +238,7 @@
 							{/block:Quote}
 							{block:Link}
 								<h3>
-									<a href='{URL}' {Target}>{Name}</a>
+									<a href="{URL}" {Target}>{Name}</a>
 								</h3>
 								{block:Description}
 									{Description}
@@ -252,7 +251,7 @@
 									</h3>
 								{/block:Title}
 								{block:Lines}
-									<div class='line {Alt}'>
+									<div class="line {Alt}">
 										{block:Label}
 											<strong>
 												{Label}
@@ -264,12 +263,12 @@
 							{/block:Chat}
 							{block:Audio}
 								{block:AlbumArt}
-									<img src='{AlbumArtURL}' />
+									<img src="{AlbumArtURL}" />
 								{/block:AlbumArt}
-								<div class='embed'>
+								<div class="embed">
 									{AudioEmbed-400}
 								</div>
-								<div class='native'>
+								<div class="native">
 									{AudioPlayer}
 								</div>
 							{/block:Audio}
@@ -282,13 +281,13 @@
 							{block:Date}
 								<aside>
 									{block:IndexPage}
-										<a href='{Permalink}'>
+										<a href="{Permalink}">
 											{TimeAgo}
 										</a>
 										{block:HasTags}
 											<span>
 												{block:Tags}
-													<a href='{TagURL}'>
+													<a href="{TagURL}">
 														#{Tag}
 													</a> 
 												{/block:Tags}
@@ -305,7 +304,7 @@
 										{block:HasTags}
 											<div>
 												{block:Tags}
-													<a href='{TagURL}'>
+													<a href="{TagURL}">
 														#{Tag}
 													</a>
 												{/block:Tags}
@@ -317,32 +316,32 @@
 									{/block:PermalinkPage}
 								</aside>
 							{/block:Date}
-							<section style='display: none;'>{block:ContentSource}{SourceURL}{/block:ContentSource}{block:RebloggedFrom}{ReblogParentURL}{/block:RebloggedFrom}</section>
+							<section style="display: none;">{block:ContentSource}{SourceURL}{/block:ContentSource}{block:RebloggedFrom}{ReblogParentURL}{/block:RebloggedFrom}</section>
 						</article>
 					{/block:Posts}
 				</section>
 				{block:Description}
-					<section class='side description'>
+					<section class="side description">
 						{Description}
 					</section>
 				{/block:Description}
 				{block:HasPages}
-					<section class='side links'>
+					<section class="side links">
 						{block:Pages}
-							<a href='{URL}'>{Label}</a>
+							<a href="{URL}">{Label}</a>
 						{/block:Pages}
 					</section>
 				{/block:HasPages}
 			</section>
 			{block:Pagination}
-				<nav class='cf'>
+				<nav class="cf">
 					{block:PreviousPage}
-						<a class='p' href='{PreviousPage}'>
+						<a class="p" href="{PreviousPage}">
 							&larr;
 						</a>
 					{/block:PreviousPage}
 					{block:NextPage}
-						<a class='n' href='{NextPage}'>
+						<a class="n" href="{NextPage}">
 							&rarr;
 						</a>
 					{/block:NextPage}
