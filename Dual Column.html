@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
@@ -74,29 +75,9 @@
             
             /* SIDEBAR */
             
-            /* {block:IfFixedSidebar}
-                {block:IfSidebarOnRight} */
                     .wrapper { width: 968px; }
-                    .sidebar { position: fixed; margin-left: 840px; top: 20px; }
-                /* {/block:IfSidebarOnRight}
-                {block:IfNotSidebarOnRight}
                     .sidebar { position: fixed; top: 20px; }
                     .posts { margin-left: 148px; }
-                {/block:IfNotSidebarOnRight}
-            {/block:IfFixedSidebar}
-            
-            {block:IfNotFixedSidebar}
-                {block:IfSidebarOnRight}
-                    .sidebar { float: right; margin-left: 20px; }
-                    .posts { float: left; }
-                    .navigation { float: left; }
-                {/block:IfSidebarOnRight}
-                {block:IfNotSidebarOnRight}
-                    .sidebar { float: left; margin-right: 20px; }
-                    .posts { float: right; }
-                    .navigation { float: right; }
-                {/block:IfNotSidebarOnRight}
-            {/block:IfNotFixedSidebar} */
             
             .sidebar .box {
                 width: 128px;
@@ -158,6 +139,7 @@
                 font-family: {font:Posts};
                 font-size: 13px;
                 width: 840px;
+                
             }
             
             .posts > div:not(#infscr-loading) {
@@ -168,10 +150,6 @@
                 position: relative;
                 {block:IfRoundedCorners}-moz-border-radius: 5px;
                 border-radius: 5px;{/block:IfRoundedCorners}
-            }
-            
-            .masonry-brick.col2 {
-                margin-right: 0;
             }
             
             .text, 
@@ -515,26 +493,17 @@
         
         <script type="text/javascript">
             $(document).ready(function(){
-                
-                /* var create_columns = function(){
-                    $('.posts > div').each( function() { if( $(this).css('left') === "420px" ) { $(this).addClass('col2'); } } );
-                } */
-                
                 var $container = $('.posts');
-
                 $container.imagesLoaded(function(){
                     $container.masonry({
-                        itemSelector: '.posts > div',
-                        columnWidth: 420
-                    },create_columns());
-                });
-
-                //from here
+                        itemSelector: '.posts > div'
+                    })
+                })
                 $container.infinitescroll({
                     navSelector: "div.navigation", 
                     nextSelector: "div.next a", 
                     itemSelector: ".posts > div",
-                    bufferPx: 1000,
+                    bufferPx: 400,
                     debug: false,
                     loading: {
                         img: "http://static.tumblr.com/fpdiq1j/c6Hm9f3wz/loading.gif",
@@ -543,22 +512,20 @@
                     }
                 },
                 function(newElements) {
-                    create_columns();
                     var $newElems = $( newElements ).css({ opacity: 0 });
                     $newElems.imagesLoaded(function(){
                         $newElems.animate({ opacity: 1 });
                         $container.masonry( 'appended', $newElems, true ); 
-                    });
-                }); 
-                //to here
-            });
+                    })
+                })
+            })
         </script>
     </head>
     <body class="tumblr dualcolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners}">
-        <div class="wrapper clearfix">
+        <div class="wrapper">
              <div class="posts">
                 {block:Posts}
-                    <div class="{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}">
+                    <div class="{PostType}{block:Photoset}set{/block:Photoset}">
                         <div class="controls"{block:PermalinkPage} style="display: none;"{/block:PermalinkPage}>
                             <a class="notecount" href="{Permalink}#notes">{NoteCount}</a>
                             <span class="like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
@@ -788,8 +755,8 @@
                 {block:Twitter}
                     <div class="box twitter" style="display: none;">
                         <script type="text/javascript">
-                            var tw_name = '{TwitterUsername}'; // If you have set up Twitter via Tumblr Settings, you should not need to change this.
-                            var tw_count = 3; // You may freely change this number to however many recent tweets you wish to display.
+                            var tw_name = '{TwitterUsername}';
+                            var tw_count = 3;
                         </script>
                         <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/EY5mc3o1v/twitter.js"></script>
                     <div class="inner">
