@@ -46,6 +46,7 @@
                 color: {color:Text};
                 {block:IfBackgroundCover}background-size: cover;{/block:IfBackgroundCover}
                 width: 100%;
+                -webkit-font-smoothing: subpixel-antialiased;
             }
     
             a {
@@ -71,9 +72,9 @@
             
             /* SIDEBAR */
             
-                    .wrapper { width: 968px; }
-                    .sidebar { position: fixed; top: 20px; }
-                    .posts { margin-left: 148px; }
+            .wrapper { width: 968px; }
+            .sidebar { position: fixed; top: 20px; }
+            .posts { margin-left: 148px; }
             
             .sidebar .box {
                 width: 128px;
@@ -343,10 +344,8 @@
 
             {CustomCSS}
         </style>
-        
-        <link rel="stylesheet" media="screen" href="http://static.tumblr.com/fpdiq1j/tQkmh95i1/fancy_answer_and_audio_posts.css" />
-        <link rel="stylesheet" media="screen" href="http://static.tumblr.com/fpdiq1j/tXkm9zug3/meta_and_controls.css" />
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/ifimc74kk/dual_column.js"></script>
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/tQkmh95i1/fancy_answer_and_audio_posts.css" />
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/qhKmhensz/meta_and_controls.css" />
         
         <!--[if lte IE 8]>
           <style type="text/css" media="screen">
@@ -369,7 +368,8 @@
             }
           </style>
         <![endif]-->
-        
+
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/ifimc74kk/dual_column.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                 var $container = $('.posts');
@@ -406,9 +406,9 @@
                 {block:Posts}
                     <div class="{PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}">
                         <div class="controls"{block:PermalinkPage} style="display: none;"{/block:PermalinkPage}>
-                            <a class="notecount" href="{Permalink}#notes">{NoteCount}</a>
-                            <span class="like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
-                            <a href="{ReblogURL}" target="_blank" class="reblog"></a>
+                            <a class="button notecount" href="{Permalink}#notes">{NoteCount}</a>
+                            <span class="button like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
+                            <a class="button reblog" href="{ReblogURL}" target="_blank"></a>
                         </div>
                         {block:Text}
                             {block:Title}
