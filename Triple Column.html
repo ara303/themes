@@ -19,6 +19,7 @@
         <meta name="if:Infinite Scrolling" content="1" />
         <meta name="if:Rounded Corners" content="1" />
         <meta name="if:Shadows" content="1" />
+        <meta name="if:More Padding" content="0" />
         <meta name="if:Underline Hyperlinks" content="0" />
         <meta name="if:Hide Title" content="0" />
         <meta name="if:Hide Description" content="0" />
@@ -36,34 +37,26 @@
                 font: normal 13px/1.3 {font:Posts};
                 color: {color:Text};
                 margin: 0;
-                -webkit-font-smoothing: subpixel-antialiased;
             }
         
             a {
                 color: {color:Links};
                 {block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
-                transition: color 0.2s linear;
-                -webkit-transition: color 0.2s linear;
-                -moz-transition: color 0.2s linear;
-                -o-transition: color 0.2s linear;
             }
 
             a:hover {
                 color: {color:Links on Hover};
-                transition: color 0.2s linear;
-                -webkit-transition: color 0.2s linear;
-                -moz-transition: color 0.2s linear;
-                -o-transition: color 0.2s linear;
             }
     
             .container {
                 margin: auto;
-                width: 780px; 
+                padding: 0 10px;
+                width: {block:IfNotMorePadding}780{/block:IfNotMorePadding}{block:IfMorePadding}810{/block:IfMorePadding}px; 
             } 
 
             .header {
                 font-family: {font:Header};
-                margin: 10px 5px 5px 5px;
+                margin: {block:IfNotMorePadding}10px 5px 5px 5px{/block:IfNotMorePadding}{block:IfMorePadding}15px 10px 10px 10px{/block:IfMorePadding};
                 background-color: #FFFFFF;
                 {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
                 {block:IfShadows}box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2),0 2px 4px rgba(0, 0, 0, 0.2);{/block:IfShadows}
@@ -96,7 +89,7 @@
             
             .header .wrapper {
                 padding: 9px 11px;
-                width: 431px;
+                width: {block:IfNotMorePadding}431{/block:IfNotMorePadding}{block:IfMorePadding}453{/block:IfMorePadding}px;
                 float: left;
             }
             
@@ -148,7 +141,7 @@
             .posts > div {
                 font-family: {font:Posts};
                 width: 250px;
-                margin: 5px;
+                margin: {block:IfNotMorePadding}5{/block:IfNotMorePadding}{block:IfMorePadding}10{/block:IfMorePadding}px;
                 float: left;
                 {block:IfBackgroundOnPosts}background-color: #FFFFFF;{/block:IfBackgroundOnPosts}
                 {block:IfRoundedCorners}border-radius: 5px;{/block:IfRoundedCorners}
@@ -332,7 +325,6 @@
             {CustomCSS}
         </style>
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/qhKmhensz/meta_and_controls.css">
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/rRXmhebjk/clearfix.css" />
 
         <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/TaEmheg1f/dual_column.js"></script>
         <script type="text/javascript">
@@ -340,7 +332,7 @@
                 var $container = $('.posts');
                 $container.imagesLoaded(function(){
                     $container.masonry({
-                        columnWidth: 260,
+                        columnWidth: {block:IfNotMorePadding}260{/block:IfNotMorePadding}{block:IfMorePadding}270{/block:IfMorePadding},
                         itemSelector: '.posts > div'
                     });
                 });
@@ -360,7 +352,7 @@
             });{/block:IndexPage}
         </script>
     </head>
-    <body class="tumblr triplecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfDisplayCaptions}display_captions {/block:IfDisplayCaptions}{block:IfInfiniteScrolling}infinite_scrolling {/block:IfInfiniteScrolling}{block:IfRoundedCorners}rounded_corners {/block:IfRoundedCorners}{block:IfShadows}shadows{/block:IfShadows}">
+    <body class="tumblr triplecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfDisplayCaptions}display_captions {/block:IfDisplayCaptions}{block:IfInfiniteScrolling}infinite_scrolling {/block:IfInfiniteScrolling}{block:IfRoundedCorners}rounded_corners {/block:IfRoundedCorners}{block:IfShadows}shadows{/block:IfShadows}{block:IfMorePadding} more_padding{/block:IfMorePadding}">
         <div class="container">
             <div class="header cf">
                 <img src="{block:IfHeaderImage}{image:Header}{/block:IfHeaderImage}{block:IfNotHeaderImage}{PortraitURL-128}{/block:IfNotHeaderImage}" class="picture" alt="{Title}" />
@@ -397,9 +389,9 @@
                 {block:Posts}
                     <div class="{PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}">
                         <div class="controls">
-                            <a class="notecount" href="{Permalink}">{NoteCount}</a>
-                            <span class="like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
-                            <a href="{ReblogURL}" target="_blank" class="reblog"></a>
+                            <a class="button notecount" href="{Permalink}">{NoteCount}</a>
+                            <span class="button like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
+                            <a class="button reblog" href="{ReblogURL}" target="_blank"></a>
                         </div>
                         {block:Text}
                             <div class="content">
