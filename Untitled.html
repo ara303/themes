@@ -1,7 +1,7 @@
 <html>
-    <!-- Available from eathemes.tumblr.com -->
+    <!-- Untitled, from themes.edada.ms -->
     <head>
-        <title>{Title}</title>
+        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
         <meta name="description" content="{MetaDescription}" />
         <meta name="shortcut icon" content="{Favicon}" />
         <meta name="alternate" content="{RSS}" />
@@ -11,6 +11,7 @@
         <meta name="color:Link Hover" content="#CCCCCC" />
         <meta name="color:Header Background" content="#222222" />
         <meta name="color:Background" content="#FFFFFF" />
+        <meta name="if:Large Posts" content="0" />
         <meta name="if:Hide Ask" content="1" />
         <meta name="if:Inline Ask" content="1" />
         <meta name="if:Hide Submit" content="1" />
@@ -22,22 +23,18 @@
         <style>
             body {
                   font: normal 14px/1.3 {font:Font};
-                  margin: 30px;
                   color: {color:Text};
                   background-color: {color:Background};
+                  margin: 0;
             }
             
             a {
                   {block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
                   color: {color:Link};
-                  -webkit-transition: all 0.2s linear;
-                  -moz-transition: all 0.2s linear;
             }
             
             a:hover { 
                   color: {color:Link Hover};
-                  -webkit-transition: all 0.2s linear;
-                  -moz-transition: all 0.2s linear;
             }
             
             .sidebar {
@@ -48,7 +45,7 @@
                 width: 250px;
                 height: 100%;
                 box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px;
-                background-color: #FFFFFF;
+                background-color: {color:Background};
             }
             
             .sidebar .title {
@@ -96,9 +93,10 @@
             }
             
             .posts {
-                position: relative; 
-                left: 250px;
-                width: 500px;
+                position: relative;
+                left: 280px;
+                top: 27px;
+                width: {block:IfNotLargePosts}500{/block:IfNotLargePosts}{block:IfLargePosts}700{/block:IfLargePosts}px;
                 z-index: 0;
             }
             
@@ -106,43 +104,29 @@
                 margin-bottom: 35px;
             }
             
-            .posts article img {
-                max-width: 100%; 
-            }
-            
-            .posts article img.photo {
-                display: block;
-            }
-            
             .posts aside {
                 padding-top: 15px;
                 font-size: 12px;
-                opacity: .8;
+                opacity: 0.8;
             }
             
-            .posts .notes, .posts .meta {
-                padding-top: 25px;
+            .meta strong.title {
+                padding-bottom: 0.2em;
+                display: block;
+                border-bottom: 1px solid #ececec;
+                margin: 1.5em 0 0;
+            }
+
+            .meta .notes, .meta .info {
                 font-size: 13px;
             }
             
-            .posts .meta li {
-                margin-bottom: 5px;
-            }
-            
-            .posts .meta li:last-child {
-                margin-bottom: 0;
-            }
-            
-            .posts .notes .note {
-                border-bottom: 1px solid #ececec;
+            .meta ol.notes li, .meta ul.info li {
+                border-bottom: 1px solid #f7f7f7;
                 padding: 5px 0;
             }
             
-            .posts .notes .note:first-child {
-                border-top: 1px solid #ececec;
-            }
-            
-            .posts .notes .note img.avatar {
+            .meta ol.notes img.avatar {
                 display: none;
             }
             
@@ -150,29 +134,13 @@
                 -webkit-filter: invert(100%);
             }{/block:IfWhiteTumblrControls}
             
-            article p {
-                margin: 1em 0 0 0;
-            }
-            
-            article p:first-child {
-                margin-top: 0;
-            }
-            
             .toggle {
-                margin-top: 25px;
-                line-height: 19px;
-                padding: 5px;
-                font-size: 13px;
-                text-align: center;
-                border: 1px solid rgba(0, 0, 0, 0.2);
-                max-width: 86px;
-                border-radius: 5px;
-                text-shadow: 1px 1px 1px rgba(204, 204, 204, 0.5);
-                box-shadow: inset 0 0 4px #cccccc;
+                cursor: pointer;
             }
             
             .toggles_me {
-                display: none;
+                height: 0;
+                opacity: 0;
             }
             
             #infscr-loading img { display: none; height: 0; width: 0; }
@@ -192,9 +160,23 @@
                 border-radius: 3px;
                 display: block;
             }
+            @-webkit-keyframes inline_ask_bounce_in {
+                0% {
+                    left: -423px;
+                }
+                33% {
+                    left: 270px;
+                }
+                66% {
+                    left: 250px;
+                }
+                100% {
+                    left: 260px;
+                }
+            }
             @-webkit-keyframes inline_ask_bounce_out {
                 0% {
-                    left: 260px;
+                    left: 270px;
                 }
                 70% {
                     left: 280px;
@@ -202,20 +184,6 @@
                 100% {
                     left: -423px;
                 }
-            }
-            @-webkit-keyframes inline_ask_bounce_in {
-             0% {
-               left: -423px;
-             }
-             33% {
-                 left: 270px;
-             }
-             66% {
-                 left: 250px;
-             }
-             100% {
-               left: 260px;
-             }
             }
             body.is_webkit .inline_ask_box.animate_in {
                 -webkit-animation-name: inline_ask_bounce_in;
@@ -275,6 +243,7 @@
             {CustomCSS}
         </style>
         {block:IfEnableHeaderAnimation}<link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/lurmh8vzk/title_animation.css" />{/block:IfEnableHeaderAnimation}
+        <link rel="stylesheet" href="http://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
         <script src="http://static.tumblr.com/fpdiq1j/qgnmgy41l/compiled.js"></script>
         <script>
             $(function(){
@@ -283,38 +252,52 @@
                 }else{
                     $('body').addClass('not_webkit');
                 }
-                {block:IfInlineAsk}$(".inline_ask_label").click(function(){
-                    if($(".inline_ask_box").hasClass("animate_in")){
-                        $(".inline_ask_box").removeClass("animate_in").addClass("animate_out");
-                    }else{
-                        $(".inline_ask_box").addClass("animate_in").removeClass("animate_out");
-                    }
-                }){/block:IfInlineAsk}
-                $('.toggle').each(function(e){
+                if($('body').hasClass('inline_ask')){
+                    $(".inline_ask_label").click(function(){
+                        if($(".inline_ask_box").hasClass("animate_in")){
+                            $(".inline_ask_box").removeClass("animate_in").addClass("animate_out");
+                        }else{
+                            $(".inline_ask_box").addClass("animate_in").removeClass("animate_out");
+                        }
+                    })
+                    // implement "hide inline ask if clicked elsewhere" code, eventually
+                }
+                $('[data-toggle-for]').each(function(e){
                     $(this).click(function(){
                         var toggles = '.' + $(this).attr('data-toggle-for');
-                        $(toggles).slideToggle()
+                        $(toggles).toggleClass('shown');
+                        
+                        if($('.toggles_me').hasClass('shown')){
+                            var myheight = $('.toggles_me').children().height();
+                            $(toggles).animate({'height':myheight,'opacity':1},400);
+                            $('.soh').html("Hide");
+                        }else{
+                            $(toggles).animate({'height':0,'opacity':0},400);
+                            $('.soh').html("Show");
+                        }
                     })
                 })
                 $("img").lazyload({
                     effect: "fadeIn"
                 })
-                {block:IfEnableInfiniteScrolling}$('.posts').infinitescroll({
-                    navSelector: 'nav',
-                    itemSelector: '.posts > article',
-                    nextSelector: 'nav .next',
-                    extraScrollPx: 400, 
-                    loading: {
-                        msgText: "<div style='display: none'>Loading...</div>",
-                        finishedMsg: "<div style='display: none'>Finished!</div>"
-                    }
-                }){/block:IfEnableInfiniteScrolling}
+                if($('body').hasClass('infinite_scrolling')){
+                    $('.posts').infinitescroll({
+                        navSelector: 'nav',
+                        itemSelector: '.posts > article',
+                        nextSelector: 'nav .next',
+                        extraScrollPx: 400, 
+                        loading: {
+                            msgText: "<div style='display: none'>Loading...</div>",
+                            finishedMsg: "<div style='display: none'>Finished!</div>"
+                        }
+                    })
+                }
             })
         </script>
         <!--[if IE]><style type="text/css">a img { border: 0; }</style><![endif]-->
         <!--[if lt IE 9]><script src="http://static.tumblr.com/fpdiq1j/F09mh8vue/html5shiv.js"></script><![endif]-->
     </head>
-    <body class="tumblr untitled {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling}">
+    <body class="untitled {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling}{block:IfInlineAsk} inline_ask{/block:InlineAsk}">
         <section class="sidebar">
             <a href="/">
                 <section class="title">
@@ -365,7 +348,7 @@
         </section>
         <section class="posts">
             {block:Posts}
-                <article class="{PostType}{block:Photoset}set{/block:Photoset}">
+                <article class="{PostType}{block:Photoset}set{/block:Photoset}" data-postid="{PostID}">
                     {block:Text}
                         <section class="content">
                             {block:Title}
@@ -376,7 +359,7 @@
                     {/block:Text}
                     {block:Photo}
                         {LinkOpenTag}
-                            <img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{PhotoURL-500}" class="photo" alt="{PhotoAlt}" />
+                            <img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{block:IfNotLargePosts}{PhotoURL-500}{/block:IfNotLargePosts}{block:IfLargePosts}{PhotoURL-HighRes}{/block:IfLargePosts}" class="image{block:Caption} with_caption{block:Caption}" alt="{PhotoAlt}" />
                         {LinkCloseTag}
                         {block:Caption}
                             <section class="content">
@@ -385,7 +368,9 @@
                         {/block:Caption}
                     {/block:Photo}
                     {block:Photoset}
-                        {Photoset-500}
+                        {block:Caption}<div class="with_caption">{/block:Caption}
+                            {block:IfNotLargePosts}{Photoset-500}{/block:IfNotLargePosts}{block:IfLargePosts}{Photoset-700}{/block:IfLargePosts}
+                        {block:Caption}</div>{/block:Caption}
                         {block:Caption}
                             <section class="content">
                                 {Caption}
@@ -393,7 +378,9 @@
                         {/block:Caption}
                     {/block:Photoset}
                     {block:Video}
-                        {Video-500}
+                        {block:Caption}<div class="with_caption">{/block:Caption}
+                            {block:IfNotLargePosts}{Video-500}{/block:IfNotLargePosts}{block:IfLargePosts}{Video-700}{/block:IfLargePosts}
+                        {block:Caption}</div>{/block:Caption}
                         {block:Caption}
                             <section class="content">
                                 {Caption}
@@ -428,7 +415,7 @@
                     {/block:Chat}
                     {block:Audio}
                         {block:AlbumArt}
-                            <img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{AlbumArtURL}" />
+                            <img class="artwork with_caption" src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{AlbumArtURL}" />
                         {/block:AlbumArt}
                         <section class="content">
                             {AudioPlayer}
@@ -445,17 +432,20 @@
                     {/block:Answer}
                     {block:Date}
                         {block:PermalinkPage}
-                            <section class="toggle" data-toggle-for="meta">
-                                Info
-                            </section>
-                            <ul class="toggles_me meta">
-                                <li>Posted {TimeAgo}</li>
-                                {block:HasTags}<li>Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</li>{/block:HasTags}
-                                {block:RebloggedFrom}<li>Reblogged From: <a href="{ReblogParentURL}">{ReblogParentName}</a></li>{/block:RebloggedFrom}
-                                {block:ContentSource}<li>Source: <a href="{SourceURL}">{SourceTitle}</a></li>{/block:ContentSource}
-                            </ul>
-                            <section class="toggle" data-toggle-for="postnotes">{NoteCountWithLabel}</section>
-                            <section class="toggles_me postnotes">{PostNotes}</section>
+                            <aside class="meta">
+                                <strong class="title">Posted {TimeAgo}</strong>
+                                <ul class="info" style="margin-top: 0.3em;">
+                                    {block:HasTags}<li>Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</li>{/block:HasTags}
+                                    {block:RebloggedFrom}<li>Reblogged From: <a href="{ReblogParentURL}">{ReblogParentName}</a></li>{/block:RebloggedFrom}
+                                    {block:ContentSource}<li>Source: <a href="{SourceURL}">{SourceTitle}</a></li>{/block:ContentSource}
+                                </ul>
+                                <strong class="title" data-toggle-for="postnotes">
+                                    <span class="soh">Show</span> notes
+                                </strong>
+                                <section class="postnotes toggles_me">
+                                    {PostNotes}
+                                </section>
+                            </aside>
                         {/block:PermalinkPage}
                         {block:IndexPage}
                             <aside class="permalink">
