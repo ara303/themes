@@ -31,7 +31,7 @@
             body {
                 background: {color:Background} url('{image:Background}') repeat fixed;
                 {block:IfBackgroundImageCover}background-size: cover;{/block:IfBackgroundImageCover}
-                font-family: 'Arial', sans-serif;
+                font-family: 'Helvetica Neue', Arial, sans-serif;
                 font-size: 12px;
             }
         
@@ -148,12 +148,12 @@
             .icon_label {
                 padding-top: 6px;
                 padding-bottom: 15px;
-                color: white;
+                color: {color:Link Color};
                 text-align: center;
             }
         
-            .icons a{
-                color: white;
+            .icons a {
+                color: {color:Link Color};
                 text-decoration: none;
             }
         
@@ -188,20 +188,16 @@
             
             .navigation {
                 padding-bottom: 55px;
-                height: 20px;
+                height: 26px;
                 font-weight: bold;
             }
             
-            .navigation .next, .navigation .previous {
+            .navigation .next, .navigation .prev {
                 background-color: #FFFFFF;
-                padding: 3px 4px;
+                padding: 5px 6px;
             }
             
-            .navigation .next {
-                float: left;
-            }
-            
-            .navigation .previous {
+            .navigation .prev {
                 float: right;
             }
         
@@ -379,9 +375,9 @@
             /* COMMON */
             
             blockquote {
-                margin-left: 10px;
-                padding-left: 10px;
-                border-left: 1px solid #000;
+                margin-left: 9px;
+                padding-left: 9px;
+                border-left: 2px solid rgba(0,0,0,0.33);
             }
             
             #infscr-loading {
