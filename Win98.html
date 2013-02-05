@@ -437,16 +437,15 @@
             {CustomCSS}
         </style>
         
-        
-    
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/S5Jmd2p8d/win98.js"></script>
+        <script type="text/javascript" src="http://dl.dropbox.com/u/16697297/themes/eathemes.min.js"></script>
         <script type="text/javascript">
-            var has_infinite_scrolling = {block:IfEnableInfiniteScrolling}true{/block:IfEnableInfiniteScrolling}{block:IfNotEnableInfiniteScrolling}false{/block:IfNotEnableInfiniteScrolling};
+            $(function(){
+                eathemes($("#desktop"), ".window", "{Name}", 480)
+            })
         </script>
     </head>
 
-    <body>
+    <body class="win98 {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfEnableInfiniteScrolling}infinite_scrolling{/block:IfEnableInfiniteScrolling} lazyload_enabled">
         <div class="wrapper">
             <div class="icons">
                 <a href="/" class="home">
@@ -496,7 +495,7 @@
             {block:IfDisplayDescription}
             <div id="desktop">
                 {block:Posts}
-                    <div class="window">
+                    <div class="window" data-postid="{PostID}">
                         <a href="{Permalink}">
                             <div class="top">
                                 {block:Date}
@@ -519,7 +518,7 @@
                             {/block:Text}
 
                             {block:Photo}
-                                {LinkOpenTag}<img src="{PhotoURL-500}" class="attempt_resize" alt="{PhotoAlt}" />{LinkCloseTag}
+                                {LinkOpenTag}<img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{PhotoURL-500}" class="attempt_resize" alt="{PhotoAlt}" />{LinkCloseTag}
                                 {block:Caption}
                                     <div class="caption">
                                         {Caption}
@@ -583,7 +582,7 @@
                             {/block:Chat}
 
                             {block:Video}
-                                <div class="video_player">
+                                <div class="video_player" data-from-page="{CurrentPage}">
                                     {Video-500}
                                 </div>
                                 {block:Caption}
@@ -594,7 +593,9 @@
                             {/block:Video}
 
                             {block:Audio}
-                                {AudioPlayerBlack}
+                                <div data-from-page="{CurrentPage}">
+                                    {AudioPlayer}
+                                </div>
                                 {block:Caption}
                                     <div class="body">
                                         {Caption}

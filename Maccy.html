@@ -1,6 +1,6 @@
 <html>
     <head>
-        <!-- Maccy from themes.edada.ms -->
+        <!-- Maccy, from themes.edada.ms -->
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
@@ -196,17 +196,23 @@
             .navigation {
                 position: relative;
                 font-weight: bold;
-                padding: 0 0 20px 0;
-                height: 20px;
+                padding: 0 0 30px 0;
+                height: 24px;
             }
             
             .navigation .next, .navigation .previous {
-                padding: 3px 4px;
+                padding: 5px 6px;
                 background-color: #FFFFFF;
+                color: #000000;
             }
             
             .navigation .next {
                 float: right;
+            }
+            
+            .navigation .previous {
+                position: relative;
+                top: 5px;
             }
             
             iframe[src="http://eathemes.tumblr.com/_iframe.html"] {
@@ -359,38 +365,38 @@
                 border-top: 1px dashed rgba(0,0,0,0.5);
             }
             
-			.meta .source, .meta .reblogged_from, .meta .tags {
-				margin-top: 3px;
-			}
+            .meta .source, .meta .reblogged_from, .meta .tags {
+                margin-top: 3px;
+            }
             
             .meta .source, .meta .reblogged_from {
                 font-size: 11px;
             }
             
-			.meta .notes {
-				margin-top: 10px;
-			}
-			
-			ol.notes{
-				margin: 0;
-				padding: 0;
-				list-style-type: none;
-			}
-			
-			li.note.with_commentary {
-				margin-bottom: 10px;
-			}
-			
-			.notes span.action {
-				vertical-align: 4px;
-			}
+            .meta .notes {
+                margin-top: 10px;
+            }
+            
+            ol.notes{
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+            
+            li.note.with_commentary {
+                margin-bottom: 10px;
+            }
+            
+            .notes span.action {
+                vertical-align: 4px;
+            }
             
             /* COMMON */
             
             blockquote {
-                margin-left: 10px;
-                padding-left: 10px;
-                border-left: 2px solid rgba(0,0,0,0.50);
+                margin-left: 9px;
+                padding-left: 9px;
+                border-left: 2px solid rgba(0,0,0,0.33);
             }
             
             #infscr-loading {
@@ -464,38 +470,41 @@
             }
         </style>
 
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/v0umd2qzt/maccy.js"></script>
+        <script type="text/javascript" src="http://dl.dropbox.com/u/16697297/themes/eathemes.min.js"></script>
         <script type="text/javascript">
-            var has_infinite_scrolling = {block:IfEnableInfiniteScrolling}true{/block:IfEnableInfiniteScrolling}{block:IfNotEnableInfiniteScrolling}false{/block:IfNotEnableInfiniteScrolling};
+            $(function(){
+                eathemes($(".applications"), ".window", "{Name}", 480)
+            })
         </script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/K6Tmhnnzl/maccy_extra.js"></script>
+        
     </head>
-    <body>
+    <body class="maccy {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfEnableInfiniteScrolling}infinite_scrolling{/block:IfEnableInfiniteScrolling} lazyload_enabled">
         <div class="desktop">
             <div class="menu_bar">
                 <div class="left_corner"></div>
                 <a href="/">
-					<span class="apple_logo"></span>
-				</a>
+                    <span class="apple_logo"></span>
+                </a>
                 <ul id="nav">
                     <li class="menu">
-					    <span class="name" id="file">
-						    About
-					    </span>
-					    <ul class="dropdown" id="file_menu">
-						    <li>Theme by</li>
-						    <li><a href="http://edada.ms">Ed Adams</a><li>
-						    <li>Art by</li>
-						    <li><a href="http://apple.com">Apple</a></li>
+                        <span class="name" id="file">
+                            About
+                        </span>
+                        <ul class="dropdown" id="file_menu">
+                            <li>Theme by</li>
+                            <li><a href="http://edada.ms">Ed Adams</a><li>
+                            <li>Art by</li>
+                            <li><a href="http://apple.com">Apple</a></li>
                             <li>Powered by</li>
                             <li><a href="http://tumblr.com">Tumblr</a></li>
-					    </ul>
+                        </ul>
                     </li>
                     <li class="menu">
-					    <span class="name" id="edit">
-						    Links
-					    </span>
+                        <span class="name" id="edit">
+                            Links
+                        </span>
                         <ul class="dropdown" id="edit_menu">
                             <li><a href="/">Home</a></li>
                             <li><a href="/ask">Ask</a></li>
@@ -505,34 +514,34 @@
                             <li><a href="/random">Random Post</a></li>
                         </ul>
                     </li>
-				    <li class="menu">
- 					    <span class="name" id="filters">
-						    Filters
-					    </span>
-                	    <ul class="dropdown" id="filters_menu">
-						    <li id="filterText">Filter Text</li>
-                    	    <li id="filterPhoto">Filter Photo</li>
-                   		    <li id="filterPhotoset">Filter Photoset</li>
-                  		    <li id="filterQuote">Filter Quote</li>
-                 		    <li id="filterLink">Filter Link</li>
-                  		    <li id="filterChat">Filter Chat</li>
-                   		    <li id="filterAudio">Filter Audio</li>
-                   		    <li id="filterVideo">Filter Video</li>
-                            <li id="filterAsks">Filter Asks</li>
-                   		    <li id="filterReset"><em>Reset</em></li>
-                        </ul>
-					</li>
                     <li class="menu">
-    				    <span class="name" id="options">
-						    Options
-					    </span>
-					    <ul class="dropdown" id="options_menu">
-						    <li id="allowDragging">Allow Dragging</li>
-						    <li id="doFullScreen">Enable Full Screen</li>
-                            <li id="launchCalculator">Launch Calculator</li>
-					    </ul>
+                        <span class="name" id="filters">
+                            Filters
+                        </span>
+                        <ul class="dropdown" id="filters_menu">
+                            <li id="filterText">Filter Text</li>
+                            <li id="filterPhoto">Filter Photo</li>
+                            <li id="filterPhotoset">Filter Photoset</li>
+                            <li id="filterQuote">Filter Quote</li>
+                            <li id="filterLink">Filter Link</li>
+                            <li id="filterChat">Filter Chat</li>
+                            <li id="filterAudio">Filter Audio</li>
+                            <li id="filterVideo">Filter Video</li>
+                            <li id="filterAsks">Filter Asks</li>
+                            <li id="filterReset"><em>Reset</em></li>
+                        </ul>
                     </li>
-				</ul>
+                    <li class="menu">
+                        <span class="name" id="options">
+                            Options
+                        </span>
+                        <ul class="dropdown" id="options_menu">
+                            <li id="allowDragging">Allow Dragging</li>
+                            <li id="doFullScreen">Enable Full Screen</li>
+                            <li id="launchCalculator">Launch Calculator</li>
+                        </ul>
+                    </li>
+                </ul>
                 <span class="mac_logo"></span>
                 <span class="clock" id="showClock">00:00 PM</span>
                 <div class="right_corner"></div>
@@ -585,126 +594,135 @@
             <div class="applications" style="position: relative;
 left: 45px;">
                 {block:Posts}
-					<div class="window type_{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}">
-                    	<div class="top"></div>
-	                    <div class="middle">
-	                       {block:Text}
-	                            {block:Title}
-	                                <div class="title">
-	                                    {Title}
-	                                </div>
-	                            {/block:Title}
-	                            <div class="body">
-	                                {Body}
-	                            </div>
-	                        {/block:Text}
+                    <div class="window {PostType}{block:Photoset}set{/block:Photoset}" data-postid="{PostID}">
+                        <div class="top"></div>
+                        <div class="middle">
+                           {block:Text}
+                                {block:Title}
+                                    <div class="title">
+                                        {Title}
+                                    </div>
+                                {/block:Title}
+                                <div class="body">
+                                    {Body}
+                                </div>
+                            {/block:Text}
 
-	                        {block:Photo}
-	                            <img class="iab" src="{PhotoURL-500}" alt="{PhotoAlt}" />
-	                            {block:Caption}
-	                                <div class="caption">
-	                                    {Caption}
-	                                </div>
-	                            {/block:Caption}
-	                        {/block:Photo}
+                            {block:Photo}
+                                <img class="iab" src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{PhotoURL-500}" alt="{PhotoAlt}" />
+                                {block:Caption}
+                                    <div class="caption">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
+                            {/block:Photo}
 
-	                        {block:Photoset}
-	                            {Photoset-500}
-	                                {block:Caption}
-	                                    <div class="caption">
-	                                        {Caption}
-	                                    </div>
-	                                {/block:Caption}
-	                            {/block:Photoset}
+                            {block:Photoset}
+                                {Photoset-500}
+                                    {block:Caption}
+                                        <div class="caption">
+                                            {Caption}
+                                        </div>
+                                    {/block:Caption}
+                                {/block:Photoset}
 
-	                            {block:Quote}
-	                                <div class="title">
-	                                    "{Quote}"
-	                                </div>
-	                                {block:Source}
-	                                    <div class="body">
-	                                        &mdash; {Source}
-	                                    </div>
-	                                {/block:Source}
-	                            {/block:Quote}
+                                {block:Quote}
+                                    <div class="title">
+                                        "{Quote}"
+                                    </div>
+                                    {block:Source}
+                                        <div class="body">
+                                            &mdash; {Source}
+                                        </div>
+                                    {/block:Source}
+                                {/block:Quote}
 
-	                            {block:Link}
-	                                <a href="{URL}" class="title" {Target}>{Name} »</a>
-	                                {block:Description}
-	                                    <div class="body">
-	                                        {Description}
-	                                    </div>
-	                                {/block:Description}
-	                            {/block:Link}
+                                {block:Link}
+                                    <a href="{URL}" class="title" {Target}>{Name} »</a>
+                                    {block:Description}
+                                        <div class="body">
+                                            {Description}
+                                        </div>
+                                    {/block:Description}
+                                {/block:Link}
 
-	                            {block:Chat}
-	                                {block:Title}
-	                                    <div class="title">{Title}
-	                                {/block:Title}
-	                                {block:Lines}
-	                                    <div class="body">
-	                                        {block:Label}
-	                                            <span class="label">{Label}</span>
-	                                        {/block:Label}
-	                                        {Line}
-	                                    </div>
-	                                {/block:Lines}
-	                            {/block:Chat}
+                                {block:Chat}
+                                    {block:Title}
+                                        <div class="title">{Title}
+                                    {/block:Title}
+                                    {block:Lines}
+                                        <div class="body">
+                                            {block:Label}
+                                                <span class="label">{Label}</span>
+                                            {/block:Label}
+                                            {Line}
+                                        </div>
+                                    {/block:Lines}
+                                {/block:Chat}
 
-	                            {block:Video}
-	                            {Video-500}
-	                                {block:Caption}
-	                                    <div class="caption">
-	                                        {Caption}
-	                                    </div>
-	                                {/block:Caption}
-	                            {/block:Video}
+                                {block:Video}
+                                    <div data-from-page="{CurrentPage}">
+                                        {Video-500}
+                                    </div>
+                                    {block:Caption}
+                                        <div class="caption">
+                                            {Caption}
+                                        </div>
+                                    {/block:Caption}
+                                {/block:Video}
 
-	                            {block:Audio}
-	                                {AudioPlayerBlack}
-	                                {block:Caption}
-	                                    <div class="body">
-	                                        {Caption}
-	                                    </div>
-	                                {/block:Caption}
-	                            {/block:Audio}
+                                {block:Audio}
+                                    <div data-from-page="{CurrentPage}">
+                                        {AudioPlayer}
+                                    </div>
+                                    {block:Caption}
+                                        <div class="body">
+                                            {Caption}
+                                        </div>
+                                    {/block:Caption}
+                                {/block:Audio}
+                                
+                                {block:Answer} 
+                                    <strong>{Asker} asked: {Question}</strong>
+                                    {Answer}
+                                {/block:Answer}
                                 {block:PermalinkPage}{block:Date}
-	                                <div class="meta" style="display: block;">
-    						            <div class="posted">
-								            Posted: {DayOfWeek} {DayOfMonth}{DayOfMonthSuffix} {Month} at {12Hour}:{Minutes}{AmPm}
-							            </div>
-							            {block:HasTags}
-								            <div class="tags">
-									            Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}
-								            </div>
-							            {/block:HasTags}
-							            {block:ContentSource}
-							            	<div class="source">
-									            Source: <a href="{SourceURL}">{SourceTitle}</a>
-								            </div>
-								            {block:RebloggedFrom}
-									            <div class="reblogged_from">
-										            Reblogged From: <a href="{ReblogParentURL}">{ReblogParentName}</a>
-									            </div>
-								            {/block:RebloggedFrom}
-							            {/block:ContentSource}
-							            {block:PostNotes}
-								            <div class="notes">
-								            	{PostNotes}
-								            </div>
-							            {/block:PostNotes}
-						            </div>
-	                            {/block:Date}{/block:PermalinkPage}
-	                        </div>
-	                    <div class="bottom" style="float: none; clear: both;">
-	                        {block:Date}
-	                            <a href="{Permalink}">
-	                                Posted on {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} at {12Hour}:{Minutes} {CapitalAmPm}{block:NoteCount}, with {NoteCountWithLabel}{/block:NoteCount}
-	                            </a>
-	                        {/block:Date}
-	                    </div>
-                	</div>
-				{/block:Posts}
+                                    <div class="meta" style="display: block;">
+                                        <div class="posted">
+                                            Posted: {DayOfWeek} {DayOfMonth}{DayOfMonthSuffix} {Month} at {12Hour}:{Minutes}{AmPm}
+                                        </div>
+                                        {block:HasTags}
+                                            <div class="tags">
+                                                Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}
+                                            </div>
+                                        {/block:HasTags}
+                                        {block:ContentSource}
+                                            <div class="source">
+                                                Source: <a href="{SourceURL}">{SourceTitle}</a>
+                                            </div>
+                                            {block:RebloggedFrom}
+                                                <div class="reblogged_from">
+                                                    Reblogged From: <a href="{ReblogParentURL}">{ReblogParentName}</a>
+                                                </div>
+                                            {/block:RebloggedFrom}
+                                        {/block:ContentSource}
+                                        {block:PostNotes}
+                                            <div class="notes">
+                                                {PostNotes}
+                                            </div>
+                                        {/block:PostNotes}
+                                    </div>
+                                {/block:Date}{/block:PermalinkPage}
+                            </div>
+                        <div class="bottom" style="float: none; clear: both;">
+                            {block:Date}
+                                <a href="{Permalink}">
+                                    Posted on {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} at {12Hour}:{Minutes} {CapitalAmPm}{block:NoteCount}, with {NoteCountWithLabel}{/block:NoteCount}
+                                </a>
+                            {/block:Date}
+                        </div>
+                    </div>
+                {/block:Posts}
                 {block:Pagination}
                     <div class="navigation">
                         {block:NextPage}
