@@ -1,6 +1,5 @@
 <html>
     <head>
-<<<<<<< HEAD
         <!-- Single Column, from themes.edada.ms -->
         <!-- to do list:
             1) Fix infinite scroll not loading until page bottom
@@ -10,10 +9,7 @@
             PLEASE NOTE: The theme works fine, regardless of what's written above. I inlcude the to do list to remind mewhat needs to be done, and so you know what to expect in the future. 
             Follow eathemes.tumblr.com for updates
         -->
-=======
         <!-- Single Column from themes.edada.ms -->
-        <!-- Dedicated to T. Miss you. -->
->>>>>>> parent of 518b5d8... random updates! lazyload! new infinite scrolling!
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
@@ -50,6 +46,7 @@
         <meta name="if:Hide Submit" content="0" />
         <meta name="if:Hide Archive" content="0" />
         <meta name="if:Hide RSS" content="0" />
+        <meta name="if:Transparent backgrounds" content="0" />
 
         <style type="text/css">
             html, body {
@@ -339,25 +336,7 @@
             .posts .answer .response p:first-child {
                 margin-top: 10px !important;
             }
-            
-            /* MOBILE VIEW -- maybe. */
-            
-            @media (max-device-width: 480px) {
-                .posts {
-                	padding: 0 20px;
-                }
-                
-                .sidebar {
-                	display: none;
-                	margin-left: 0;
-                }
-                
-                .controls {
-                	opacity: 1.0;
-                    /* In the future, find a way to scale this 2x */
-                }
-            }
-            
+
             /* APPEARANCE OPTIONS */
             
             {block:IfShadows}.sidebar .box, .posts > div:not(#infsrc-loading), .navigation .prev, .navigation .next, .inf_scr {
@@ -408,11 +387,18 @@
                 display: none !important;
             }{/block:IfNotDisplayCaptions}
 
+            {block:IfTransparentBackgrounds}.posts > div, .sidebar .box {
+                background-color: transparent;
+            }{/block:IfTransparentBackgrounds}
+
+            .posts .photoset .media:not(.with_caption) {
+                background-color: {color:Background} !important;
+            }
+
             {CustomCSS}
         </style>
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/qhKmhensz/meta_and_controls.css" />
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/tQkmh95i1/fancy_answer_and_audio_posts.css" />
-        
         <!--[if lte IE 8]>
           <style type="text/css">
             blockquote { 
