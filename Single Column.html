@@ -1,29 +1,19 @@
 <html>
     <head>
         <!-- Single Column, from themes.edada.ms -->
-        <!-- to do list:
-            1) Fix infinite scroll not loading until page bottom
-            2) Add theme_generic.css
-            3) Remove from <head> anything theme_generic.css covers
-
-            PLEASE NOTE: The theme works fine, regardless of what's written above. I inlcude the to do list to remind mewhat needs to be done, and so you know what to expect in the future. 
-            Follow eathemes.tumblr.com for updates
-        -->
-        <!-- Single Column from themes.edada.ms -->
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
         <link rel="alternate" type="application/rss+xml" href="{RSS}" />
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=0.59, user-scalable=no" />
 
         <meta name="color:Text" content="#222222" />
         <meta name="color:Links" content="#777777" />
         <meta name="color:Links on Hover" content="#CCCCCC" />
         <meta name="color:Background" content="#080808" />
         
-        <meta name="font:Posts" content="'Helvetica Neue',Helvetica,Arial,sans-serif" />
-        <meta name="font:Sidebar" content="'Helvetica Neue',Helvetica,Arial,sans-serif" />
+        <meta name="font:Posts" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
+        <meta name="font:Sidebar" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
         
         <meta name="image:Background" content="" />
         <meta name="image:Sidebar" content="" />
@@ -49,19 +39,13 @@
         <meta name="if:Transparent backgrounds" content="0" />
 
         <style type="text/css">
-            html, body {
-                padding: 0;
-                margin: 0;
-            }
-        
             body {
-                padding: 20px 0;
+                margin: 20px 0;
                 background: url('{image:Background}') {color:Background} repeat;
-                font-size: 12px;
-                line-height: 120%;
+                font-size: 0.8em;
+                line-height: 1.2;
                 color: {color:Text};
                 {block:IfBackgroundCover}background-size: cover;{/block:IfBackgroundCover}
-                -webkit-font-smoothing: subpixel-antialiased;
             }
     
             a {
@@ -73,16 +57,9 @@
                 color: {color:Links on Hover};
             }
             
-            a, a:hover {
-              transition: all 0.2s linear;
-              -webkit-transition: all 0.2s linear;
-              -moz-transition: all 0.2s linear;
-              -o-transition: all 0.2s linear;
-            }
-            
             .wrapper {
                 margin: auto;
-                width: 648px;
+                width: 652px;
             }
             
             /* SIDEBAR */
@@ -109,7 +86,7 @@
             .sidebar .box {
                 width: 128px;
                 background-color: #FFFFFF;
-                margin-top: 20px;
+                margin-top: 2em;
                 {block:IfRoundedCorners}border-radius: 5px;
                 -moz-border-radius: 5px;{/block:IfRoundedCorners}
             }
@@ -119,7 +96,7 @@
             }
             
             .sidebar .box .inner {
-                padding: 2px 6px;
+                padding: 3px 6px;
                 width: 116px;
                 font: normal 11px/15px {font:Sidebar};
             }
@@ -153,6 +130,7 @@
             
             .sidebar .twitter .tweet_title {
                 margin-bottom: 2px;
+                text-align: center;
             }
     
             .sidebar .links a, .tweet_click {
@@ -162,7 +140,8 @@
                 padding: 2px 0;
             }
             
-            .sidebar .links a:first-child, #tweets > .tweet_click:first-child {
+            .sidebar .links a:first-child,
+            #tweets > .tweet_click:first-child {
                 border-top: none !important;
             }
             
@@ -175,7 +154,6 @@
 
             .posts {
                 font-family: {font:Posts};
-                font-size: 13px;
                 width: 500px;
                 {block:IfSidebarOnRight}float: left;{/block:IfSidebarOnRight}
                 {block:IfNotSidebarOnRight}float: right;{/block:IfNotSidebarOnRight}
@@ -183,19 +161,40 @@
             
             .posts > div:not(#infscr-loading) {
                 position: relative;
-                margin-bottom: 20px;
-                background: #FFFFFF;
+                margin-bottom: 2em;
+                background-color: #FFFFFF;
                 {block:IfRoundedCorners}-moz-border-radius: 5px;
                 border-radius: 5px;{/block:IfRoundedCorners}
             }
-            
-            .text, 
-            .link,
-            .quote, 
-            .posts > .answer, 
-            .chat,
-            .caption {
-                padding: 10px;
+
+            .posts h2 {
+                font-size: 18px;
+                line-height: 20px;
+                display: block;
+            }
+
+            .posts h2.has_body {
+                margin: 0 0 0.5em 0;
+            }
+
+            .content {
+                padding: 8px 10px;
+            }
+
+            .content > p {
+                margin: 0 0 1em 0;
+            }
+
+            .content > p:last-child {
+                margin: 0;
+            }
+
+            .content img {
+                max-width: 100%;
+            }
+
+            .chat .line {
+                line-height: 19px;
             }
             
             /* NAVIGATION */
@@ -227,14 +226,6 @@
     
             /* COMMON */
     
-            .posts .title {
-                font-size: 18px;
-                font-weight: bold;
-                line-height: 20px;
-                margin: 0 0 5px 0;
-                display: block;
-            }
-    
             .media img, iframe.photoset, .video iframe, .audio .face {
                 {block:IfRoundedCorners}-moz-border-radius: 5px;
                 border-radius: 5px;{/block:IfRoundedCorners}
@@ -249,57 +240,13 @@
                 border-bottom-left-radius: 0;
             }{/block:IfRoundedCorners}
             
-            .photo .media img {
-                width: 500px;
-            }
-            
-            .chat .label, .asked_by div.asker a {
+            .label,
+            .asked_by div.asker a {
                   font-weight: bold;
-            }
-
-            .body p,
-            .caption p,
-            .posts p {
-                padding: 0;
-                margin: 10px 0 0 0;
-            }
-
-            .body p:first-child,
-            .caption p:first-child,
-            .posts p:first-child {
-                margin-top: 0;
-            }
-
-            blockquote {
-                margin: 10px 0 0 4px;
-                padding: 0 0 0 9px;
-                border-left: 3px solid rgba(0,0,0,0.25);
-            }
-
-            ol, ul {
-                padding-left: 20px;
-            }
-
-            .body img,
-            .caption img {
-                display: block;
-                max-width: 100%;
-            }
-
-            a img {
-                border: 0;
             }
 
             ol.notes img.avatar {
                 width: 16px;
-            }
-
-            p.read_more_container {
-              margin: 0;
-            }
-
-            .label {
-                font-weight: bold;
             }
 
             /* CONTROLS */
@@ -385,20 +332,29 @@
     
             {block:IfNotDisplayCaptions}.caption {
                 display: none !important;
-            }{/block:IfNotDisplayCaptions}
+            }
+            {/block:IfNotDisplayCaptions}
 
             {block:IfTransparentBackgrounds}.posts > div, .sidebar .box {
-                background-color: transparent;
-            }{/block:IfTransparentBackgrounds}
+                background-color: transparent !important;
+                box-shadow: none !important;
+            }
 
             .posts .photoset .media:not(.with_caption) {
                 background-color: {color:Background} !important;
+            }{/block:IfTransparentBackgrounds}
+
+            body.permalink_page .posts .controls {
+                display: none;
             }
+            
+            .with_caption { margin: 0 !important; }
 
             {CustomCSS}
         </style>
+        <link rel="stylesheet" href="https://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/qhKmhensz/meta_and_controls.css" />
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/tQkmh95i1/fancy_answer_and_audio_posts.css" />
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/8n7mhym6w/fancy_answer_and_audio_posts_2.css" />
         <!--[if lte IE 8]>
           <style type="text/css">
             blockquote { 
@@ -443,31 +399,29 @@
         <div class="wrapper">
              <div class="posts">
                 {block:Posts}
-                    <div class="{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}">
-                        <div class="controls"{block:PermalinkPage} style="display: none;"{/block:PermalinkPage}>
+                    <div class="{PostType}{block:Photoset}set{/block:Photoset}" data-postid="{PostID}">
+                        <div class="controls">
                             <a class="button notecount" href="{Permalink}#notes">{NoteCount}</a>
                             <span class="button like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
                             <a class="button reblog" href="{ReblogURL}" target="_blank"></a>
                         </div>
                         {block:Text}
-                            {block:Title}
-                                <div class="title">
-                                    {Title}
-                                </div>
-                            {/block:Title}
-                            <div class="body"> 
+                            <div class="content">
+                                {block:Title}
+                                    <h2 class="has_body">
+                                       {Title}
+                                    </h2>
+                                {/block:Title}
                                 {Body}
                             </div>
                         {/block:Text}
 
                         {block:Photo}
                             <div class="media{block:Caption} with_caption{/block:Caption}">
-                                <a href="{LinkURL}">
-                                    <img src="{PhotoURL-500}" alt="{PhotoAlt}"{block:Caption} class="has_caption"{/block:Caption} />
-                                </a>
+                                {LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" class="photo{block:Caption} has_caption{/block:Caption}" />{LinkCloseTag}
                             </div>
                             {block:Caption}
-                                <div class="caption">
+                                <div class="content">
                                     {Caption}
                                 </div>
                             {/block:Caption}
@@ -478,18 +432,18 @@
                                 {Photoset-500}
                             </div>
                             {block:Caption}
-                                <div class="caption">
+                                <div class="content">
                                     {Caption}
                                 </div>
                             {/block:Caption}          
                         {/block:Photoset}
 
                         {block:Quote}
-                            <div class="title">
-                                "{Quote}"
-                            </div>
+                            <div class="content">
+                                <h2{block:Source} class="has_body"{/block:Source}>
+                                    "{Quote}"
+                                </h2>
                                 {block:Source}
-                                <div class="body">
                                     <div class="source">
                                         &mdash; {Source}
                                     </div>
@@ -498,36 +452,36 @@
                         {/block:Quote}
 
                         {block:Link}
-                            <a class="title" href="{URL}" {Target}>
-                                {Name}
-                            </a>
-                            {block:Description}
-                                <div class="body">
+                            <div class="content">
+                                <h2{block:Description} class="has_body"{/block:Description}>
+                                    <a class="title" href="{URL}" {Target}>{Name} »</a>
+                                </h2>
+                                {block:Description}
                                     {Description}
-                                </div>
-                            {/block:Description}    
+                                {/block:Description}  
+                            </div>  
                         {/block:Link}
             
                         {block:Video}
                             <div class="media{block:Caption} with_caption{/block:Caption}">
                                 {Video-500}
                             </div>
-                            {block:Caption}
-                                <div class="caption">
+                            <div class="content">
+                                {block:Caption}
                                     {Caption}
-                                </div>
-                            {/block:Caption}
+                                {/block:Caption}
+                            </div>
                         {/block:Video}
             
                         {block:Chat}
-                            {block:Title}
-                                <div class="title">
-                                    {Title}
-                                </div>
-                            {/block:Title}
-                            <div class="body">
+                            <div class="content">
+                                {block:Title}
+                                    <h2 class="has_body">
+                                        {Title}
+                                    </h2>
+                                {/block:Title}
                                 {block:Lines}
-                                    <div style="line-height: 19px;">
+                                    <div class="line">
                                         {block:Label}
                                             <span class="label">{Label}</span>
                                         {/block:Label}
@@ -541,8 +495,7 @@
                             {block:AlbumArt}
                                 <div class="flip_container">
                                   <div class="artwork">
-                                      <div class="face front" style="background-image:url('{AlbumArtURL}');">
-                                      </div>
+                                      <div class="face front" style="background-image:url('{AlbumArtURL}');"> </div>
                                       <div class="face back">
                                           <table class="info">
                                               <tbody>
@@ -583,8 +536,8 @@
                                   </div>
                               </div>
                             {/block:AlbumArt}
-                            <div class="body" style="padding: 10px;">
-                                {AudioPlayerWhite}
+                            <div class="content">
+                                {AudioPlayer}
                                 {block:Caption}
                                     {Caption}
                                 {/block:Caption}
@@ -592,22 +545,24 @@
                         {/block:Audio}      
             
                         {block:Answer}
-                            <div class="question">
-                                {Question}
-                            </div>
-                            <div class="question_arrow"></div>
-                            <div class="asked_by">
-                                <img class="avatar" src="{AskerPortraitURL-24}" />
-                                <div class="asker">{lang:Asked by Asker 2}</div>
-                            </div>
-                            <div class="response">
-                                {Answer}
+                            <div class="content">
+                                <div class="question">
+                                    {Question}
+                                </div>
+                                <div class="question_arrow"></div>
+                                <div class="asked_by">
+                                    <img class="avatar" src="{AskerPortraitURL-24}" />
+                                    <div class="asker">{lang:Asked by Asker 2}</div>
+                                </div>
+                                <div class="response">
+                                    {Answer}
+                                </div>
                             </div>
                         {/block:Answer}
                     </div>
 
                     {block:PermalinkPage}{block:Date}
-                        <div class="meta" style="padding: 10px;">
+                        <div class="content meta">
                             <div>
                                 {lang:TimeAgo with NoteCount notes}
                             </div>
@@ -671,8 +626,8 @@
                 {block:Twitter}
                     <div class="box twitter" style="display: none;">
                         <script type="text/javascript">
-                            var tw_name = '{TwitterUsername}'; // If you have set up Twitter via Tumblr Settings, you should not need to change this.
-                            var tw_count = 3; // You may change this number to however many recent tweets you wish to display.
+                            var tw_name = '{TwitterUsername}';
+                            var tw_count = 3;
                         </script>
                         <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/EY5mc3o1v/twitter.js"></script>
                     <div class="inner">
