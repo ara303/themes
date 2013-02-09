@@ -181,18 +181,6 @@
                 padding: 8px 10px;
             }
 
-            .content > p {
-                margin: 0 0 1em 0;
-            }
-
-            .content > p:last-child {
-                margin: 0;
-            }
-
-            .content img {
-                max-width: 100%;
-            }
-
             .chat .line {
                 line-height: 19px;
             }
@@ -377,7 +365,7 @@
           </style>
         <![endif]-->
         
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/bLdmd86qy/single_column.js"></script>
+        <!--<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/bLdmd86qy/single_column.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 {block:IfInfiniteScrolling}$("div.posts").infinitescroll({
@@ -393,13 +381,20 @@
                     }
                 });{/block:IfInfiniteScrolling}
             });
+        </script>-->
+
+        <script src="https://dl.dropbox.com/u/16697297/themes/eathemes.min.js"></script>
+        <script>
+            $(function(){
+                eathemes($('.posts'),".post","{Name}",500);
+            })
         </script>
     </head>
-    <body class="singlecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners}">
+    <body class="singlecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners} lazyload_enabled">
         <div class="wrapper">
              <div class="posts">
                 {block:Posts}
-                    <div class="{PostType}{block:Photoset}set{/block:Photoset}" data-postid="{PostID}">
+                    <div class="{PostType}{block:Photoset}set{/block:Photoset} post" data-postid="{PostID}">
                         <div class="controls">
                             <a class="button notecount" href="{Permalink}#notes">{NoteCount}</a>
                             <span class="button like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
@@ -418,7 +413,7 @@
 
                         {block:Photo}
                             <div class="media{block:Caption} with_caption{/block:Caption}">
-                                {LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" class="photo{block:Caption} has_caption{/block:Caption}" />{LinkCloseTag}
+                                {LinkOpenTag}<img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{PhotoURL-500}" alt="{PhotoAlt}" class="photo{block:Caption} has_caption{/block:Caption}" />{LinkCloseTag}
                             </div>
                             {block:Caption}
                                 <div class="content">
@@ -463,7 +458,7 @@
                         {/block:Link}
             
                         {block:Video}
-                            <div class="media{block:Caption} with_caption{/block:Caption}">
+                            <div class="media{block:Caption} with_caption{/block:Caption}" data-from-page="{CurrentPage}">
                                 {Video-500}
                             </div>
                             <div class="content">
@@ -537,7 +532,9 @@
                               </div>
                             {/block:AlbumArt}
                             <div class="content">
-                                {AudioPlayer}
+                                <div data-from-page="{CurrentPage}">
+                                    {AudioPlayer}
+                                </div>
                                 {block:Caption}
                                     {Caption}
                                 {/block:Caption}
@@ -642,8 +639,8 @@
             {block:Pagination}
                 <div class="navigation">
                     {block:NextPage}
-                        <div class="next">
-                            <a href="{NextPage}" alt="Back">&larr; {lang:Back}</a>
+                        <div {block:IfNotInfiniteScrolling}class="next"{/block:IfNotInfiniteScrolling}>
+                            <a href="{NextPage}" {block:IfInfiniteScrolling}class="next" {/block:IfInfiniteScrolling}alt="Back">&larr; {lang:Back}</a>
                         </div>
                     {/block:NextPage}
                     {block:PreviousPage}
