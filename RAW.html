@@ -1,21 +1,23 @@
 <html>
     <head>
-        <!-- RAW from themes.edada.ms -->
-        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
+        <!-- RAW, from themes.edada.ms -->
+        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged {Tag}{/block:TagPage}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
         <link rel="alternate" type="application/rss+xml" href="{RSS}" />
-        <meta http-equiv="Content-Type" value="text/html; charset=utf-8" />
+        <meta charset="utf-8" />
 
-        <meta name="color:Text" content="#222" />
-        <meta name="color:Link" content="#000000" />
+        <meta name="color:Text" content="#222222" />
+        <meta name="color:Link" content="#444444" />
         <meta name="color:Link Hover" content="#CCCCCC" />
         <meta name="color:Background" content="#FFFFFF" />
         <meta name="image:Background" content="" />
-        <meta name="font:Text" content="'Helvetica Neue',Arial,sans-serif" />
-        <meta name="if:Background Cover" content="1" />
-        <meta name="if:Photo Captions" content="1" />
-        <meta name="if:Sidebar Seperator" content="1" />
+        <meta name="font:Font" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
+        <meta name="if:Background cover" content="1" />
+        <meta name="if:Background fixed" content="1" />
+        <meta name="if:Display photo captions" content="1" />
+        <meta name="if:Sidebar separator" content="1" />
+        <meta name="if:Underline hyperlinks" content="1" />
         <meta name="if:Display Title" content="1" />
         <meta name="if:Display Icon" content="1" />
         <meta name="if:Display Ask" content="1" />
@@ -26,15 +28,15 @@
                 padding: 0;
                 margin: 0;
                 font-size: 0.9em;
-                line-height: 1.1em;
-                font-family: {font:Text};
+                font: normal 0.9em/1.1 {font:Font};
                 color: {color:Text};
-                background: {color:Background} url('{image:Background}') repeat fixed;
+                background: {color:Background} url('{image:Background}') repeat{block:IfBackgroundFixed} fixed{/block:IfBackgroundFixed};
                 {block:IfBackgroundCover}background-size: cover;{/block:IfBackgroundCover}
             }
             
             a {
                 color: {color:Link};
+                {block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
             }
             
             a:hover {
@@ -55,9 +57,9 @@
                 display: block;
                 height: 100%;
                 padding: 2% 1% 0 1%;
-                margin-right: 1%;
-                {block:IfSidebarSeperator}border-right: thin solid rgba(0,0,0,0.33);{/block:IfSidebarSeperator}
+                margin-right: 2%;
                 position: fixed;
+                {block:IfSidebarSeparator}border-right: 1px solid rgba(0,0,0,0.25);{/block:IfSidebarSeparator}
             }
             
             header img {
@@ -79,7 +81,7 @@
             }
             
             header aside, header h4, header nav {
-                margin: 0 0 5% 0;
+                margin: 5% 0;
             }
             
             header nav {
@@ -91,11 +93,11 @@
                 float: left;
                 display: block;
                 height: 100%;
-                margin: 2% 0 0 19%;
+                margin: 2% 0 0 20%;
             }
             
             article {
-                margin-bottom: 5%;
+                margin-bottom: 4%;
             }
             
             article h3 {
@@ -106,31 +108,45 @@
                 width: 70%;
             }
             
-            article img.photo_post {
+            article img.photo {
                 margin-bottom: 1em;
-                max-width: 100%;
+                max-width: 90%;
             }
             
             article p:empty, article h3:empty {
                 display: none;
             }
             
-            article > p, article > h3 {
+            article p, article h3 {
                 margin-top: 0;
             }
             
             article section {
+                margin-top: 1em;
                 font-size: smaller;
+            }
+
+            body.permalink_page article section {
+                padding-top: 1em;
+                border-top: 1px solid rgba(0,0,0,0.25);
             }
             
             blockquote {
-                margin: 1em 0 1em 0.5em;
+                margin: 0 0 1em 0;
                 padding-left: 0.5em;
-                border-left: 3px solid rgba(0, 0, 0, 0.33);
+                border-left: 2px solid rgba(0, 0, 0, 0.25);
             }
             
+            ol.notes blockquote {
+                margin: 1em 0;
+            }
+
+            ol.notes a {
+                text-decoration: none;
+            }
+
             ol, ul {
-                padding-left: 22px;
+                padding-left: 20px;
             }
             
             body > nav {
@@ -156,7 +172,7 @@
         </style>
         <!--[if lt IE 9]><script src="http://static.tumblr.com/hriofhd/Qj0m8pn7q/html5shiv.js"></script><![endif]-->
     </head>
-    <body class="tumblr RAW {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}">
+    <body class="raw {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}">
         <header>
             {block:IfDisplayIcon}
                 <a href="/">
@@ -200,35 +216,35 @@
         </header>
         <section class="container">
             {block:Posts}
-                <article class="{PostType}{block:Photoset}set{/block:Photoset}" id="{PostID}">
+                <article class="{PostType}{block:Photoset}set{/block:Photoset}">
                     {block:Text}
                         <h3>{Title}</h3>
                         {Body}
                     {/block:Text}
                     
                     {block:Photo}
-                        <img src="{PhotoURL-HighRes}" class="photo_post" />
-                        {block:IfPhotoCaptions}{Caption}{/block:IfPhotoCaptions}
+                        <img src="{PhotoURL-HighRes}" class="photo" />
+                        {block:IfDisplayPhotoCaptions}{Caption}{/block:IfDisplayPhotoCaptions}
                     {/block:Photo}
                     
                     {block:Photoset}
                         {Photoset-700}
-                        <p>{Caption}</p>
+                        {block:IfDisplayPhotoCaptions}{Caption}{/block:IfDisplayPhotoCaptions}
                     {/block:Photoset}
                     
                     {block:Quote}
                         <h3>"{Quote}"</h3>
-                        <p>&mdash; {Source}</p>
+                        &mdash; {Source}
                     {/block:Quote}
                     
                     {block:Video}
                         {Video-700}
-                        <p>{Caption}</p>
+                        {block:IfDisplayPhotoCaptions}{Caption}{/block:IfDisplayPhotoCaptions}
                     {/block:Video}
                     
                     {block:Link}
                         <h3><a href="{URL}">{Name} &rarr;</a></h3>
-                        <p>{Description}</p>
+                        {Description}
                     {/block:Link}
                     
                     {block:Chat}
@@ -245,12 +261,12 @@
                     {block:Audio}
                         {block:AlbumArt}<img src="{AlbumArtURL}" />{/block:AlbumArt}
                         {AudioPlayer}
-                        <p>{Caption}</p>
+                        {Caption}
                     {/block:Audio}
                     
                     {block:Answer}
                         <h3>{Asker} asked: {Question}</h3>
-                        <p>{Answer}</p>
+                        {Answer}
                     {/block:Answer}
                     
                     <section>
@@ -259,7 +275,7 @@
                                 <a href="{Permalink}">{NoteCount}</a>
                             {/block:IndexPage}
                             {block:PermalinkPage}
-                                <p style="display: none;">{block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{/block:ContentSource}{block:RebloggedFrom}, via: <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource}</p>
+                                <!--{block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{/block:ContentSource}{block:RebloggedFrom}, via: <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource}-->
                                 <p>
                                     {lang:Posted TimeAgo with NoteCount notes}
                                 </p>
