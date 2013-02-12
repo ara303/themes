@@ -1,30 +1,27 @@
 <html>
-    <!-- Untitled from themes.edada.ms -->
+    <!-- Untitled, from themes.edada.ms -->
     <head>
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged "{Tag}"{/block:TagPage}</title>
         <meta name="description" content="{MetaDescription}" />
         <link rel="icon" type="image/png" href="{Favicon}" />
         <meta name="alternate" content="{RSS}" />
         <meta name="font:Font" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
-        <meta name="image:Sidebar Title Background" content="0" />
+        <meta name="image:Sidebar Background" content="" />
         <meta name="color:Text" content="#222222" />
         <meta name="color:Link" content="#757575" />
         <meta name="color:Link Hover" content="#CCCCCC" />
-        <meta name="color:Sidebar Title Background" content="#222222" />
+        <meta name="color:Sidebar Accent" content="#222222" />
         <meta name="color:Background" content="#FFFFFF" />
         <meta name="color:Sidebar Title" content="#FFFFFF" />
-        <meta name="color:Sidebar Links" content="#333333" />
-        <meta name="if:Large posts" content="0" />
+        <meta name="if:Large posts" content="1" />
         <meta name="if:Exif data on photos" content="1" />
         <meta name="if:Song data on audio" content="1" />
-        <meta name="if:Hide Ask" content="1" />
-        <meta name="if:Inline Ask" content="1" />
-        <meta name="if:Hide Submit" content="1" />
-        <!-- <meta name="if:Numbered pagination" content="0" /> -->
-        <meta name="if:Enable Infinite Scrolling" content="1" />
-        <meta name="if:Underline Hyperlinks" content="0" />
-        <meta name="if:White Tumblr Controls" content="1" />
-        
+        <meta name="if:Hide Submit link" content="1" />
+        <meta name="if:Hide Pages links" content="0" />
+        <meta name="if:Hide Ask link" content="1" />
+        <meta name="if:Display Inline Ask" content="1" />
+        <meta name="if:Infinite scrolling" content="1" />
+        <meta name="if:Underline hyperlinks" content="0" />
         <style>
             body {
                   font: normal 14px/1.3 {font:Font};
@@ -55,7 +52,7 @@
             
             .sidebar .title {
                 padding: 65px 20px;
-                background-color: {color:Sidebar Title Background};
+                background-color: {color:Sidebar Accent};
                 text-align: center;
                 text-decoration: none;
                 text-shadow: 0 1px 1px #000000;
@@ -63,8 +60,8 @@
                 display: block;
                 font-size: 17px;
                 -webkit-backface-visibility: hidden;
-                {block:IfSidebarTitleBackgroundImage}background-image: url('{image:Sidebar Title Background}');
-                background-size: 250px 157px;{/block:IfSidebarTitleBackgroundImage}
+                {block:IfSidebarBackgroundImage}background-image: url('{image:Sidebar Background}');
+                background-size: 250px 157px;{/block:IfSidebarBackgroundImage}
             }
             
             .sidebar a .title {
@@ -88,7 +85,7 @@
             }
             
             .sidebar .links a li { 
-                color: {color:Sidebar Links};
+                color: {color:Sidebar Accent};
                 transition: all 0.2s linear;
                 -webkit-transition: all 0.2s linear;
                 -moz-transition: all 0.2s linear;
@@ -181,11 +178,7 @@
             body:not(.infinite_scrolling) .navigation.jump .current_page {
                 font-weight: bold;
             }
-            
-            {block:IfWhiteTumblrControls}#tumblr_controls, iframe[src="http://eathemes.tumblr.com/_iframe.html"] { 
-                -webkit-filter: invert(100%);
-            }{/block:IfWhiteTumblrControls}
-            
+
             .toggles_me {
                 height: 0;
                 opacity: 0;
@@ -197,7 +190,7 @@
             
             #infscr-loading img { display: none; height: 0; width: 0; }
 
-            {block:IfInlineAsk}.inline_ask_label {
+            {block:IfDisplayInlineAsk}.inline_ask_label {
                 position: relative;
                 z-index: 1;
             }
@@ -287,7 +280,7 @@
                 border-width: 11px;
                 top: 50%;
                 margin-top: -11px;
-            }{/block:IfInlineAsk}
+            }{/block:IfDisplayInlineAsk}
             
             {block:IfNotExifdataonphotos}body.permalink_page .photo .content ul.data {
                 display: none;
@@ -299,9 +292,9 @@
             
             {CustomCSS}
         </style>
-        <link rel="stylesheet" href="http://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/EqHmi0p3p/theme_generic.css" />
         
-        <script src="http://dl.dropbox.com/u/16697297/themes/eathemes.min.js"></script>
+        <script src="http://static.tumblr.com/fpdiq1j/Wgbmi486g/eathemes.min.js"></script>
         <script>
             $(function(){
                 eathemes($(".posts"), "article", "{Name}", "500")
@@ -310,7 +303,7 @@
         <!--[if IE]><style type="text/css">a img { border: 0; }</style><![endif]-->
         <!--[if lt IE 9]><script src="http://static.tumblr.com/fpdiq1j/F09mh8vue/html5shiv.js"></script><![endif]-->
     </head>
-    <body class="untitled {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page notes_toggle{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling}{block:IfInlineAsk} inline_ask{/block:InlineAsk} lazyload_enabled">
+    <body class="untitled {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page notes_toggle{/block:PermalinkPage}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfDisplayInlineAsk} inline_ask{/block:IfDisplayInlineAsk} lazyload_enabled">
         <section class="sidebar">
             <a href="/">
                 <section class="title">
@@ -318,25 +311,27 @@
                 </section>
             </a>
             <ul class="links">
-                {block:HasPages}
-                    {block:Pages}
-                        <a href="{URL}">
-                            <li>
-                                {Label}
-                            </li>
-                        </a>
-                    {/block:Pages}
-                {/block:HasPages}
-                {block:IfNotInlineAsk}
+                {block:IfNotHidePagesLinks}
+                    {block:HasPages}
+                        {block:Pages}
+                            <a href="{URL}">
+                                <li>
+                                    {Label}
+                                </li>
+                            </a>
+                        {/block:Pages}
+                    {/block:HasPages}
+                {/block:IfNotHidePagesLinks}
+                {block:IfNotDisplayInlineAsk}
                     {block:AskEnabled}
-                        <a{block:IfHideAsk} style="display:none"{/block:IfHideAsk}href="/ask">
+                        <a{block:IfHideAskLink} style="display:none"{/block:IfHideAskLink}href="/ask">
                             <li>
                                 {AskLabel}
                             </li>
                         </a>
                     {/block:AskEnabled}
-                {block:IfNotInlineAsk}
-                {block:IfNotHideSubmit}
+                {/block:IfNotDisplayInlineAsk}
+                {block:IfNotHideSubmitLink}
                     {block:SubmissionsEnabled}
                         <a href="/submit">
                             <li>
@@ -344,8 +339,8 @@
                             </li>
                         </a>
                     {/block:SubmissionsEnabled}
-                {/block:IfNotHideSubmit}
-                {block:IfInlineAsk}
+                {/block:IfNotHideSubmitLink}
+                {block:IfDisplayInlineAsk}
                     <a>
                         <li class="inline_ask_label">{AskLabel}
                         <div class="inline_ask_box">
@@ -355,7 +350,7 @@
                         </div>
                         </li>
                     </a>
-                {/block:IfInlineAsk}
+                {/block:IfDisplayInlineAsk}
             </ul>
         </section>
         <section class="posts">
@@ -490,35 +485,13 @@
                 </article>
             {/block:Posts}
             {block:Pagination}
-                <nav class="navigation{block:IfNumberedPagination} jump{/block:IfNumberedPagination}{block:IfNotNumberedPagination} normal{/block:IfNotNumberedPagination}">
+                <nav class="navigation">
                         {block:PreviousPage}
                             <a href="{PreviousPage}" class="previous">&larr; Previous</a>
                         {/block:PreviousPage}
                         {block:NextPage}
                             <a href="{NextPage}" class="next">Next &rarr;</a>
                         {/block:NextPage}
-                        
-                        <!-- 
-                    {block:IfNumberedPagination}
-                        {block:PreviousPage}
-                            <a href="{PreviousPage}" class="previous">&larr; Previous</a>
-                        {/block:PreviousPage}
-                        <span class="jumpcontrols">
-                        {block:JumpPagination length="5"}
-                            {block:CurrentPage}
-                                <span class="current_page">{PageNumber}</span>
-                            {/block:CurrentPage}
-            
-                            {block:JumpPage}
-                                <a class="jump_page" href="{URL}">{PageNumber}</a>
-                            {/block:JumpPage}
-                        {/block:JumpPagination}
-                        </span>
-                        {block:NextPage}
-                            <a href="{NextPage}" class="next">Next &rarr;</a>
-                        {/block:NextPage}
-                    {/block:IfNumberedPagination}
-                    -->
                 </nav>
             {/block:Pagination}
         </section>
