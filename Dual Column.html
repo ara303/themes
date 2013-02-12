@@ -35,8 +35,7 @@
         <meta name="if:Hide Archive" content="0" />
         <meta name="if:Hide RSS" content="0" />
         
-        <link rel="stylesheet" href="http://dl.dropbox.com/u/16697297/toolkit/clearfix.css" type="text/css" />
-        <style media="screen" type="text/css">
+        <style type="text/css">
             body {
                 padding: 20px 0;
                 margin: 0;
@@ -169,14 +168,13 @@
             .navigation {
                 font-family: {font:Posts};
                 font-size: 20px;
-                height: 30px;
-                width: 500px;
-                margin: 0 0 20px 0;
+                height: 34px;
+                margin-left: 148px;
             }
         
             .navigation .next, .navigation .prev {
                 background: #FFFFFF;
-                padding: 4px;
+                padding: 10px 8px;
                 {block:IfRoundedCorners}-moz-border-radius: 5px;
                 border-radius: 5px;{/block:IfRoundedCorners}
             }
@@ -345,8 +343,7 @@
             {CustomCSS}
         </style>
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/tQkmh95i1/fancy_answer_and_audio_posts.css" />
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/qhKmhensz/meta_and_controls.css" />
-        
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/muemi4csl/meta_controls.css" />
         <!--[if lte IE 8]>
           <style type="text/css" media="screen">
             blockquote { 
@@ -369,42 +366,19 @@
           </style>
         <![endif]-->
 
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/ifimc74kk/dual_column.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                var $container = $('.posts');
-                $container.imagesLoaded(function(){
-                    $container.masonry({
-                        itemSelector: ".posts > div",
-                        columnWidth: 420
-                    })
-                })
-                {block:IfInfiniteScrolling}$container.infinitescroll({
-                    navSelector: "div.navigation", 
-                    nextSelector: "div.next a", 
-                    itemSelector: ".posts > div",
-                    bufferPx: 400,
-                    loading: {
-                        img: "http://static.tumblr.com/fpdiq1j/c6Hm9f3wz/loading.gif",
-                        msgText: "<div class='inf_scr loading'>Loading posts...</div>",
-                        finishedMsg: "<div class='inf_scr done'>No more posts!</div>"
-                    }
-                },
-                function(newElements) {
-                    var $newElems = $( newElements ).css({ opacity: 0 });
-                    $newElems.imagesLoaded(function(){
-                        $newElems.animate({ opacity: 1 });
-                        $container.masonry( 'appended', $newElems, true ); 
-                    })
-                }){/block:IfInfiniteScrolling}
+
+        <script src="http://static.tumblr.com/fpdiq1j/1Lami4do0/eathemes.min.js"></script>
+        <script>
+            $(function(){
+                eathemes($('.posts'),'.post','{Name}',420);
             })
         </script>
     </head>
-    <body class="tumblr dualcolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners}">
+    <body class="dualcolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners} inline_like_and_reblog masonry_enabled">
         <div class="wrapper">
              <div class="posts">
                 {block:Posts}
-                    <div class="{PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}">
+                    <div class="{PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses} post">
                         <div class="controls"{block:PermalinkPage} style="display: none;"{/block:PermalinkPage}>
                             <a class="button notecount" href="{Permalink}#notes">{NoteCount}</a>
                             <span class="button like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
@@ -470,7 +444,7 @@
                         {/block:Link}
             
                         {block:Video}
-                            <div class="media{block:Caption} with_caption{/block:Caption}">
+                            <div class="media{block:Caption} with_caption{/block:Caption}" data-from-page="{CurrentPage}">
                                 {Video-400}
                             </div>
                             {block:Caption}
@@ -545,7 +519,9 @@
                               </div>
                             {/block:AlbumArt}
                             <div class="body" style="padding: 10px;">
-                                {AudioPlayerWhite}
+                                <div data-from-page="{CurrentPage}">
+                                    {AudioPlayer}
+                                </div>
                                 {block:Caption}
                                     {Caption}
                                 {/block:Caption}
@@ -568,7 +544,7 @@
                     </div>
 
                     {block:PermalinkPage}{block:Date}
-                        <div class="meta" style="padding: 10px;">
+                        <div class="post meta">
                             <div class="notecount">
                                 {lang:TimeAgo with NoteCount notes}
                             </div>
@@ -634,8 +610,8 @@
                 {block:Twitter}
                     <div class="box twitter" style="display: none;">
                         <script type="text/javascript">
-                            var tw_name = '{TwitterUsername}'; // If you have set up Twitter via Tumblr Settings, you should not need to change this.
-                            var tw_count = 3; // You may freely change this number to however many recent tweets you wish to display.
+                            var tw_name = '{TwitterUsername}';
+                            var tw_count = 3;
                         </script>
                         <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/EY5mc3o1v/twitter.js"></script>
                     <div class="inner">
@@ -650,14 +626,10 @@
             {block:Pagination}
                 <div class="navigation">
                     {block:NextPage}
-                        <div class="next">
-                            <a href="{NextPage}" alt="Back">&larr; {lang:Back}</a>
-                        </div>
+                        <a href="{NextPage}" class="next">&larr; {lang:Next}</a>
                     {/block:NextPage}
                     {block:PreviousPage}
-                        <div class="previous">
-                            <a href="{PreviousPage}" alt="Forward">{lang:Forward} &rarr;</a>
-                        </div>
+                        <a href="{PreviousPage}" class="previous">{lang:Previous} &rarr;</a>
                     {/block:PreviousPage}
                 </div>
             {/block:Pagination}
