@@ -263,7 +263,7 @@
                 width: 124px;
                 margin-left: -62px;
                 text-align: center;
-                font: normal 16px/18px 'Helvetica Neue',Arial;
+                font: normal 16px/18px 'Helvetica Neue',Helvetica,Arial,sans-serif;
                 padding: 6px;
                 background-color: rgba(255, 255, 255, 0.80);
             }
@@ -331,17 +331,17 @@
             .posts .photoset .media:not(.with_caption) {
                 background-color: {color:Background} !important;
             }{/block:IfTransparentBackgrounds}
+            
+            .with_caption { margin: 0 !important; }
 
             body.permalink_page .posts .controls {
                 display: none;
             }
-            
-            .with_caption { margin: 0 !important; }
 
             {CustomCSS}
         </style>
-        <link rel="stylesheet" href="https://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/qhKmhensz/meta_and_controls.css" />
+        <link rel="stylesheet" href="http://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/muemi4csl/meta_controls.css" />
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/8n7mhym6w/fancy_answer_and_audio_posts_2.css" />
         <!--[if lte IE 8]>
           <style type="text/css">
@@ -364,33 +364,15 @@
             }
           </style>
         <![endif]-->
-        
-        <!--<script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/bLdmd86qy/single_column.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                {block:IfInfiniteScrolling}$("div.posts").infinitescroll({
-                    navSelector: "div.navigation", 
-                    nextSelector: "div.next a", 
-                    itemSelector: "div.posts > div",
-                    bufferPx: 1000,
-                    debug: false,
-                    loading: {
-                        img: "http://static.tumblr.com/fpdiq1j/c6Hm9f3wz/loading.gif",
-                        msgText: "<div class='inf_scr loading'>Loading posts...</div>",
-                        finishedMsg: "<div class='inf_scr done'>No more posts!</div>"
-                    }
-                });{/block:IfInfiniteScrolling}
-            });
-        </script>-->
 
-        <script src="https://dl.dropbox.com/u/16697297/themes/eathemes.min.js"></script>
+        <script src="http://static.tumblr.com/fpdiq1j/RSSmidjp3/eathemes.min.js"></script>
         <script>
             $(function(){
                 eathemes($('.posts'),".post","{Name}",500);
             })
         </script>
     </head>
-    <body class="singlecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners} lazyload_enabled">
+    <body class="singlecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners} lazyload_enabled inline_like_and_reblog">
         <div class="wrapper">
              <div class="posts">
                 {block:Posts}
@@ -413,7 +395,7 @@
 
                         {block:Photo}
                             <div class="media{block:Caption} with_caption{/block:Caption}">
-                                {LinkOpenTag}<img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{PhotoURL-500}" alt="{PhotoAlt}" class="photo{block:Caption} has_caption{/block:Caption}" />{LinkCloseTag}
+                                {LinkOpenTag}<img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" style="width: {PhotoWidth-500}px; height: {PhotoHeight-500}px;" data-original="{PhotoURL-500}" alt="{PhotoAlt}" class="photo{block:Caption} has_caption{/block:Caption}" />{LinkCloseTag}
                             </div>
                             {block:Caption}
                                 <div class="content">
@@ -430,7 +412,7 @@
                                 <div class="content">
                                     {Caption}
                                 </div>
-                            {/block:Caption}          
+                            {/block:Caption}
                         {/block:Photoset}
 
                         {block:Quote}
@@ -459,7 +441,7 @@
             
                         {block:Video}
                             <div class="media{block:Caption} with_caption{/block:Caption}" data-from-page="{CurrentPage}">
-                                {Video-500}
+                                {VideoEmbed-500}
                             </div>
                             <div class="content">
                                 {block:Caption}
@@ -532,7 +514,7 @@
                               </div>
                             {/block:AlbumArt}
                             <div class="content">
-                                <div data-from-page="{CurrentPage}">
+                                <div style="height: 27px;" data-from-page="{CurrentPage}">
                                     {AudioPlayer}
                                 </div>
                                 {block:Caption}
