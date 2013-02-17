@@ -1,4 +1,4 @@
-<html>
+    <html>
     <head>
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged "{Tag}"{/block:TagPage}</title>
         <meta name="description" content="{MetaDescription}" />
@@ -17,6 +17,7 @@
         <meta name="if:Rounded corners" content="0" />
         <meta name="if:Photo captions" content="1" />
         <meta name="if:Transparent backgrounds" content="0" />
+        <meta name="if:Enable infinite scrolling" content="1" />
         <meta name-"image:Background" content="" />
         <meta name="if:Background cover" content="1" />
         <meta name="color:Text" content="#444444" />
@@ -212,8 +213,6 @@
                 -moz-transition: background-color 0.2s linear;
             }
 
-            /* NO BAR STUFF BELOW HERE */
-
             .posts {
                 position: relative;
                 z-index: 0;
@@ -281,7 +280,7 @@
                 margin: 0.6em 0 0 0;
             }
 
-            .post p:first-child {
+            .post p:first-of-type {
                 margin-top: 0;
             }
             
@@ -293,6 +292,10 @@
             
             ul.info li {
                 margin-bottom: 5px;
+            }
+
+            ul.info li:last-child {
+                margin: 0;
             }
             
             ol.notes li {
@@ -311,13 +314,27 @@
             .inf_scr {
                 display: none;
             }
+
+            body.infinite_scrolling .navigation {
+                display: none;
+            }
+
+            .navigation {
+                margin: 10px 5px 20px 5px;
+                padding: 8px 10px;
+                background-color: rgba({RGBcolor:Post Background},0.8);
+                {block:IfShadows}box-shadow: 0 1px 3px rgba(0,0,0,0.12);{/block:IfShadows}
+                font-size: 1.2em;
+            }
+
+            .navigation .next {
+                float: right;
+            }
         </style>
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/bzgmia41v/description_animation.css" />
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/Pqlmidiid/description_animation.css" />
         <script src="http://dl.dropbox.com/u/16697297/themes/eathemes.js"></script>
         <script>$(function(){ eathemes($('.posts'),'.post','{Name}',{block:IfOneColumn}530{/block:IfOneColumn}{block:IfTwoColumn}430{/block:IfTwoColumn}{block:IfFluidColumn}280{/block:IfFluidColumn})
-
             $('.description_trigger').click(function(){
-
                 if($('.bar').hasClass('animate_in')){
                     $('.bar').addClass('animate_out').removeClass('animate_in')
                     $('.container').addClass('shrink').removeClass('grow')
@@ -325,11 +342,10 @@
                     $('.bar').addClass('animate_in').removeClass('animate_out')
                     $('.container').addClass('grow').removeClass('shrink')
                 }
-
             })
         })</script>
     </head>
-    <body class="{block:IndexPage}index_page masonry_enabled{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} infinite_scrolling lazyload_enabled{block:IfFluidColumn} fluid_layout{/block:IfFluidColumn}"> 
+    <body class="{block:IndexPage}index_page masonry_enabled{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling} lazyload_enabled{block:IfFluidColumn} fluid_layout{/block:IfFluidColumn}"> 
         <div class="bar">
             <div class="wrapper cf">
                 <div class="block wider">
@@ -344,34 +360,38 @@
                         </div>
                     </div>
                 {/block:IfShowAskInDescription}
-                {block:Likes}
-                    <div class="block"{block:IfNotShowMyLikes} style="display: none;"{/block:IfNotShowMyLikes}>
-                        <div class="heading">{lang:Likes}</div>
-                        <div class="content">
-                            {Likes limit="5" width="500" summarize="250"}
+                {block:IfNotShowMyLikes}
+                    {block:Likes}
+                        <div class="block">
+                            <div class="heading">{lang:Likes}</div>
+                            <div class="content">
+                                {Likes limit="5" width="500" summarize="250"}
+                            </div>
                         </div>
-                    </div>
-                {/block:Likes}
-                {block:Following}
-                    <div class="block"{block:IfNotShowWhoIFollow} style="display: none;"{/block:IfNotShowWhoIFollow}>
-                        <div class="heading">{lang:Following}</div>
-                        <div class="content">
-                            <ul id="following">
-                                {block:Followed}
-                                    <li class="each_blog">
-                                        <a href="{FollowedURL}" title="{FollowedName}">
-                                            <img class="avatar" src="{FollowedPortraitURL-64}" />
-                                        </a>
-                                    </li>
-                                {/block:Followed}
-                            </ul>
+                    {/block:Likes}
+                {/block:IfNotShowMyLikes}
+                {block:IfNotShowWhoIFollow}
+                    {block:Following}
+                        <div class="block">
+                            <div class="heading">{lang:Following}</div>
+                            <div class="content">
+                                <ul id="following">
+                                    {block:Followed}
+                                        <li class="each_blog">
+                                            <a href="{FollowedURL}" title="{FollowedName}">
+                                                <img class="avatar" src="{FollowedPortraitURL-64}" />
+                                            </a>
+                                        </li>
+                                    {/block:Followed}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                {/block:Following}
+                    {/block:Following}
+                {/block:IfNotShowWhoIFollow}
             </div>
             <ul class="links cf">
                 <a href="/"><li class="title">{Title}</li></a>
-                <a href="#"><li class="description_trigger">{lang:About me}</li></a>
+                <a href="#"><li class="description_trigger">{block:IfAboutMeLabel}{text:AboutMeLabel}{block:IfAboutMeLabel}{block:IfNotAboutMeLabel}{lang:About me}{block:IfNotAboutMeLabel}</li></a>
                 {block:HasPages}{block:Pages}<a href="{URL}"><li>{Label}</li></a>{/block:Pages}{/block:HasPages}
                 {block:AskEnabled}<li><a href="/ask">{AskLabel}</a></li>{/block:AskEnabled}
                 {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
@@ -399,8 +419,8 @@
                         {block:Video}
                             <div data-from-page="{CurrentPage}">
                                 {block:IndexPage}{block:IfOneColumn}{Video-500}{/block:IfOneColumn}
-                                {block:IfTwoColumn}{Video-400}{/block:IfTwoColumn}
-                                {block:IfFluidColumn}{Video-250}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{Video-500}{/block:PermalinkPage}
+                                {block:IfTwoColumn}{VideoEmbed-400}{/block:IfTwoColumn}
+                                {block:IfFluidColumn}{VideoEmbed-250}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{VideoEmbed-500}{/block:PermalinkPage}
                             </div>
                             {Caption}
                         {/block:Video}
@@ -429,7 +449,7 @@
 
                         {block:Link}
                             <h2>    
-                                <a href="{URL}" {Target}>{Name}</a>
+                                <a href="{URL}" {Target}>{Name} &rarr;</a>
                             </h2>
                             {Description}
                         {/block:Link}
@@ -474,7 +494,7 @@
                                 </ul>
                             </div>
                             {block:PostNotes}
-                                <div class="post meta" style="float: right;">
+                                <div class="post meta">
                                     {PostNotes}
                                 </div>
                             {/block:PostNotes}
@@ -482,9 +502,11 @@
                     {/block:Date}
                 {/block:Posts}
             </div>
-            <!-- pagination coming soon -->
-            <div class="navigation" style="display: none;">
-                {block:Pagination}{block:NextPage}<a class="next" href="{NextPage}"> </a>{/block:NextPage}{/block:Pagination}
+            <div class="navigation cf">
+                {block:Pagination} 
+                    {block:NextPage}<a class="next" href="{NextPage}">{lang:Next} &rarr;</a>{/block:NextPage}
+                    {block:PreviousPage}<a href="previous" href="{PreviousPage}">&larr; {lang:Previous}</a>{/block:PreviousPage}
+                {/block:Pagination}
             </div>
         </div>
     </body>
