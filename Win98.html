@@ -1,7 +1,7 @@
 <html>
     <head>
         <!-- Win98 from themes.edada.ms -->
-        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
+        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged "{Tag}"{/block:TagPage}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
         <link rel="alternate" type="application/rss+xml" href="{RSS}" />
@@ -16,6 +16,7 @@
         <meta name="font:Font" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
         
         <meta name="if:Enable Infinite Scrolling" content="1" />
+        <meta name="if:Two Column" content="1" />
         <meta name="if:Background Image Cover" content="0" />
         <meta name="if:Display Photo Captions" content="1" />
         <meta name="if:Display Description" content="0" />
@@ -34,7 +35,7 @@
             body {
                 background: {color:Background} url('{image:Background}') repeat fixed;
                 {block:IfBackgroundImageCover}background-size: cover;{/block:IfBackgroundImageCover}
-                font-family: {font:Font;};
+                font-family: {font:Font};
                 font-size: 12px;
             }
         
@@ -457,7 +458,7 @@
         </script>
     </head>
 
-    <body class="win98 index_page infinite_scrolling lazyload_enabled">
+    <body class="win98 {block:IndexPage}index_page{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling}{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfTwoColumn}two_column masonry_enabled{/block:IfTwoColumn} lazyload_enabled">
         <div class="wrapper">
             <div class="icons">
                 <a href="/" class="home">
@@ -562,7 +563,7 @@
 
                             {block:Link}
                                 <a href="{URL}" class="title" {Target}>
-                                    {Name} »
+                                    {Name} &rarr;
                                 </a>
                                 {block:Description}
                                     <div class="body">
@@ -595,7 +596,7 @@
 
                             {block:Video}
                                 <div class="video_player" data-from-page="{CurrentPage}">
-                                    {Video-500}
+                                    {VideoEmbed-500}
                                 </div>
                                 {block:Caption}
                                     <div class="caption">
@@ -605,7 +606,7 @@
                             {/block:Video}
 
                             {block:Audio}
-                                <div data-from-page="{CurrentPage}">
+                                <div data-from-page="{CurrentPage}" style="height: 27px;">
                                     {AudioPlayer}
                                 </div>
                                 {block:Caption}
