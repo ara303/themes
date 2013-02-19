@@ -27,16 +27,11 @@
         <meta name="if:Display Archive Icon" content="1" />
 
         <style type="text/css">
-            body, html {
-                margin: 0;
-                padding: 0;
-            }
-        
             body {
                 background: {color:Background} url('{image:Background}') repeat fixed;
                 {block:IfBackgroundImageCover}background-size: cover;{/block:IfBackgroundImageCover}
-                font-family: {font:Font};
-                font-size: 12px;
+                margin: 0;
+                font: normal 12px/1.2 {font:Font};
             }
         
             a {
@@ -179,21 +174,24 @@
                 overflow: hidden;
             }
         
-            #desktop {
+            #desktop, .navigation {
                 margin: 20px auto 0 auto;
-                width: 480px;
                 z-index: 3;
                 position: relative;
+                {block:IfNotTwoColumn}
+                    width: 480px;
+                {/block:IfNotTwoColumn}
+                {block:IfTwoColumn}
+                    width: 1000px;
+                {/block:IfTwoColumn}
             }   
             
-            {block:IfEnableInfiniteScrolling}div.navigation, #infscr-loading {
-                display: none !important;
-            }{/block:IfEnableInfiniteScrolling}
-            
             .navigation {
-                padding-bottom: 55px;
+                padding: 0 {block:IfTwoColumn}40px{/block:IfTwoColumn}{block:IfNotTwoColumn}0{/block:IfNotTwoColumn} 55px 0;
                 height: 26px;
                 font-weight: bold;
+                clear: both;
+                float: none;
             }
             
             .navigation .next, .navigation .prev {
@@ -201,14 +199,20 @@
                 padding: 5px 6px;
             }
             
-            .navigation .prev {
+            .navigation .next {
                 float: right;
             }
         
             .window {
                 width: 480px;
                 max-width: 480px;
-                margin: 0 0 30px;
+                {block:IfNotTwoColumn}
+                    margin: 0 0 30px 0;
+                {/block:IfNotTwoColumn}
+                {block:IfTwoColumn}
+                    float: left;
+                    margin: 0 20px 20px 0;
+                {/block:IfTwoColumn}
             }
         
             .window .top {
@@ -379,22 +383,24 @@
             /* COMMON */
             
             blockquote {
-                margin-left: 9px;
-                padding-left: 9px;
-                border-left: 2px solid rgba(0,0,0,0.33);
+                margin: 10px 0 0 3px;
+                padding-left: 10px;
+                border-left: 3px solid rgba(0,0,0,0.25);
             }
             
-            #infscr-loading {
-                display: none !important;
-                opacity: 0 !important;
-                visibility: hidden !important;
+            ul, ol {
+                padding-left: 18px;
+            }
+            
+            body.infinite_scrolling .navigation, .inf_scr {
+                display: none;
             }
             
             .middle img {
                 display: block;
             }
             
-            .middle a img {
+            a img {
                 border: 0;    
             }
             
@@ -436,7 +442,7 @@
         <script type="text/javascript" src="http://dl.dropbox.com/u/16697297/themes/eathemes.min.js"></script>
         <script type="text/javascript">
             $(function(){
-                eathemes($("#desktop"), ".window", "{Name}", 480)
+                eathemes($(".container"), ".window", "{Name}", 500)
                 $('.ok_button').click(function(){
                     $(this).parent().parent().fadeOut();
                 })
@@ -506,7 +512,7 @@
                     </div>        
                 {/block:Description}
             {block:IfDisplayDescription}
-            <div id="desktop">
+            <div id="desktop" class="container">
                 {block:Posts}
                     <div class="window {PostType}{block:Photoset}set{/block:Photoset}">
                         <a href="{Permalink}">
@@ -597,6 +603,7 @@
                             {block:Video}
                                 <div class="video_player" data-from-page="{CurrentPage}">
                                     {VideoEmbed-500}
+                                    {Video-500}
                                 </div>
                                 {block:Caption}
                                     <div class="caption">
@@ -628,6 +635,8 @@
                         <div class="bottom"></div>
                     </div>
                 {/block:Posts}
+            </div>
+            
                 {block:Pagination}
                     <div class="navigation">
                         {block:NextPage}
@@ -638,7 +647,6 @@
                         {/block:PreviousPage}
                     </div>
                 {/block:Pagination}
-            </div>
             <div class="start_menu">
             </div>
             <div class="start_bar">
