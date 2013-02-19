@@ -12,6 +12,8 @@
         <meta name="color:Background" content="#008080" />
         <meta name="color:Link Color" content="#000000" />
         <meta name="color:Icon Link Color" content="#ffffff" />
+
+        <meta name="font:Font" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
         
         <meta name="if:Enable Infinite Scrolling" content="1" />
         <meta name="if:Background Image Cover" content="0" />
@@ -32,7 +34,7 @@
             body {
                 background: {color:Background} url('{image:Background}') repeat fixed;
                 {block:IfBackgroundImageCover}background-size: cover;{/block:IfBackgroundImageCover}
-                font-family: 'Helvetica Neue', Arial, sans-serif;
+                font-family: {font:Font;};
                 font-size: 12px;
             }
         
@@ -399,16 +401,9 @@
                 margin-top: 0;
             }
             
-            /*.middle p:only-child, ul:only-child, ol:only-child, blockquote:only-child {
-                margin-top: 0;
-                margin-bottom: 0;   
-            }*/
-            
             .middle p:last-child, ul:last-child, ol:last-child, blockquote:last-child {
                 margin-bottom: 0;
             }
-            
-            /* END COMMON */
             
             {block:IfNotDisplayPhotoCaptions}.caption{
                 display:none;
@@ -436,17 +431,33 @@
         
             {CustomCSS}
         </style>
-        
-        
     
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/S5Jmd2p8d/win98.js"></script>
+        <script type="text/javascript" src="http://dl.dropbox.com/u/16697297/themes/eathemes.min.js"></script>
         <script type="text/javascript">
-            var has_infinite_scrolling = {block:IfEnableInfiniteScrolling}true{/block:IfEnableInfiniteScrolling}{block:IfNotEnableInfiniteScrolling}false{/block:IfNotEnableInfiniteScrolling};
+            $(function(){
+                eathemes($("#desktop"), ".window", "{Name}", 480)
+                $('.ok_button').click(function(){
+                    $(this).parent().parent().fadeOut();
+                })
+                function updateClock(){
+                    var date = new Date();
+                    var mins = date.getMinutes();
+                    var hrs = date.getHours();
+                    var ext = "AM";
+                    if(hrs > 12){ 
+                        var ext = "PM";
+                        var hrs = hrs - parseInt(12);
+                    }
+                    var currentTime = hrs + ":" + mins + " " + ext;
+                    $('#showClock').html(currentTime);
+                }
+                window.setInterval(updateClock, 6000);
+                updateClock();
+            })
         </script>
     </head>
 
-    <body>
+    <body class="win98 index_page infinite_scrolling lazyload_enabled">
         <div class="wrapper">
             <div class="icons">
                 <a href="/" class="home">
@@ -496,7 +507,7 @@
             {block:IfDisplayDescription}
             <div id="desktop">
                 {block:Posts}
-                    <div class="window">
+                    <div class="window {PostType}{block:Photoset}set{/block:Photoset}">
                         <a href="{Permalink}">
                             <div class="top">
                                 {block:Date}
@@ -583,7 +594,7 @@
                             {/block:Chat}
 
                             {block:Video}
-                                <div class="video_player">
+                                <div class="video_player" data-from-page="{CurrentPage}">
                                     {Video-500}
                                 </div>
                                 {block:Caption}
@@ -594,7 +605,9 @@
                             {/block:Video}
 
                             {block:Audio}
-                                {AudioPlayerBlack}
+                                <div data-from-page="{CurrentPage}">
+                                    {AudioPlayer}
+                                </div>
                                 {block:Caption}
                                     <div class="body">
                                         {Caption}
