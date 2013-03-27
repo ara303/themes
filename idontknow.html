@@ -1,0 +1,299 @@
+<html>
+    <head>
+        <!-- From eathemes.tumblr.com -->
+        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, post tagged "{Tag}"{/block:TagPage}</title>
+        <meta name="shortcut icon" content="{Favicon}" />
+        <meta name="description" content="{MetaDescription}" />
+        <meta name="alternate" content="{RSS}" />
+        <meta charset="utf-8" />
+        <meta name="font:Text" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
+        <meta name="color:Text" content="#333333" />
+        <meta name="color:Background" content="#FFFFFF" />
+        <meta name="image:Background" content="" />
+        <meta name="image:Side" content="" />
+        <style>
+            body {
+                margin: 0;
+                font: normal 0.9em/1.3 {font:Text};
+                color: rgb({RGBcolor:Text});
+                background: url('{image:Background}') rgb({RGBcolor:Background}) no-repeat fixed;
+                background-size: cover;
+            }
+            
+            a {
+                color: grey;
+            }
+            
+            a:hover {
+                color: grey;
+            }
+            
+            img {
+                max-width: 100%;
+                box-shadow: 0 0 5px #cccccc;
+            }
+
+            .container {
+                width: 500px;
+                margin: 0 auto 1em;
+                padding: 2em;
+            }
+
+            header .wrapper {
+                margin: 1em 0;
+            }
+            
+            header h2.title, header .drop {
+                float: left;
+                position: relative;
+            }
+            
+            header section.description {
+                margin-top: 0.2em;
+            }
+            
+            .drop .button {
+                width: 13px;
+                height: 13px; 
+                background-color: #eee; 
+                margin-left: 0.8em;
+                border-radius: 3px; 
+                box-shadow: 0 1px 3px #ccc, 0 1px 1px #fff inset; 
+                border: 1px solid rgba(0,0,0,0.3); 
+                padding: 1px 3px 5px 3px;
+            }
+            
+            .drop .list {
+                margin-top: 15px;
+                display: none;
+                background-color: #EEEEEE;
+                border: 1px solid rgba(0,0,0,0.1);
+                box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+                border-radius: 3px;
+                padding: 0;
+                list-style: none;
+                position: absolute;
+                right: -41px;
+            }
+            
+            .drop .list a {
+                display: block;
+                text-decoration: none;
+                border-top: 1px solid rgba(255,255,255,0.85);
+                border-bottom: 1px solid rgba(0,0,0,0.1);   
+                padding: 6px 12px;
+                color: rgb({RGBcolor:Text});
+            }
+            
+            .drop .list a:hover {
+                background-color: rgba(255,255,255,0.45);
+            }
+            
+            .drop .list a:first-of-type {
+                border-radius: 3px 3px 0 0;
+            }
+            
+            .drop .list a:last-of-type {
+                border-radius: 0 0 3px 3px;
+                border-bottom: 0;
+            }
+            
+            .drop .arrow {
+                top: 0px;
+                position: relative;
+            }
+            
+            .drop .arrow:after, .drop .arrow:before {
+                bottom: 100%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+            
+            .drop .arrow:after {
+                border-color: rgba(255, 255, 255, 0);
+                border-bottom-color: #eee;
+                border-width: 10px;
+                left: 50%;
+                margin-left: -10px;
+                box-shadow: 0 1px 1px #eee;
+            }
+
+            .drop .arrow:before {
+                border-color: rgba(130, 130, 130, 0);
+                border-bottom-color: #ccc;
+                border-width: 11px;
+                left: 50%;
+                margin-left: -11px;
+            }
+
+            article {
+                padding: 1.2em 0;
+                border-top: 2px dashed #cccccc;
+            }
+
+            aside {
+                margin-top: 0.5em;
+                text-align: right;
+                font-size: 0.8em;
+                opacity: 0.6;
+                -webkit-transition: opacity 0.2s linear;
+            }
+
+            aside:hover {
+                opacity: 0.9;
+                -webkit-transition: opacity 0.2s linear;
+            }
+            
+            aside a {
+                text-decoration: none;
+                color: rgb({RGBcolor:Text});
+            }
+        </style>
+        <link rel="stylesheet" href="http://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
+        <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function(){
+                $('.button').click(function(){
+                    $('.list').fadeToggle('fast')
+                })
+            })
+        </script>
+    </head>
+    <body class="{block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}">
+        <section class="container">
+            <header>
+                {block:IfSideImage}
+                    <img class="side" src="{image:Side}" />
+                {/block:IfSideImage}
+                <div class="wrapper cf">
+                    <h2 class="title">{Title}</h2>
+                    <div class="drop">
+                        <div class="button">&#11015;</div>
+                        <div class="list">
+                            <div class="arrow"> </div>
+                            {block:HasPages}{block:Pages}<a href="{URL}">{Label}</a>{/block:Pages}{/block:HasPages}
+                            {block:AskEnabled}<a href="/ask">{AskLabel}</a>{/block:AskEnabled}
+                            <!--{block:SubmissionsEnabled}<a href="/submit"><li>{SubmitLabel}</li></a>{/block:SubmissionsEnabled}
+                            <a href="/random"><li>{lang:Random}</li></a>
+                            <a href="/archive"><li>{lang:Archive}</li></a>
+                            <a href="{RSS}"><li>{lang:RSS}</li></a>-->
+                        </div>
+                    </div>
+                </div>
+                {block:Description}
+                    <section class="description">
+                        {Description}
+                    </section>
+                {/block:Description}
+            </header>
+            <section class="posts">
+                {block:Posts}
+                    <article class="{PostType}{block:Photoset}set{/block:Photoset}" data-postid="{PostID}">
+                        {block:Text}
+                            <section class="content">
+                                {block:Title}
+                                    <h2 class="has_body">{Title}</h2>
+                                {/block:Title}
+                                {Body}
+                            </section>
+                        {/block:Text}
+                        {block:Photo}
+                            {LinkOpenTag}
+                                <img class="image{block:Caption} with_caption{/block:Caption}" src="{PhotoURL-500}" alt="{PhotoAlt}" />
+                            {LinkCloseTag}
+                            {block:Caption}
+                                <section class="content">
+                                    {Caption}
+                                </section>
+                            {/block:Caption}
+                        {/block:Photo}
+                        {block:Photoset}
+                            {Photoset-500}
+                            {block:Caption}
+                                <section class="content">
+                                    {Caption}
+                                </section>
+                            {/block:Caption}
+                        {/block:Photoset}
+                        {block:Video}
+                            <div{block:Caption} class="with_caption"{/block:Caption} data-from-page="{CurrentPage">{Video-500}</div>
+                            {block:Caption}
+                                <section class="content">
+                                    {Caption}
+                                </section>
+                            {/block:Caption}
+                        {/block:Video}
+                        {block:Audio}
+                            {block:AlbumArt}
+                                <img class="artwork" src="{AlbumArtURL}" />
+                            {/block:AlbumArt}
+                            <section class="content"{block:Caption} class="with_caption"{/block:Caption} >
+                                <div style="height: 27px;" data-from-page="{CurrentPage}">{AudioPlayer}</div>
+                                {Caption}
+                            </section>
+                        {/block:Audio}
+                       {block:Chat}
+                            <section class="content">
+                                {block:Title}
+                                    <h2 class="has_body">{Title}</h2>
+                                {/block:Title}
+                                <ul>
+                                    {block:Lines}
+                                        <li>
+                                            {block:Label}<strong>{Label}</strong>{/block:Label}
+                                            {Line}
+                                        </li>
+                                    {/block:Lines}
+                                </ul>
+                            </section>
+                        {/block:Chat}
+                        {block:Link}
+                            <section class="content">
+                                <h2{block:Description} class="has_body"{/block:Description}><a href="{URL}" {Target}>{Name} &rarr;</a></h2>
+                                {block:Description}
+                                    {Description}
+                                {/block:Description}
+                            </section>
+                        {/block:Link}
+                        {block:Quote}
+                            <section class="content">
+                                <h2{block:Source} class="has_body"{/block:Source}>"{Quote}"</h2>
+                                {block:Source}
+                                    <section class="cf">
+                                        <section class="dash" style="height: 20px; text-align: right; padding-right: 8px; float: left;">&mdash;</section>
+                                        <section class="source" style="float: left; width: 438px;">{Source}</section>
+                                    </section>
+                                {/block:Source}
+                            </section>
+                        {/block:Quote}
+                        {block:Answer}
+                            <section class="content">
+                                <h2 class="has_body">{Asker} asked: {Question}</h2>
+                                {Answer}
+                            </section>
+                        {/block:Answer}
+                        {block:Date}
+                            <aside>
+                                <a href="{Permalink}">{NoteCountWithLabel} &times; {TimeAgo}</a>
+                            </aside>
+                        {/block:Date}
+                    </article>
+                {/block:Posts}
+                {block:Pagination}
+                    <section class="navigation cf">
+                        {block:NextPage}
+                            <a class="next" style="float: right;" href="{NextPage}">{lang:Next}</a>
+                        {/block:NextPage}
+                        {block:PreviousPage}
+                            <a href="previous" href="PreviousPage}">{lang:Previous}</a>
+                        {/block:PreviousPage}
+                    </section>
+                {/block:Pagination}
+            </section>
+        </section>
+    </body>
+</html>
