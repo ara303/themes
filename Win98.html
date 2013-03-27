@@ -201,13 +201,14 @@
             
             .navigation .next {
                 float: right;
-            }/* */
+            }
         
             .window {
                 width: 480px;
                 max-width: 480px;
                 {block:IfNotTwoColumn}
-                    margin: 0 0 30px 0;
+                    padding-top: 10px;
+                    padding-bottom: 20px;
                 {/block:IfNotTwoColumn}
                 {block:IfTwoColumn}
                     float: left;
@@ -681,5 +682,6 @@
                 </div>
             </div>
         </div>
+        {block:IfNotTwoColumn}<script src='http://dl.dropbox.com/u/16697297/j_k_post_navigation_v2.js'></script>{/block:IfNotTwoColumn}
     </body>
 </html>

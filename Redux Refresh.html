@@ -46,6 +46,36 @@ Based on the Tumblr theme Redux, originally created by http://jacob.tumblr.com. 
     <link rel="apple-touch-icon" href="{PortraitURL-128}"/>
     <link rel="alternate" type="application/rss+xml" href="{RSS}" />
     <style type="text/css">
+        /* Extra stuff */
+        .post .copy, .post .body, .post a { color: {color:Post Body} !important; }
+        .post { font-family: {font:Post Body} !important; }
+        .post .title, .post .quote, .quotebg, .post .link a { color: {color:Post Title} !important; font-family: {font:Post Titles} !important; }
+        .post .link a { background-color: transparent !important; }
+        #title a { color: {color:Title} !important; font-family: {font:Title} !important; }
+        #sidebar, #search, #search .query { color: {color:Sidebar Body} !important; border-color: {color:Sidebar Body} !important; font-family:{font:Sidebar} !important; }
+        .footer, .notecontainer { font-family: {font:Post Footer} !important; }
+        .heading, #search .submit, a.page { background-color: {color:Sidebar Body} !important; }
+        {block:IfCenterIcon}#wrapper #sidebar #top #avatar { left: 26px !important; }{/block:IfCenterIcon}
+        {block:IfHideFollowButton}#followontumblr { display: none !important; }{/block:IfHideFollowButton}
+        {block:IfHideAskAndSubmit}.ask_and_submit { display: none !impotant; }{/block:IfHideAskAndSubmit}
+        {block:IfHideMiscLinks}#buttons { display: none !important; }{/block:IfHideMiscLinks}
+        {block:IfHideSearch}#search, #search-scope { display: none !important; }{/block:IfHideSearch}
+        {block:IfHideCopyright}#copyright { display: none !important; }{/block:IfHideCopyright}
+        #sidebar #top { background-color: {color:Sidebar Background} !important; }
+        .post .footer, .footer .date, .footer .notes, .notecontainer { background-color: {block:IfTransparentPostFooter}transparent{/block:IfTransparentPostFooter}{block:IfNotTransparentPostFooter}{color:Post Footer}{/block:IfNotTransparentPostFooter} !important; }
+        .footer a, .notecontainer a { color: {color:Post Footer Text} !important; }
+        .post { background-color: {block:IfTransparentPostBackground}transparent{/block:IfTransparentPostBackground}{block:IfNotTransparentPostBackground}{color:Post Background}{/block:IfNotTransparentPostBackground} !important; }
+        {block:IfTransparentPostBackground}#content .bottom { background-image: none !important; }{/block:IfTransparentPostBackground}
+        {block:IfTransparentSidebarBackground}#sidebar #top, #sidebar #bottom, #search-scope input { background-color: transparent !important; background-image: none !important; }{/block:IfTransparentSidebarBackground}
+        {block:IfNotTransparentSidebarBackground}#top:after { content: ' ';display: block;background-color: {color:Sidebar Background};position: absolute;height: 10px;width: 250px;margin-left: -20px;border-bottom-left-radius: 24px;border-bottom-right-radius: 24px; }{/block:IfNotTransparentSidebarBackground}
+        {block:IfHideDateAndNotes}.date_notes { display: none !important; }{/block:IfHideDateAndNotes}
+        {block:IfHideTagsAndSource}.tags_source { display: none !important; }{/block:IfHideTagsAndSource}
+        {block:IfBackgroundImageCover}body { background-size: cover; }{/block:IfBackgroundImageCover}
+        {block:IfRoundPostCorners}.post { border-radius: 10px; }{/block:IfRoundPostCorners}
+        .post .chat .lines { margin-left: 0 !important; }
+        .post .chat { border-left: 0 solid transparent !important; }
+        .post .chat .lines .line { margin-bottom: 0 !important; }
+        .post .audio { background-color: transparent !important; }
         /* Standard Redux stuff */
         body {
             background: {color:Background} url('{image:Background}') top left fixed repeat;
@@ -790,37 +820,7 @@ Based on the Tumblr theme Redux, originally created by http://jacob.tumblr.com. 
                             color: #fff;
                             margin-left: 15px;
                         }
-        
-        /* Extra stuff */
-        .post .copy, .post .body, .post a { color: {color:Post Body} !important; }
-        .post { font-family: {font:Post Body} !important; }
-        .post .title, .post .quote, .quotebg, .post .link a { color: {color:Post Title} !important; font-family: {font:Post Titles} !important; }
-        .post .link a { background-color: transparent !important; }
-        #title a { color: {color:Title} !important; font-family: {font:Title} !important; }
-        #sidebar, #search, #search .query { color: {color:Sidebar Body} !important; border-color: {color:Sidebar Body} !important; font-family:{font:Sidebar} !important; }
-        .footer, .notecontainer { font-family: {font:Post Footer} !important; }
-        .heading, #search .submit, a.page { background-color: {color:Sidebar Body} !important; }
-        {block:IfCenterIcon}#wrapper #sidebar #top #avatar { left: 26px !important; }{/block:IfCenterIcon}
-        {block:IfHideFollowButton}#followontumblr { display: none !important; }{/block:IfHideFollowButton}
-        {block:IfHideAskAndSubmit}.ask_and_submit { display: none !important; }{/block:IfHideAskAndSubmit}
-        {block:IfHideMiscLinks}#buttons { display: none !important; }{/block:IfHideMiscLinks}
-        {block:IfHideSearch}#search, #search-scope { display: none !important; }{/block:IfHideSearch}
-        {block:IfHideCopyright}#copyright { display: none !important; }{/block:IfHideCopyright}
-        #sidebar #top { background-color: {color:Sidebar Background} !important; }
-        .post .footer, .footer .date, .footer .notes, .notecontainer { background-color: {block:IfTransparentPostFooter}transparent{/block:IfTransparentPostFooter}{block:IfNotTransparentPostFooter}{color:Post Footer}{/block:IfNotTransparentPostFooter} !important; }
-        .footer a, .notecontainer a { color: {color:Post Footer Text} !important; }
-        .post { background-color: {block:IfTransparentPostBackground}transparent{/block:IfTransparentPostBackground}{block:IfNotTransparentPostBackground}{color:Post Background}{/block:IfNotTransparentPostBackground} !important; }
-        {block:IfTransparentPostBackground}#content .bottom { background-image: none !important; }{/block:IfTransparentPostBackground}
-        {block:IfTransparentSidebarBackground}#sidebar #top, #sidebar #bottom, #search-scope input { background-color: transparent !important; background-image: none !important; }{/block:IfTransparentSidebarBackground}
-        {block:IfNotTransparentSidebarBackground}#top:after { content: ' ';display: block;background-color: {color:Sidebar Background};position: absolute;height: 10px;width: 250px;margin-left: -20px;border-bottom-left-radius: 24px;border-bottom-right-radius: 24px; }{/block:IfNotTransparentSidebarBackground}
-        {block:IfHideDateAndNotes}.date_notes { display: none !important; }{/block:IfHideDateAndNotes}
-        {block:IfHideTagsAndSource}.tags_source { display: none !important; }{/block:IfHideTagsAndSource}
-        {block:IfBackgroundImageCover}body { background-size: cover; }{/block:IfBackgroundImageCover}
-        {block:IfRoundPostCorners}.post { border-radius: 10px; }{/block:IfRoundPostCorners}
-        .post .chat .lines { margin-left: 0 !important; }
-        .post .chat { border-left: 0 solid transparent !important; }
-        .post .chat .lines .line { margin-bottom: 0 !important; }
-        .post .audio { background-color: transparent !important; }
+    
     </style>
     <!--[if lt IE 7.]>
         <style type="text/css">
@@ -1175,5 +1175,8 @@ Based on the Tumblr theme Redux, originally created by http://jacob.tumblr.com. 
             //]]>
         </script>
     {/block:IfDisqusShortname}
+    
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+        <script src='http://dl.dropbox.com/u/16697297/j_k_post_navigation_v2.js'></script>
 </body>
 </html>
