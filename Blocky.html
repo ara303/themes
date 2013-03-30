@@ -20,6 +20,7 @@
         <meta name="if:Enable infinite scrolling" content="1" />
         <meta name-"image:Background" content="" />
         <meta name="if:Background cover" content="1" />
+        <meta name="if:About Me label" content="About me" />
         <meta name="color:Text" content="#444444" />
         <meta name="color:Background" content="#EEEEEE" />
         <meta name="color:Links" content="#CCCCCC" />
@@ -391,7 +392,7 @@
             </div>
             <ul class="links cf">
                 <a href="/"><li class="title">{Title}</li></a>
-                <a href="#"><li class="description_trigger">{block:IfAboutMeLabel}{text:AboutMeLabel}{block:IfAboutMeLabel}{block:IfNotAboutMeLabel}{lang:About me}{block:IfNotAboutMeLabel}</li></a>
+                <a href="#"><li class="description_trigger">{block:IfAboutMeLabel}{text:AboutMeLabel}{block:IfAboutMeLabel}{block:IfNotAboutMeLabel}{lang:About}{block:IfNotAboutMeLabel}</li></a>
                 {block:HasPages}{block:Pages}<a href="{URL}"><li>{Label}</li></a>{/block:Pages}{/block:HasPages}
                 {block:AskEnabled}<li><a href="/ask">{AskLabel}</a></li>{/block:AskEnabled}
                 {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
