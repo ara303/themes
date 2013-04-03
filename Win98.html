@@ -1,23 +1,24 @@
 <html>
     <head>
-        <!-- Win98 from themes.edada.ms -->
+        <!-- Win98, from eathemes.tumblr.com -->
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged "{Tag}"{/block:TagPage}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
-        <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+        <link rel="alternate" href="{RSS}" />
         <meta charset="utf-8" />
 
         <meta name="image:Background" content="" />
 
         <meta name="color:Background" content="#008080" />
         <meta name="color:Link Color" content="#000000" />
-        <meta name="color:Icon Link Color" content="#ffffff" />
+        <meta name="color:Icon Color" content="#ffffff" />
 
         <meta name="font:Font" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
         
         <meta name="if:Enable Infinite Scrolling" content="1" />
         <meta name="if:Two Column" content="1" />
         <meta name="if:Background Image Cover" content="0" />
+        <meta name="if:Tags on Index" content="1" />
         <meta name="if:Display Photo Captions" content="1" />
         <meta name="if:Display Description" content="0" />
         <meta name="if:Display Home Icon" content="1" />
@@ -26,12 +27,13 @@
         <meta name="if:Display Pages Icon" content="1" />
         <meta name="if:Display Archive Icon" content="1" />
 
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/N3Zmkjmqn/theme_generic.css" />
         <style type="text/css">
             body {
                 background: {color:Background} url('{image:Background}') repeat fixed;
                 {block:IfBackgroundImageCover}background-size: cover;{/block:IfBackgroundImageCover}
                 margin: 0;
-                font: normal 12px/1.2 {font:Font};
+                font: normal 13px/1.3 {font:Font};
             }
         
             a {
@@ -147,26 +149,23 @@
             .icon_label {
                 padding-top: 6px;
                 padding-bottom: 15px;
-                color: {color:Icon Link Color};
+                color: {color:Icon Color};
                 text-align: center;
             }
         
             .icons a {
-                color: {color:Icon Link Color};
+                color: {color:Icon Color};
                 text-decoration: none;
             }
         
             .title {
-                font-size: 1.4em;
-                margin-bottom: 3px;
+                display: block;
+                font-size: 1.25em;
+                margin-bottom: 5px;
             }
         
-            .attempt_resize {
-                max-width: 100%;
-            }
-        
-            .label {
-                font-weight: bold;
+            img.full_image {
+                width: 100%;
             }
             
             .body img, .caption img {
@@ -184,31 +183,19 @@
                 {block:IfTwoColumn}
                     width: 1000px;
                 {/block:IfTwoColumn}
-            }   
-            
-            .navigation {
-                padding: 0 {block:IfTwoColumn}40px{/block:IfTwoColumn}{block:IfNotTwoColumn}0{/block:IfNotTwoColumn} 55px 0;
-                height: 26px;
-                font-weight: bold;
-                clear: both;
-                float: none;
+                left: 10px;
             }
-            
-            .navigation .next, .navigation .prev {
-                background-color: #FFFFFF;
-                padding: 5px 6px;
+
+            body.permalink_page #desktop,
+            body.permalink_page .navigation {
+                width: 480px;
             }
-            
-            .navigation .next {
-                float: right;
-            }
-        
+
             .window {
                 width: 480px;
                 max-width: 480px;
                 {block:IfNotTwoColumn}
-                    padding-top: 10px;
-                    padding-bottom: 20px;
+                    margin: 0 0 30px 0;
                 {/block:IfNotTwoColumn}
                 {block:IfTwoColumn}
                     float: left;
@@ -229,6 +216,15 @@
                 font-size: 11px;
                 line-height: 13px;
             }
+
+            .window > a {
+                color: #000000;
+                text-decoration: none;
+            }
+
+            .window .top a:hover {
+                text-decoration: underline;
+            }
         
             .window .middle, div.notes, div.attribution, div.tags {
                 background-repeat: repeat-y;
@@ -236,21 +232,64 @@
             }
             
             .middle .caption {
-                margin-top: 5px;
+                margin-top: 5px; /* possibly redundant */
+            }
+
+            .quote .dash {
+                float: left;
+                padding: 0 4px 0 6px;
+            }
+
+            .quote .source {
+                float: left;
             }
             
-            .middle .video_player embed { 
-                display: block;
-                width: 444px !important;
-                max-width: 444px !important;
+            .chat .line {
+                margin-bottom: 3px;
             }
             
-            .middle .video_player iframe { 
+            .chat .line:last-of-type {
+                margin-bottom: 0;
+            }
+            
+            .photoset .wrapper,
+            .video .video_player {
+                width: 400px;
                 display: block;
-                width: 444px !important;
-                max-width: 444px !important;
-                height: 249px !important;
-                max-height: 249px !important;
+                margin: 0 auto;
+            }
+            
+            .photo .wrapper {
+                position: relative;
+                z-index: 0;
+            }
+
+            .photo .wrapper .make_lightbox {
+                position: absolute;
+                padding: 6px 8px;
+                bottom: 0;
+                right: 0;
+                background-color: #FFFFFF;
+                font-size: 0.9em;
+                z-index: 1;
+                opacity: 0;
+                -webkit-transition: opacity 0.2s ease-in;
+            }
+
+            .photo .wrapper:hover .make_lightbox {
+                opacity: 0.9;
+                -webkit-transition: opacity 0.2s ease-out;
+            }
+
+            .make_lightbox:hover {
+                cursor: hand;
+                text-decoration: underline;
+            }
+            
+            .tagged {
+                font-size: 0.8em;
+                margin-top: 8px;
+                opacity: 0.8;
             }
             
             .window .bottom {
@@ -272,6 +311,45 @@
                 max-width: 190px;
                 font-size: 11px;
             }
+
+            ol.notes {
+                padding: 11px 0 0 0;
+                margin: 0;
+                border-top: 1px dashed #CCCCCC;
+            }
+
+            ol.notes li.note {
+                list-style: none;
+                margin-bottom: 3px;
+                height: 16px;
+            }
+
+            ol.notes li.note:last-child {
+                margin-bottom: 0;
+            }
+
+            ol.notes li.note span.action {
+                top: -4px;
+                position: relative;
+            }
+
+            .navigation {
+                padding: 0 {block:IfTwoColumn}40px{/block:IfTwoColumn}{block:IfNotTwoColumn}0{/block:IfNotTwoColumn} 55px 0;
+                height: 26px;
+                font-weight: bold;
+                clear: both;
+                float: none;
+            }
+            
+            .navigation .next, .navigation .prev {
+                background-color: #FFFFFF;
+                padding: 6px 8px;
+            }
+            
+            .navigation .next {
+                float: right;
+            }
+        
         
             .start_bar {
                 position: fixed;
@@ -382,17 +460,7 @@
             }
             
             /* COMMON */
-            
-            blockquote {
-                margin: 10px 0 0 3px;
-                padding-left: 10px;
-                border-left: 3px solid rgba(0,0,0,0.25);
-            }
-            
-            ul, ol {
-                padding-left: 18px;
-            }
-            
+
             body.infinite_scrolling .navigation, .inf_scr {
                 display: none;
             }
@@ -400,17 +468,9 @@
             .middle img {
                 display: block;
             }
-            
-            a img {
-                border: 0;    
-            }
-            
-            .middle p:first-child, ul:first-child, ol:first-child, blockquote:first-child {
-                margin-top: 0;
-            }
-            
-            .middle p:last-child, ul:last-child, ol:last-child, blockquote:last-child {
-                margin-bottom: 0;
+
+            .content p, blockquote, ul, ol {
+                margin: 0 0 0.6em 0;
             }
             
             {block:IfNotDisplayPhotoCaptions}.caption{
@@ -440,7 +500,7 @@
             {CustomCSS}
         </style>
     
-        <script type="text/javascript" src="http://dl.dropbox.com/u/16697297/themes/eathemes.min.js"></script>
+        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/yq6mkjsmu/eathemes.min.js"></script>
         <script type="text/javascript">
             $(function(){
                 eathemes($(".container"), ".window", "{Name}", 500)
@@ -465,11 +525,24 @@
                 }
                 window.setInterval(updateClock, 6000);
                 updateClock();
+                $('.make_lightbox').each(function(e){
+                    $(this).on('click',function(v){
+                        var lbArray = [];
+                        var pWidth = $(this).data('width');
+                        var pHeight = $(this).data('height');
+                        var pHighRes = $(this).data('highres');
+                        var pLowRes = $(this).data('lowres');
+                        var arrayContents = {"width":pWidth, "height":pHeight, "low_res":pLowRes, "high_res":pHighRes};
+                        lbArray.push(arrayContents);
+                        Tumblr.Lightbox.init(lbArray,1);
+                        $('body').toggleClass('tumblr_lightbox_active');
+                    })
+                })
             })
         </script>
     </head>
 
-    <body class="win98 {block:IndexPage}index_page{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling}{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfTwoColumn}two_column masonry_enabled{/block:IfTwoColumn} lazyload_enabled">
+    <body class="win98 {block:IndexPage}index_page{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling}{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfTwoColumn}two_column masonry_enabled{/block:IfTwoColumn}">
         <div class="wrapper">
             <div class="icons">
                 <a href="/" class="home">
@@ -536,26 +609,31 @@
                                         {Title}
                                     </div>
                                 {/block:Title}
-                                <div class="body">
+                                <div class="content">
                                     {Body}
                                 </div>
                             {/block:Text}
 
                             {block:Photo}
-                                {LinkOpenTag}<img src="{PhotoURL-500}" class="attempt_resize" alt="{PhotoAlt}" />{LinkCloseTag}
+                                <div class="wrapper">
+                                    {LinkOpenTag}
+                                        <img src="{PhotoURL-500}" class="full_image" alt="{PhotoAlt}" />
+                                    {LinkCloseTag}
+                                    {block:HighRes}<div class="make_lightbox" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" data-lowres="{PhotoURL-500}" data-highres="{PhotoURL-HighRes}">{lang:Click for high-res photo}</div>{/block:HighRes}
+                                </div>
                                 {block:Caption}
-                                    <div class="caption">
+                                    <div class="content caption">
                                         {Caption}
                                     </div>
                                 {/block:Caption}
                             {/block:Photo}
 
                             {block:Photoset}
-                                <div class="photoset_wrapper">
+                                <div class="wrapper">
                                     {Photoset-400}
                                 </div>
                                 {block:Caption}
-                                    <div class="caption">
+                                    <div class="content caption">
                                         {Caption}
                                     </div>
                                 {/block:Caption}
@@ -566,8 +644,13 @@
                                     "{Quote}"
                                 </div>
                                 {block:Source}
-                                    <div class="body">
-                                        &mdash; {Source}
+                                    <div class="content body cf">
+                                        <div class="dash">
+                                            &mdash;
+                                        </div>
+                                        <div class="source">
+                                            {Source}
+                                        </div>
                                     </div>
                                 {/block:Source}
                             {/block:Quote}
@@ -577,7 +660,7 @@
                                     {Name} &rarr;
                                 </a>
                                 {block:Description}
-                                    <div class="body">
+                                    <div class="content body">
                                         {Description}
                                     </div>
                                 {/block:Description}
@@ -589,13 +672,13 @@
                                         {Title}
                                     </div>
                                 {/block:Title}
-                                <div class="body">
+                                <div class="content body">
                                     {block:Lines}
                                         <div class="line">
                                             {block:Label}
-                                                <span class="label">
+                                                <strong>
                                                     {Label}
-                                                </span>
+                                                </strong>
                                             {/block:Label}
                                             <span class="text">
                                                 {Line}
@@ -607,29 +690,60 @@
 
                             {block:Video}
                                 <div class="video_player" data-from-page="{CurrentPage}">
-                                    {VideoEmbed-500}
+                                    {Video-400}
                                 </div>
                                 {block:Caption}
-                                    <div class="caption">
+                                    <div class="content caption">
                                         {Caption}
                                     </div>
                                 {/block:Caption}
                             {/block:Video}
-
                             {block:Audio}
+                                {block:AlbumArt}
+                                    <img src="{AlbumArtURL}" alt="Artwork" class="full_image" />
+                                {/block:AlbumArt}
                                 <div data-from-page="{CurrentPage}" style="height: 27px;">
                                     {AudioPlayer}
                                 </div>
                                 {block:Caption}
-                                    <div class="body">
+                                    <div class="content body">
                                         {Caption}
                                     </div>
                                 {/block:Caption}
                             {/block:Audio}
+                            {block:Answer}
+                                <div class="title">
+                                    {lang:Asker asked 2}: {Question}
+                                </div>
+                                <div class="content body">
+                                    {Answer}
+                                </div>
+                            {/block:Answer}
+                            
+                            {block:Panorama}
+                                {LinkOpenTag}
+                                    <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}" class="full_image" />
+                                {LinkCloseTag}
+                                {block:Caption}
+                                    <div class="content caption">
+                                        {Caption}
+                                    </div>
+                                {/block:Caption}
+                            {/block:Panorama}
+                            {block:IfTagsOnIndex}
+                                {block:HasTags}
+                                    <div class="tagged">
+                                        {lang:Tagged}: 
+                                        {block:Tags}
+                                            <a href="{TagURL}">#{Tag}</a><span class="hide_if_last">, </span>
+                                        {/block:Tags}
+                                    </div>
+                                {/block:HasTags}
+                            {/block:IfTagsOnIndex}
                         </div>
                         {block:PermalinkPage}
-                            {block:ContentSource}<div class="attribution">(Source: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, via <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom})</div>{/block:ContentSource}
-                            {block:HasTags}<div class="tags">{lang:Tagged}: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+                            {block:ContentSource}<div class="attribution">({lang:Source}: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, {lang:Reblogged from}: <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom})</div>{/block:ContentSource}
+                            {block:IfNotTagsOnIndex}{block:HasTags}<div class="tags">{lang:Tagged}: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}{/block:IfNotTagsOnIndex}
                             {block:PostNotes}
                                 <div class="notes">  
                                     {PostNotes}
@@ -642,12 +756,12 @@
             </div>
             
                 {block:Pagination}
-                    <div class="navigation">
+                    <div class="navigation cf">
                         {block:NextPage}
-                            <a class="next" href="{NextPage}">{lang:Next}</a>
+                            <a class="next" href="{NextPage}">{lang:Next} &rarr;</a>
                         {/block:NextPage}
                         {block:PreviousPage}
-                            <a class="prev" href="{PreviousPage}">{lang:Previous}</a>
+                            <a class="prev" href="{PreviousPage}">&larr; {lang:Previous}</a>
                         {/block:PreviousPage}
                     </div>
                 {/block:Pagination}
@@ -681,6 +795,5 @@
                 </div>
             </div>
         </div>
-        {block:IfNotTwoColumn}<script src='http://dl.dropbox.com/u/16697297/j_k_post_navigation_v2.js'></script>{/block:IfNotTwoColumn}
     </body>
 </html>
