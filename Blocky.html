@@ -27,6 +27,7 @@
         <meta name="color:Links hover" content="#444444">
         <meta name="color:Post Background" content="#FFFFFF"/>
         <meta name="color:Borders" content="#000000" />
+        <meta name="text:Twitter Name" content="" />
         
         {block:IfUseCoolFont}<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,500" rel="stylesheet" />{/block:IfUseCoolFont}
         <link href="http://static.tumblr.com/fpdiq1j/ELumkpb1l/theme_generic.css" rel="stylesheet" />
@@ -497,12 +498,12 @@
                         </div>
                     </div>
                 {/block:IfShowAskInDescription}
-
+                {block:IfTwitterName}
                     <div class="block">
                         <div class="heading"><i class="icon icon-twitter"></i> {lang:Tweets}</div>
                         <script>
                             $(function(){
-                                var twitter_name = 'EdAdams_';
+                                var twitter_name = '{text:Twitter Name}';
                                 var how_many_tweets = 3+1;
                                 $.getJSON('http://api.twitter.com/1/statuses/user_timeline.json?screen_name='+twitter_name+'&count='+how_many_tweets+'&callback=?', function(data){
                                     $.each(data, function(index, tweet){
@@ -513,7 +514,7 @@
                         </script>
                         <div class="content" id="twitter"> </div>
                     </div>
-
+                {/block:IfTwitterName}
                 {block:IfNotShowMyLikes}
                     {block:Likes}
                         <div class="block">
