@@ -30,7 +30,7 @@
         <meta name="color:Borders" content="#000000" />
         
         {block:IfUseCoolFont}<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,500" rel="stylesheet" />{/block:IfUseCoolFont}
-        <link href="http://static.tumblr.com/fpdiq1j/ly3mkqe0a/theme_generic.css" rel="stylesheet" />
+        <link href="http://static.tumblr.com/fpdiq1j/Z7qmksrln/theme_generic.css" rel="stylesheet" />
            <style>
             body {
                 font: 300 0.9em/1.3 {block:IfUseCoolFont}'Ubuntu',sans-serif{/block:IfUseCoolFont}{block:IfNotUseCoolFont}{font:Font}{/block:IfNotUseCoolFont};
@@ -251,6 +251,10 @@
                 position: relative;
             }
             
+            .post img {
+                max-width: 100%;
+            }
+            
             .post > .inner {   
                 padding: 7px 10px;
             }
@@ -261,7 +265,7 @@
                 padding: 4px 7px;
                 z-index: 2;
                 background-color: rgba(255,255,255,0.9);
-                box-shadow: 1px 0px 4px rgba(0,0,0,0.25);
+                box-shadow: -1px 0px 3px rgba(0,0,0,0.25);
                 right: 0px;
                 top: 10px;
                 border-radius: 3px 0 0 3px;
@@ -308,26 +312,52 @@
                 -webkit-filter: none !important;
                 -webkit-transition: -webkit-filter 0.1s linear;
             }
-
-            i.icon {
-                margin-right: 4px;
+            
+            .nsfw_wrapper {
+                
+            }
+            
+            .nsfw_warning {
+            
+            }
+            
+            .nsfw_hide {
+                
+            }
+            
+            .chat .wrapper {
+                margin: 0;
+            }
+            
+            .chat .line {
+                padding-bottom: 2px;
+                border-bottom: thin solid rgba(0,0,0,0.1);
+                margin-bottom: 2px;
+            }
+            
+            .chat .line:last-child {
+                
+                padding: 0;
+                border: none;
+                margin: 0;
+            }
+            
+            .audio iframe.tumblr_audio_player {
+                width: 100% !important;
+                padding: 3px 0;
+                display: block;
             }
             
             .photo .wrapper,
             .audio .wrapper {
                 position: relative;
             }
-            
-            .icon_in_post {
-                color: #000000;
-                position: absolute;
-                bottom: 10px;
-                right: 30px;
-                opacity: 0;
-                z-index: 2;
+
+            i.icon {
+                margin-right: 4px;
             }
 
-            .icon-resize-full {
+            i.icon-resize-full {
                 right: 10px;
                 height: 13px !important;
                 border: 1px solid rgba(0,0,0,0.3);
@@ -337,18 +367,35 @@
                 border-radius: 3px;
                 color: rgb(255,255,255);
             }
+            
+            i.icon-info-sign {
+                font-size: 1.5em;
+            }
 
-            i.icon_in_post.icon-info-sign:after { /* paint a white background behind the transparent i */
+            i.icon-info-sign:after { /* paint a white background behind the transparent i */
                 content: ' ';
-                height: 11px;
-                width: 5px;
+                height: 15px;
+                width: 7px;
                 background-color: #ffffff;
                 display: block;
                 position: absolute;
                 top: 2px;
-                left: 4px;
+                left: 6px;
                 border-radius: 1px;
                 z-index: -1;
+            }
+            
+            .icon_in_post {
+                color: #000000;
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                opacity: 0;
+                z-index: 2;
+            }
+            
+            .wrapper:hover .icon_in_post {
+                opacity: 0.9;
             }
             
             .data {
@@ -356,44 +403,43 @@
                 top: 0;
                 left: 0;
                 color: #ffffff;
-                background-color: rgba(0,0,0,0.6);
+                background-color: rgba(0,0,0,0.7);
                 width: 100%;
                 height: 100%;
+                text-shadow: 0 1px rgba(0,0,0,0.6);
                 z-index: 1;
+                box-shadow: 0 0 100px rgba(0,0,0,0.6) inset;
+            }
+            
+            .data div {
+                margin-bottom: 6px;
             }
 
             .data .inner {
-                padding: 15px 21px;
+                padding: 33px 43px;
             }
             
-            .wrapper:hover .icon_in_post {
-                opacity: 0.9;
-            }
-            
-            .hidden {
+            .data.hidden {
                 opacity: 0;
-                -webkit-transition: opacity 0.2s linear;
+                -webkit-transition: opacity 0.2s ease-out;
+                -moz-transition: opacity 0.2s ease-out;
+                -o-transition: opacity 0.2s ease-out;
+                -ms-transition: opacity 0.2s ease-out;
+                transition: opacity 0.2s ease-out;
             }
             
-            .shown {
+            .data.shown {
                 opacity: 1;
-                -webkit-transition: opacity 0.2s linear;
+                -webkit-transition: opacity 0.2s ease-in;
+                -moz-transition: opacity 0.2s ease-in;
+                -o-transition: opacity 0.2s ease-in;
+                -ms-transition: opacity 0.2s ease-in;
+                transition: opacity 0.2s ease-in;
             }
 
             {block:IfRoundedCorners}img {
                 border-radius: 2px;
-            }{/block:IfRoundedCorners}
-
-            .post p,
-            .post ul
-            .post ol,
-            .post blockquote {
-                margin: 0.6em 0 0 0;
-            }
-
-            .post p:first-of-type {
-                margin-top: 0;
-            }
+            }{/block:IfRoundedCorners}        
             
             ul.info, ol.notes, ul.info li, ol.notes li {
                 margin: 0;
@@ -484,6 +530,9 @@
                     $('body').toggleClass('tumblr_lightbox_active');
                 })
             })
+            $('.post.nsfw').wrap('<div class="nsfw_wrapper" style="position: relative;" />').append('<div class="nsfw_content" style="position: absolute; top: 10px; left: 10px;">This post is tagged NSFW, so it has been hidden. Hover here to view it.</div>').find('img.image').css({'visibility':'hidden'});
+            $('.post.nsfw').hover(function(){ $(this).find('.nsfw_content').fadeOut();
+            $(this).find('img.image').css({'visibility':'visible'}) });
         })</script>
     </head>
     <body class="{block:IndexPage}index_page masonry_enabled{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling} lazyload_enabled{block:IfFluidColumn} fluid_layout{/block:IfFluidColumn}"> 
@@ -568,7 +617,7 @@
                         {/block:Text}
 
                         {block:Photo}
-                            <div class="wrapper">
+                            <div class="wrapper{block:Exif} has_exif{/block:Exif}{block:HighRes} has_highres{/block:HighRes}">
                                 <img class="image" style="width: {block:IndexPage}{block:IfOneColumn}{PhotoWidth-500}{/block:IfOneColumn}{block:IfTwoColumn}{PhotoWidth-400}{/block:IfTwoColumn}{block:IfFluidColumn}{PhotoWidth-250}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{PhotoWidth-500}{/block:PermalinkPage}px; height: {block:IndexPage}{block:IfOneColumn}{PhotoHeight-500}{/block:IfOneColumn}{block:IfTwoColumn}{PhotoHeight-400}{/block:IfTwoColumn}{block:IfFluidColumn}{PhotoHeight-250}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{PhotoHeight-500}{/block:PermalinkPage}px;" data-original="{block:IndexPage}{block:IfOneColumn}{PhotoURL-500}{/block:IfOneColumn}{block:IfTwoColumn}{PhotoURL-400}{/block:IfTwoColumn}{block:IfFluidColumn}{PhotoURL-250}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-1280}{/block:PermalinkPage}" src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" alt="{PhotoAlt}" />
                                 {block:HighRes}
                                     <div class="make_lightbox" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" data-highres="{PhotoURL-HighRes}" data-lowres="{PhotoURL-400}">
@@ -640,7 +689,7 @@
 
                         {block:Audio}
                             {block:AlbumArt}
-                                <div class="wrapper">
+                                <div class="wrapper{block:TrackName} has_id3{/block:TrackName}{block:Artist} has_id3{/block:Artist}{block:Album} has_id3{/block:Album}">
                                     <img class="artwork" src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{AlbumArtURL}" />
                                     {block:TrackName}
                                         <div class="overlay_trigger" data-parent-post="{PostID}">
@@ -672,7 +721,7 @@
                                 </div>
                             {/block:AlbumArt}
                             <div class="inner">
-                                <div style="height: 27px;" data-from-page="{CurrentPage}">{AudioPlayer}</div>
+                                <div style="height: 33px;" data-from-page="{CurrentPage}">{AudioPlayer}</div>
                                 {Caption}
                             </div>
                         {/block:Audio}
@@ -680,9 +729,9 @@
                         {block:Chat}
                             <div class="inner">
                                 <h2>{Title}</h2>
-                                <ul style="margin: 0; padding: 0; list-style: none;">
+                                <ul class="wrapper">
                                     {block:Lines}
-                                        <li>
+                                        <li class="line">
                                             {block:Label}<strong>{Label}</strong>{/block:Label} {Line}
                                         </li>
                                     {/block:Lines}
