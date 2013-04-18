@@ -1,7 +1,7 @@
 <html>
     <head>
         <!-- Single Column, from themes.edada.ms -->
-        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
+        <title>{Title}{block:PostSummary} - {PostSummary}{/block:PostSummary}{block:TagPage} - posts tagged "{Tag}"{/block:TagPage}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
         <link rel="alternate" type="application/rss+xml" href="{RSS}" />
@@ -41,9 +41,8 @@
         <style type="text/css">
             body {
                 margin: 20px 0;
-                background: url('{image:Background}') {color:Background} repeat;
-                font-size: 0.8em;
-                line-height: 1.2;
+                background: url('{image:Background}') {color:Background} repeat fixed;
+                font: normal 13px/1.2 sans-seirf;
                 color: {color:Text};
                 {block:IfBackgroundCover}background-size: cover;{/block:IfBackgroundCover}
             }
@@ -57,7 +56,7 @@
                 color: {color:Links on Hover};
             }
             
-            .wrapper {
+            body > .wrapper {
                 margin: auto;
                 width: 652px;
             }
@@ -185,6 +184,85 @@
                 line-height: 19px;
             }
             
+            .audio .native {
+                height: 27px;
+                padding: 2px 0 10px;
+            }
+            
+            .audio .media {
+                position: relative;
+                width: 500px;
+                height: 500px;
+            }
+            
+            .audio .media img {
+                width: 500px;
+                height: 500px;
+            }
+            
+            .audio .media .trigger {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                opacity: 0;
+            }
+            
+            .audio .media:hover .trigger {
+                opacity: 1;
+            }   
+            
+            .audio .media .trigger:hover,
+            .audio .media .trigger.active {
+                color: rgb(255,255,255);
+            }
+            
+            .audio .media .overlay {
+                position: absolute;
+                width: 500px;
+                height: 500px;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                background-color: rgba(0,0,0,0.6);
+                box-shadow: 0 0 100px rgba(0,0,0,0.7) inset;
+                text-shadow: 0 1px rgb(0,0,0);
+                color: rgb(255,255,255);
+                font-size: 1.2em;
+            }
+            
+            .audio .media .overlay .inner {
+                padding: 40px 43px;
+            }
+            
+            .audio .media .overlay.hidden {
+                opacity: 0;
+            }
+            
+            .audio .media .overlay.shown {
+                opacity: 1;
+            }
+            
+            .audio .media .overlay.hidden,
+            .audio .media .overlay.shown,
+            .audio .media .trigger,
+            .audio .media:hover .trigger {
+                transition: opacity 0.2s linear;
+                -webkit-transition: opacity 0.2s linear;
+                -moz-transition: opacity 0.2s linear;
+                -o-transition: opacity 0.2s linear;
+                -ms-transition: opacity 0.2s linear;
+            }
+            
+            .audio .embed {
+                padding: 2px 0 0;
+            }
+            
+            .audio .native iframe,
+            .audio .embed iframe {
+                display: block;
+            }
+                
+            
             /* NAVIGATION */
     
             .navigation {
@@ -198,7 +276,7 @@
             }
         
             .navigation .next, .navigation .prev {
-                background: #FFFFFF;
+                background: rgb(255,255,255);
                 padding: 4px;
                 {block:IfRoundedCorners}-moz-border-radius: 5px;
                 border-radius: 5px;{/block:IfRoundedCorners}
@@ -275,7 +353,7 @@
             /* APPEARANCE OPTIONS */
             
             {block:IfShadows}.sidebar .box, .posts > div:not(#infsrc-loading), .navigation .prev, .navigation .next, .inf_scr {
-                box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2),0 2px 4px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }{/block:IfShadows}
             
             {block:IfNotDisplayInfoBox}.sidebar .box.info {
@@ -337,12 +415,16 @@
             body.permalink_page .posts .controls {
                 display: none;
             }
-
+            
+            a img {
+                border: 0;
+            }
+            
             {CustomCSS}
         </style>
         <link rel="stylesheet" href="http://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/muemi4csl/meta_controls.css" />
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/8n7mhym6w/fancy_answer_and_audio_posts_2.css" />
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/ptgmldgks/meta_controls_2.css" />
+        <link rel="stylesheet" href="http://dl.dropboxusercontent.com/u/16697297/font_awesome_test.css" />
         <!--[if lte IE 8]>
           <style type="text/css">
             blockquote { 
@@ -365,14 +447,18 @@
           </style>
         <![endif]-->
 
-        <script src="http://static.tumblr.com/fpdiq1j/RSSmidjp3/eathemes.min.js"></script>
+        <script src="http://static.tumblr.com/fpdiq1j/7Smmlgl0k/eathemes_v2.min.js"></script>
         <script>
             $(function(){
                 eathemes($('.posts'),".post","{Name}",500);
+                
+                $('.audio .trigger').on('click',function(){
+                    $(this).siblings().closest('.overlay').toggleClass('shown').toggleClass('hidden');
+                })
             })
         </script>
     </head>
-    <body class="singlecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners} lazyload_enabled inline_like_and_reblog">
+    <body class="singlecolumn {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfDisplayCaptions} display_captions{/block:IfDisplayCaptions}{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{block:IfShadows} shadows{/block:IfShadows}{block:IfRoundedCorners} rounded_corners{/block:IfRoundedCorners} jk_nav inline_like_and_reblog">
         <div class="wrapper">
              <div class="posts">
                 {block:Posts}
@@ -395,7 +481,9 @@
 
                         {block:Photo}
                             <div class="media{block:Caption} with_caption{/block:Caption}">
-                                {LinkOpenTag}<img src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" style="width: {PhotoWidth-500}px; height: {PhotoHeight-500}px;" data-original="{PhotoURL-500}" alt="{PhotoAlt}" class="photo{block:Caption} has_caption{/block:Caption}" />{LinkCloseTag}
+                                {LinkOpenTag}
+                                    <img src="{PhotoURL-500}" style="width: 100%;" alt="{PhotoAlt}" class="photo{block:Caption} has_caption{/block:Caption}" />
+                                {LinkCloseTag}
                             </div>
                             {block:Caption}
                                 <div class="content">
@@ -431,7 +519,7 @@
                         {block:Link}
                             <div class="content">
                                 <h2{block:Description} class="has_body"{/block:Description}>
-                                    <a class="title" href="{URL}" {Target}>{Name} »</a>
+                                    <a class="title" href="{URL}" {Target}>{Name} &rarr;</a>
                                 </h2>
                                 {block:Description}
                                     {Description}
@@ -470,52 +558,39 @@
 
                         {block:Audio}
                             {block:AlbumArt}
-                                <div class="flip_container">
-                                  <div class="artwork">
-                                      <div class="face front" style="background-image:url('{AlbumArtURL}');"> </div>
-                                      <div class="face back">
-                                          <table class="info">
-                                              <tbody>
-                                                  {block:TrackName}
-                                                      <tr>                                
-                                                          <td class="label">Name:</td>
-                                                          <td class="value">{TrackName}</td>
-                                                      </tr>
-                                                  {/block:TrackName}
-                                                  {block:Artist}
-                                                      <tr>
-                                                          <td class="label">Artist:</td>
-                                                          <td class="value">{Artist}</td>
-                                                      </tr>
-                                                  {/block:Artist}
-                                                  {block:Album}
-                                                      <tr>
-                                                          <td class="label">Album:</td>
-                                                          <td class="value">{Album}</td>
-                                                      </tr>
-                                                  {/block:Album}
-                                                  {block:PlayCount}
-                                                      <tr>
-                                                          <td class="label">Plays:</td>
-                                                          <td class="value">{FormattedPlayCount}</td>
-                                                      </tr>
-                                                  {/block:PlayCount}
-                                                  {block:ExternalAudio} 
-                                                      <tr>
-                                                          <td class="label">
-                                                              <a class="download" href="{ExternalAudioURL}">{lang:Download}</a>
-                                                          </td>
-                                                      </tr>
-                                                  {/block:ExternalAudio} 
-                                              </tbody>
-                                          </table>
-                                      </div>
-                                  </div>
-                              </div>
+                                <div class="media">
+                                    <img src="{AlbumArtURL}" />
+                                    <div class="overlay hidden">
+                                        <div class="inner">
+                                            {block:TrackName}
+                                                <strong>Name</strong><br />
+                                                {TrackName}<br /><br />
+                                            {/block:TrackName}
+                                            {block:Artist}
+                                                <strong>Artist</strong><br />
+                                                {Artist}<br /><br />
+                                            {/block:Artist}
+                                            {block:Album}
+                                                <strong>Album</strong><br />
+                                                {Album}<br /><br />
+                                            {/block:Album}
+                                            {block:PlayCount}
+                                                <strong>Plays</strong><br />
+                                                {FormattedPlayCount}
+                                            {/block:PlayCount}
+                                        </div>
+                                    </div>
+                                    <div class="trigger"><i class="icon-2x icon-info-sign"> </i></div>
+                                </div>
                             {/block:AlbumArt}
                             <div class="content">
-                                <div style="height: 27px;" data-from-page="{CurrentPage}">
-                                    {AudioPlayer}
+                                <div class="{block:AudioPlayer}native{/block:AudioPlayer}{block:AudioEmbed}embed{/block:AudioEmbed}" data-from-page="{CurrentPage}">
+                                    {block:AudioPlayer}
+                                        {AudioPlayer}
+                                    {/block:AudioPlayer}
+                                    {block:AudioEmbed}
+                                        {AudioEmbed}
+                                    {/block:AudioEmbed}
                                 </div>
                                 {block:Caption}
                                     {Caption}
@@ -634,6 +709,5 @@
             {/block:Pagination}
         </div>
         <iframe id="likeframe" height="1" width="1" frameborder="0"></iframe>
-        <script src='http://dl.dropbox.com/u/16697297/j_k_post_navigation_v2.js'></script>
     </body>
 </html>
