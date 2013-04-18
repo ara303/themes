@@ -493,6 +493,10 @@
             .navigation .next {
                 float: right;
             }
+            
+            .audio iframe {
+                display: block;
+            }
         </style>
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/6AXmkmmdv/fontawesome.css" />
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/Pqlmidiid/description_animation.css" />
@@ -608,7 +612,7 @@
         <div class="container cf">
             <div class="posts">
                 {block:Posts}
-                    <div class="post {PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}" data-postid="{PostID}">
+                    <div class="post {PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}" data-postid="{PostID}" {block:Audio}{block:AudioEmbed}style="border-radius: 3px;"{/block:AudioEmbed}{/block:Audio}>
                         {block:Text}
                             <div class="inner">
                                 <h2>{Title}</h2>
@@ -624,35 +628,6 @@
                                         <i class="icon_in_post icon-resize-full"></i>
                                     </div>
                                 {/block:HighRes}
-                                <!--{block:Exif}
-                                    <div class="overlay_trigger" data-parent-post="{PostID}">
-                                        <i class="icon_in_post icon-info-sign"></i>
-                                    </div>
-                                    <div class="data hidden">
-                                        <div class="inner">
-                                            {block:Camera}
-                                                <div>
-                                                    Camera: <strong>{Camera}</strong>
-                                                </div>
-                                            {/block:Camera}
-                                            {block:Aperture}
-                                                <div>
-                                                    Aperture: <strong>{Aperture}</strong>
-                                                </div>
-                                            {/block:Aperture}
-                                            {block:Exposure}
-                                                <div>
-                                                    Exposure: <strong>{Exposure}</strong>
-                                                </div>
-                                            {/block:Exposure}
-                                            {block:FocalLength}
-                                                <div>
-                                                    Focal Length: <strong>{FocalLength}</strong>
-                                                </div>
-                                            {/block:FocalLength}
-                                        </div>
-                                    </div>
-                                {/block:Exif}-->
                             </div>
                             {block:Caption}
                                 {block:IfPhotoCaptions}
@@ -720,10 +695,29 @@
                                     {/block:TrackName}
                                 </div>
                             {/block:AlbumArt}
-                            <div class="inner">
-                                <div style="height: 33px;" data-from-page="{CurrentPage}">{AudioPlayer}</div>
-                                {Caption}
-                            </div>
+                            {block:AudioPlayer}<div class="inner">{/block:AudioPlayer}
+                                <div{block:AudioPlayer} style="height: 27px;"{/block:AudioPlayer} data-from-page="{CurrentPage}">
+                                    {block:AudioPlayer}
+                                        {AudioPlayer}
+                                    {/block:AudioPlayer}
+                                    {block:AudioEmbed}
+                                        {block:IfOneColumn}
+                                            {AudioEmbed-500}
+                                        {/block:IfOneColumn}
+                                        {block:IfTwoColumn}
+                                            {AudioEmbed-400}
+                                        {/block:IfTwoColumn}
+                                        {block:IfFluidColumn}
+                                            {AudioEmbed-250}
+                                        {/block:IfFluidColumn}
+                                    {/block:AudioEmbed}
+                                </div>
+                                {block:Caption}
+                                    {block:AudioEmbed}<div class="inner">{/block:AudioEmbed}
+                                        {Caption}
+                                    {block:AudioEmbed}</div>{/block:AudioEmbed}
+                                {/block:Caption}
+                            {block:AudioPlayer}</div>{/block:AudioPlayer}
                         {/block:Audio}
                         
                         {block:Chat}
@@ -819,4 +813,4 @@
             </div>
         </div>
     </body>
-</html>
+</html></html>
