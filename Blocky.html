@@ -612,7 +612,7 @@
         <div class="container cf">
             <div class="posts">
                 {block:Posts}
-                    <div class="post {PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}" data-postid="{PostID}" {block:Audio}{block:AudioEmbed}style="border-radius: 3px;"{/block:AudioEmbed}{/block:Audio}>
+                    <div class="post {PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}" data-postid="{PostID}" {block:Audio}{block:AudioEmbed}style="border-radius: 3px 3px 0 0;"{/block:AudioEmbed}{/block:Audio}>
                         {block:Text}
                             <div class="inner">
                                 <h2>{Title}</h2>
@@ -813,4 +813,4 @@
             </div>
         </div>
     </body>
-</html></html>
+</html>
