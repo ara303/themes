@@ -11,6 +11,7 @@
         <meta name="color:Links" content="#777777" />
         <meta name="color:Links on Hover" content="#CCCCCC" />
         <meta name="color:Background" content="#080808" />
+        <meta name="color:Post background" content="#FFFFFF" />
         
         <meta name="font:Posts" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
         <meta name="font:Sidebar" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
@@ -40,7 +41,7 @@
 
         <style type="text/css">
             body {
-                margin: 20px 0;
+                margin: 0;
                 background: url('{image:Background}') {color:Background} repeat fixed;
                 font: normal 13px/1.2 sans-seirf;
                 color: {color:Text};
@@ -68,7 +69,7 @@
                     float: right;
                     {block:IfFixedSidebar}
                         position: fixed;
-                        margin-left: 520px;
+                        margin-left: 524px;
                     {/block:IfFixedSidebar}
                 {/block:IfSidebarOnRight}
                 {block:IfNotSidebarOnRight} /* Left */
@@ -77,15 +78,14 @@
                         position: fixed;
                     {/block:IfFixedSidebar}
                 {/block:IfNotSidebarOnRight}
-                {block:IfFixedSidebar}
-                    top: 20px;
-                {/block:IfFixedSidebar}
+                padding-top: 24px;
+                
             }
             
             .sidebar .box {
                 width: 128px;
-                background-color: #FFFFFF;
-                margin-top: 2em;
+                background-color: {color:Post background};
+                margin-top: 24px;
                 {block:IfRoundedCorners}border-radius: 5px;
                 -moz-border-radius: 5px;{/block:IfRoundedCorners}
             }
@@ -158,12 +158,19 @@
                 {block:IfNotSidebarOnRight}float: right;{/block:IfNotSidebarOnRight}
             }
             
-            .posts > div:not(#infscr-loading) {
+            .posts .post {
                 position: relative;
-                margin-bottom: 2em;
-                background-color: #FFFFFF;
+                padding: 21px 0 3px;
+            }
+            
+            .posts .post:first-of-type {
+                padding: 24px 0 3px;
+            }
+            
+            .post > .inner {
                 {block:IfRoundedCorners}-moz-border-radius: 5px;
                 border-radius: 5px;{/block:IfRoundedCorners}
+                background-color: {color:Post background};
             }
 
             .posts h2 {
@@ -182,6 +189,31 @@
 
             .chat .line {
                 line-height: 19px;
+            }
+            
+            .answer .question {
+                background-color: rgba(0,0,0,0.2);
+                padding: 5px 6px;
+                margin-top: 2px;
+            }
+            
+            .answer .question_arrow {
+                width: 0px;
+                height: 0px;
+                border-style: solid;
+                border-width: 7px 5px 0 5px;
+                border-color: rgba(0,0,0,0.2) transparent transparent transparent;
+                line-height: 0px;
+                display: block;
+                margin-left: 7px;
+            }
+            
+            .answer .avatar {
+                margin-right: 8px;
+            }
+            
+            .answer .asker {
+                line-height: 24px;
             }
             
             .audio .native {
@@ -299,7 +331,7 @@
                 max-width: 100%;
             }
 
-            {block:IfRoundedCorners}body.display_captions.rounded_corners .media.with_caption img, body.display_captions.rounded_corners .media.with_caption iframe.photoset, .audio .face {
+            {block:IfRoundedCorners}body.display_captions.rounded_corners .media.with_caption img, body.display_captions.rounded_corners .media.with_caption iframe.photoset, .audio .media > img {
                 -moz-border-radius-bottomright: 0;
                 -moz-border-radius-bottomleft: 0;
                 border-bottom-right-radius: 0;
@@ -327,6 +359,10 @@
                 filter: alpha(opacity=100);
             }
             
+            .controls { 
+                bottom: 6px !important;
+            }
+            
             /* INFINITE SCROLL */
             
             #infscr-loading {
@@ -352,7 +388,7 @@
 
             /* APPEARANCE OPTIONS */
             
-            {block:IfShadows}.sidebar .box, .posts > div:not(#infsrc-loading), .navigation .prev, .navigation .next, .inf_scr {
+            {block:IfShadows}.sidebar .box, .post > .inner, .navigation .prev, .navigation .next, .inf_scr {
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }{/block:IfShadows}
             
@@ -396,12 +432,12 @@
                 display: none !important;
             }{/block:IfHideRSS}
     
-            {block:IfNotDisplayCaptions}.caption {
+            {block:IfNotDisplayCaptions}.photo .content, .photoset .content, .video .content {
                 display: none !important;
             }
             {/block:IfNotDisplayCaptions}
 
-            {block:IfTransparentBackgrounds}.posts > div, .sidebar .box {
+            {block:IfTransparentBackgrounds}.post > .inner, .sidebar .box {
                 background-color: transparent !important;
                 box-shadow: none !important;
             }
@@ -424,7 +460,8 @@
         </style>
         <link rel="stylesheet" href="http://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/ptgmldgks/meta_controls_2.css" />
-        <link rel="stylesheet" href="http://dl.dropboxusercontent.com/u/16697297/font_awesome_test.css" />
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/SZ4mlh0wt/font_awesome_v5.css" />
+        
         <!--[if lte IE 8]>
           <style type="text/css">
             blockquote { 
@@ -463,6 +500,7 @@
              <div class="posts">
                 {block:Posts}
                     <div class="{PostType}{block:Photoset}set{/block:Photoset} post" data-postid="{PostID}">
+                        <div class="inner">
                         <div class="controls">
                             <a class="button notecount" href="{Permalink}#notes">{NoteCount}</a>
                             <span class="button like" data-postid="{PostID}" data-reblogurl="{ReblogURL}"></span>
@@ -531,11 +569,11 @@
                             <div class="media{block:Caption} with_caption{/block:Caption}" data-from-page="{CurrentPage}">
                                 {VideoEmbed-500}
                             </div>
-                            <div class="content">
-                                {block:Caption}
+                            {block:Caption}
+                                <div class="content">
                                     {Caption}
-                                {/block:Caption}
-                            </div>
+                                </div>
+                            {/block:Caption}
                         {/block:Video}
             
                         {block:Chat}
@@ -603,7 +641,7 @@
                                 <div class="question">
                                     {Question}
                                 </div>
-                                <div class="question_arrow"></div>
+                                <div class="question_arrow"> </div>
                                 <div class="asked_by">
                                     <img class="avatar" src="{AskerPortraitURL-24}" />
                                     <div class="asker">{lang:Asked by Asker 2}</div>
@@ -613,10 +651,12 @@
                                 </div>
                             </div>
                         {/block:Answer}
+                        </div>
                     </div>
 
                     {block:PermalinkPage}{block:Date}
                         <div class="content meta">
+                            <div class="inner">
                             <div>
                                 {lang:TimeAgo with NoteCount notes}
                             </div>
@@ -641,6 +681,7 @@
                             {block:PostNotes}
                                 {PostNotes}
                             {/block:PostNotes}
+                        </div>
                         </div>
                     {/block:Date}{/block:PermalinkPage}
                 {/block:Posts}
@@ -691,7 +732,7 @@
                         <div id="tweets"></div>
                     </div>
                 </div>{/block:Twitter}
-            </div><!-- ggggggggg -->
+            </div>
 
             {block:Pagination}
                 <div class="navigation">
