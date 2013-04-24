@@ -313,22 +313,6 @@
                 -webkit-transition: -webkit-filter 0.1s linear;
             }
             
-            .nsfw_wrapper {
-                
-            }
-            
-            .nsfw_warning {
-            
-            }
-            
-            .nsfw_hide {
-                
-            }
-            
-            .chat .wrapper {
-                margin: 0;
-            }
-            
             .chat .line {
                 padding-bottom: 2px;
                 border-bottom: thin solid rgba(0,0,0,0.1);
@@ -342,9 +326,13 @@
                 margin: 0;
             }
             
-            .audio iframe.tumblr_audio_player {
-                width: 100% !important;
+            .audio .player.native {
                 padding: 3px 0;
+                display: block;
+                width: 100% !important;
+            }
+            
+            .audio .player.embed iframe {
                 display: block;
             }
             
@@ -493,10 +481,6 @@
             .navigation .next {
                 float: right;
             }
-            
-            .audio iframe {
-                display: block;
-            }
         </style>
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/6AXmkmmdv/fontawesome.css" />
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/Pqlmidiid/description_animation.css" />
@@ -516,11 +500,6 @@
                 var forPost = $(this).data('parent-post')
                 $('.overlay_trigger').siblings().closest('[data-postid="'+forPost+'"] .data').first().toggleClass('shown').toggleClass('hidden')
             })
-            if(window.devicePixelRatio > 1) {
-                $('img[data-image2x]').each(function(){
-                    $(this).attr('src', $(this).data('image2x'))
-                })
-            }
             $('.make_lightbox').each(function(e){
                 $(this).on('click',function(v){
                     var lbArray = [];
@@ -534,12 +513,9 @@
                     $('body').toggleClass('tumblr_lightbox_active');
                 })
             })
-            $('.post.nsfw').wrap('<div class="nsfw_wrapper" style="position: relative;" />').append('<div class="nsfw_content" style="position: absolute; top: 10px; left: 10px;">This post is tagged NSFW, so it has been hidden. Hover here to view it.</div>').find('img.image').css({'visibility':'hidden'});
-            $('.post.nsfw').hover(function(){ $(this).find('.nsfw_content').fadeOut();
-            $(this).find('img.image').css({'visibility':'visible'}) });
         })</script>
     </head>
-    <body class="{block:IndexPage}index_page masonry_enabled{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling} lazyload_enabled{block:IfFluidColumn} fluid_layout{/block:IfFluidColumn}"> 
+    <body class="{block:IndexPage}index_page masonry_enabled{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling} {block:IfFluidColumn} fluid_layout{/block:IfFluidColumn}"> 
         <div class="bar">
             <div class="wrapper cf">
                 <div class="block wider">
@@ -577,7 +553,7 @@
                         <div class="block">
                             <div class="heading">{lang:Likes}</div>
                             <div class="content">
-                                {Likes limit="5" width="500" summarize="250"}
+                                {Likes limit="5" width="500" summarize="249"}
                             </div>
                         </div>
                     {/block:Likes}
@@ -612,7 +588,7 @@
         <div class="container cf">
             <div class="posts">
                 {block:Posts}
-                    <div class="post {PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}" data-postid="{PostID}" {block:Audio}{block:AudioEmbed}style="border-radius: 3px;"{/block:AudioEmbed}{/block:Audio}>
+                    <div class="post {PostType}{block:Photoset}set{/block:Photoset} {TagsAsClasses}" data-postid="{PostID}" {block:Audio}{block:AudioEmbed}style="border-radius: 3px 3px 0 0;"{/block:AudioEmbed}{/block:Audio}>
                         {block:Text}
                             <div class="inner">
                                 <h2>{Title}</h2>
@@ -622,7 +598,7 @@
 
                         {block:Photo}
                             <div class="wrapper{block:Exif} has_exif{/block:Exif}{block:HighRes} has_highres{/block:HighRes}">
-                                <img class="image" style="width: {block:IndexPage}{block:IfOneColumn}{PhotoWidth-500}{/block:IfOneColumn}{block:IfTwoColumn}{PhotoWidth-400}{/block:IfTwoColumn}{block:IfFluidColumn}{PhotoWidth-250}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{PhotoWidth-500}{/block:PermalinkPage}px; height: {block:IndexPage}{block:IfOneColumn}{PhotoHeight-500}{/block:IfOneColumn}{block:IfTwoColumn}{PhotoHeight-400}{/block:IfTwoColumn}{block:IfFluidColumn}{PhotoHeight-250}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{PhotoHeight-500}{/block:PermalinkPage}px;" data-original="{block:IndexPage}{block:IfOneColumn}{PhotoURL-500}{/block:IfOneColumn}{block:IfTwoColumn}{PhotoURL-400}{/block:IfTwoColumn}{block:IfFluidColumn}{PhotoURL-250}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-1280}{/block:PermalinkPage}" src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" alt="{PhotoAlt}" />
+                                <img class="image" src="{block:IndexPage}{block:IfOneColumn}{PhotoURL-500}{/block:IfOneColumn}{block:IfTwoColumn}{PhotoURL-400}{/block:IfTwoColumn}{block:IfFluidColumn}{PhotoURL-400}{/block:IfFluidColumn}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-1280}{/block:PermalinkPage}" alt="{PhotoAlt}" />
                                 {block:HighRes}
                                     <div class="make_lightbox" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" data-highres="{PhotoURL-HighRes}" data-lowres="{PhotoURL-400}">
                                         <i class="icon_in_post icon-resize-full"></i>
@@ -665,7 +641,7 @@
                         {block:Audio}
                             {block:AlbumArt}
                                 <div class="wrapper{block:TrackName} has_id3{/block:TrackName}{block:Artist} has_id3{/block:Artist}{block:Album} has_id3{/block:Album}">
-                                    <img class="artwork" src="http://static.tumblr.com/twte3d7/RSvlio0k5/grey.gif" data-original="{AlbumArtURL}" />
+                                    <img class="artwork" src="{AlbumArtURL}" />
                                     {block:TrackName}
                                         <div class="overlay_trigger" data-parent-post="{PostID}">
                                             <i class="icon_in_post icon-info-sign"></i>
@@ -696,7 +672,7 @@
                                 </div>
                             {/block:AlbumArt}
                             {block:AudioPlayer}<div class="inner">{/block:AudioPlayer}
-                                <div{block:AudioPlayer} style="height: 27px;"{/block:AudioPlayer} data-from-page="{CurrentPage}">
+                                <div class="player{block:AudioPlayer} native{/block:AudioPlayer}{block:AudioEmbed} embed{/block:AudioEmbed}" data-from-page="{CurrentPage}">
                                     {block:AudioPlayer}
                                         {AudioPlayer}
                                     {/block:AudioPlayer}
@@ -717,7 +693,7 @@
                                         {Caption}
                                     {block:AudioEmbed}</div>{/block:AudioEmbed}
                                 {/block:Caption}
-                            {block:AudioPlayer}</div>{/block:AudioPlayer}
+                            </div>
                         {/block:Audio}
                         
                         {block:Chat}
@@ -813,4 +789,4 @@
             </div>
         </div>
     </body>
-</html></html>
+</html>
