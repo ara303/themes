@@ -46,7 +46,7 @@
             }
             
             header .inner {
-                padding: 30px;
+                padding: 27px 30px;
             }
             
             header h1 {
@@ -97,7 +97,7 @@
                 margin: 0;
             }
             
-            header .information .inner {
+            header.has_social .information .inner {
                 border-right: 1px solid {color:Accent};
             }
             
@@ -107,7 +107,7 @@
                 display: none;
             }
             
-            header .social.shown {
+            header.has_social .social {
                 display: block;
             }
 
@@ -177,6 +177,7 @@
             
             h3 {
                 margin: 0;
+                font-size: 1.33em;
             }
 
             h3 > a {
@@ -483,7 +484,7 @@
     <body class="{block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}">
         <section class="to_top hidden">Back to top</section>
         <section class="container">
-            <header class="cf">
+            <header class="cf {block:IfTwitterName}has_social{/block:IfTwitterName} {block:IfFacebookName}has_social{/block:IfFacebookName} {block:IfGitHubName}has_social{/block:IfGitHubName} {block:IfPinterestName}has_social{/block:IfPinterestName} {block:IfGooglePlusID}has_social{/block:IfGooglePlusID} {block:IfInstagramName}has_social{/block:IfInstagramName}">
                 <section class="information">
                     <section class="inner">
                         <h1>
@@ -507,7 +508,7 @@
                         </p>
                     </section>
                 </section>
-                <section class="social {block:IfTwitterName}shown{/block:IfTwitterName} {block:IfFacebookName}shown{/block:IfFacebookName} {block:IfGitHubName}shown{/block:IfGitHubName} {block:IfPinterestName}shown{/block:IfPinterestName} {block:IfGooglePlusID}shown{/block:IfGooglePlusID} {block:IfInstagramName}shown{/block:IfInstagramName}">
+                <section class="social">
                     <section class="inner cf">
                         {block:IfTwitterName}
                             <a href="https://twitter.com/{text:Twitter Name}">
