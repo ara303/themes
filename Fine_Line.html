@@ -97,17 +97,18 @@
                 margin: 0;
             }
             
+            header .information .inner {
+                border-right: 1px solid {color:Accent};
+            }
+            
             header .social {
                 width: 30%;
                 float: right;
+                display: none;
             }
             
-            header .social.hidden {
-                display: none !important;
-            }
-            
-            header .social .inner {
-                border-right: 1px solid {color:Accent};
+            header .social.shown {
+                display: block;
             }
 
             header .social a {
@@ -212,6 +213,15 @@
             .icon_wrapper i.active,
             .icon_wrapper i.active:hover {
                 color: #fff;
+            }
+            
+            i.icon-resize-full.icon-2x {
+                padding: 3px;
+                color: rgb(255,255,255);
+                background-color: rgba(0,0,0,0.6);
+                border: thin solid rgba(0,0,0,0.3);
+                border-radius: 4px;
+                width: 33px;
             }
             
             .icon_wrapper i:hover {
@@ -497,8 +507,8 @@
                         </p>
                     </section>
                 </section>
-                <section class="social {block:IfNotTwitterName}hidden{/block:IfNotTwitterName} {block:IfNotFacebookName}hidden{/block:IfNotFacebookName} {block:IfNotGitHubName}hidden{/block:IfNotGitHubName} {block:IfNotPinterestName}hidden{/block:IfNotPinterestName} {block:IfNotGooglePlusID}hidden{/block:IfNotGooglePlusID} {block:IfNotInstagramName}hidden{/block:IfNotInstagramName}">
-                    <section class="inner">
+                <section class="social {block:IfTwitterName}shown{/block:IfTwitterName} {block:IfFacebookName}shown{/block:IfFacebookName} {block:IfGitHubName}shown{/block:IfGitHubName} {block:IfPinterestName}shown{/block:IfPinterestName} {block:IfGooglePlusID}shown{/block:IfGooglePlusID} {block:IfInstagramName}shown{/block:IfInstagramName}">
+                    <section class="inner cf">
                         {block:IfTwitterName}
                             <a href="https://twitter.com/{text:Twitter Name}">
                                 <i class="icon icon-2x icon-twitter"> </i>
