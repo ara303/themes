@@ -305,7 +305,7 @@
                 float: {block:IfSidebarOnRight}left{/block:IfSidebarOnRight}{block:IfNotSidebarOnRight}right{/block:IfNotSidebarOnRight};
             }
         
-            .navigation .next, .navigation .prev {
+            .navigation .next, .navigation .previous {
                 {block:IfNotTransparentBackgrounds}background: rgb(255,255,255);{/block:IfNotTransparentBackgrounds}
                 padding: 3px 7px;
                 {block:IfRoundedCorners}-moz-border-radius: 5px;
@@ -456,7 +456,7 @@
             
             {CustomCSS}
         </style>
-        <link rel="stylesheet" href="http://dl.dropbox.com/u/16697297/themes/theme_generic.css" />
+        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/yJCmmut6k/theme_generic.css" />
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/ptgmldgks/meta_controls_2.css" />
         <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/SZ4mlh0wt/font_awesome_v5.css" />
         
@@ -664,7 +664,7 @@
                                     </div>
                                     {block:HasTags}
                                         <div>
-                                            {lang:Tagged}: {block:Tags}<a href="{TagURL}">#{Tag}</a><span class="hide_if_last", </span>{/block:Tags}
+                                            {lang:Tagged}: {block:Tags}<a href="{TagURL}">#{Tag}</a><span class="hide_if_last">, </span>{/block:Tags}
                                         </div>
                                     {/block:HasTags}
                                     {block:ContentSource}
