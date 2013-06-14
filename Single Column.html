@@ -132,7 +132,8 @@
                 text-align: center;
             }
     
-            .sidebar .links a, .tweet_click {
+            .sidebar .links a,
+            .tweet {
                 display: block;
                 border-top: 1px solid rgba(0, 0, 0, 0.1);
                 line-height: 14px;
@@ -140,13 +141,17 @@
             }
             
             .sidebar .links a:first-child,
-            #tweets > .tweet_click:first-child {
+            .tweet:first-child {
                 border-top: none !important;
             }
-            
-            .sidebar .twitter .tweet_click, .tweet_title > a { 
+
+            .sidebar .twitter .tweet a {
                 text-decoration: none;
-                color: {color:Text};
+                color: {color:Links};
+            }
+
+            .sidebar .twitter .tweet a:hover {
+                text-decoration: underline;
             }
     
             /* POSTS */
@@ -719,12 +724,29 @@
                     </div>
                 </div>
                 {block:Twitter}
-                    <div class="box twitter" style="display: none;">
+                    <div class="box twitter" id="twitter-container" style="display: none;">
                         <script type="text/javascript">
-                            var tw_name = '{TwitterUsername}';
-                            var tw_count = 3;
+                            function recent_tweets(data) {
+                                for (i=0; i<3; i++) {
+                                    var tweetText = data[i].text;
+                                    var tweetText = tweetText.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig,"<a class=\"link\" href=\"$1\">$1</a>");
+                                    tweetText = tweetText.replace(/(^|\s)@(\w+)/g,"$1<a class=\"mention\" href=\"http://www.twitter.com/$2\">@$2</a>");
+                                    tweetText = tweetText.replace(/(^|\s)#(\w+)/g,"$1<a class=\"tag\" href=\"http://search.twitter.com/search?q=%23$2\">#$2</a>");
+                                    var tweetId = data[i].id_str;
+                                    if(data[i].in_reply_to_user_id_str){
+                                        var addClass = " is-mention";
+                                    }
+
+                                    document.getElementById("tweets").innerHTML =
+                                    document.getElementById("tweets").innerHTML +
+                                    '<div class="tweet'+ addClass +'">' + tweetText +'</div>';
+
+                                    var addClass = ""; // clear so we can reuse for next tweet
+                                }
+                                document.getElementById("twitter-container").style.display = 'block';
+                            }
                         </script>
-                        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/EY5mc3o1v/twitter.js"></script>
+                        
                     <div class="inner">
                         <div class="tweet_title">
                             <a target="_blank" href="http://twitter.com/{TwitterUsername}">Twitter</a>
@@ -750,5 +772,6 @@
             {/block:Pagination}
         </div>
         <iframe id="likeframe" height="1" width="1" frameborder="0"></iframe>
+        <script type="text/javascript" src="/tweets.js"></script>
     </body>
 </html>
