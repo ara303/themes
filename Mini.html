@@ -10,6 +10,7 @@
         <meta name="color:Borders" content="#E9E9E9" />
         <meta name="color:Accent" content="#A7A7A7" />
         <meta name="color:Text" content="#333333" />
+        <meta name="if:Bigger posts" content="0" />
         <meta name="if:Show Ask" content="1" />
         <meta name="if:Show Submit" content="0" />
         <meta name="if:Show Random" content="0" />
@@ -29,7 +30,7 @@
             }
         
             .wrapper { 
-                width: 544px;
+                width: {block:IfBiggerPosts}669px{/block:IfBiggerPosts}{block:IfNotBiggerPosts}569px{/block:IfNotBiggerPosts};
                 margin: 30px auto;
                 border: 1px solid {color:Borders};
             }
@@ -64,12 +65,12 @@
             section.posts { 
                 padding: 10px;
                 float: left;
-                width: 400px;
+                width: {block:IfBiggerPosts}500px{/block:IfBiggerPosts}{block:IfNotBiggerPosts}400px{/block:IfNotBiggerPosts};
             }
             
             section.side {
                 float: left;
-                width: 103px;
+                width: 128px;
                 font-size: 0.9em;
                 padding: 0 10px 0 10px;
                 margin-top: 10px;
@@ -244,16 +245,16 @@
                             {/block:Text}
                             {block:Photo}
                                 {LinkOpenTag}
-                                    <img src="{PhotoURL-400}" class="full" alt="{PhotoAlt}" />
+                                    <img src="{block:IfBiggerPosts}{PhotoURL-500}{/block:IfBiggerPosts}{block:IfNotBiggerPosts}{PhotoURL-400}{/block:IfNotBiggerPosts}" class="full" alt="{PhotoAlt}" />
                                 {LinkCloseTag}
                                 {block:Caption}{Caption}{/block:Caption}
                             {/block:Photo}
                             {block:Photoset}
-                                {Photoset-400}
+                                {block:IfBiggerPosts}{Photoset-500}{/block:IfBiggerPosts}{block:IfNotBiggerPosts}{Photoset-400}{/block:IfNotBiggerPosts}
                                 {block:Caption}{Caption}{/block:Caption}
                             {/block:Photoset}
                             {block:Video}
-                                {VideoEmbed-400}
+                                {block:IfBiggerPosts}{VideoEmbed-500}{/block:IfBiggerPosts}{block:IfNotBiggerPosts}{VideoEmbed-400}{/block:IfNotBiggerPosts}
                                 {block:Caption}{Caption}{/block:Caption}
                             {/block:Video}
                             {block:Quote}
