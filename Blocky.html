@@ -1,8 +1,9 @@
 <html>
     <head>
-        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged "{Tag}"{/block:TagPage}</title>
+        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, #{Tag}{/block:TagPage}</title>
         <meta name="description" content="{MetaDescription}" />
-        <link rel="icon" type="image/png" href="{Favicon}" />
+        <meta charset="utf-8" />
+        <link rel="icon" href="{Favicon}" />
         <meta name="alternate" content="{RSS}" />
         
         <meta name="font:Font" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
@@ -21,7 +22,7 @@
         <meta name="image:Background" content="" />
         <meta name="if:Background cover" content="1" />
         <meta name="text:About Me label" content="About me" />
-        <meta name="text:Twitter name" content="" />
+       <!-- <meta name="text:Twitter name" content="" /> -->
         <meta name="color:Text" content="#444444" />
         <meta name="color:Background" content="#EEEEEE" />
         <meta name="color:Links" content="#CCCCCC" />
@@ -31,7 +32,19 @@
         
         {block:IfUseCoolFont}<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,500" rel="stylesheet" />{/block:IfUseCoolFont}
         <link href="http://static.tumblr.com/fpdiq1j/Z7qmksrln/theme_generic.css" rel="stylesheet" />
-           <style>
+        <style>
+            /* ----------------------------------------------- *\
+                Page
+            \* ----------------------------------------------- */
+        
+            *,
+            *:before,
+            *:after {
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+            }
+           
             body {
                 font: 300 0.9em/1.3 {block:IfUseCoolFont}'Ubuntu',sans-serif{/block:IfUseCoolFont}{block:IfNotUseCoolFont}{font:Font}{/block:IfNotUseCoolFont};
                 {block:IfBackgroundImage}background-image: url('{image:Background}');
@@ -40,7 +53,7 @@
                 background-color: {color:Background};
                 color: {color:Text};
                 margin: 0;
-                -webkit-font-smoothing: subpixel-antialiased;
+                -webkit-font-smoothing: antialiased;
             }{block:IfUseCoolFont}
 
             strong, h2, b {
@@ -64,10 +77,14 @@
             .wrapper a:hover, .post a:hover { /* hyperlinks in description, post contents*/
                 text-decoration: underline;
             }
+            
+            /* ----------------------------------------------- *\
+                Layout specific
+            \* ----------------------------------------------- */
 
              {block:IfNotFluidColumn}.container {
                 width: {block:IfTwoColumn}860{/block:IfTwoColumn}{block:IfOneColumn}530{/block:IfOneColumn}px;
-                margin: 35px auto 0;
+                margin: 40px auto 0;
             }{/block:IfNotFluidColumn}
 
             {block:IfOneColumn}body.permalink_page .container {
@@ -83,47 +100,52 @@
                 {block:IndexPage}max-width: 1420px;{/block:IndexPage}
                 {block:PermalinkPage}width: 828px;{/block:PermalinkPage}
             }{/block:IfFluidColumn}
+            
+            /* ----------------------------------------------- *\
+                Top bar
+                
+                Animation for this section has been moved to
+                "animations.css"
+            \* ----------------------------------------------- */
 
             .bar {
-                background-color: rgba({RGBcolor:Post Background},0.8);
-                {block:IfShadows}box-shadow: 0 1px 3px rgba(0,0,0,0.12);{/block:IfShadows}
                 width: 100%;
-                height: 230px;
-                top: -200px;
+                top: -291px;
                 left: 0;
                 position: fixed;
                 z-index: 1;
+                background-color: rgba({RGBcolor:Post Background},0.8);
+                {block:IfShadows}box-shadow: 0 1px 3px rgba(0,0,0,0.12);{/block:IfShadows}
             }
             
-            .bar .links a, .bar #twitter a {
+            .bar .links a,
+            .bar #twitter a {
                 color: {color:Text};
                 text-decoration: none;
             }
 
             .bar .wrapper {
-                height: 199px;
-                min-width: 1351px;
+                width: 1000%;
                 border-bottom: 1px solid rgba({RGBcolor:Borders},0.1);
             }
 
             .bar .block {
                 width: 229px;
-                height: 179px;
+                height: 290px;
+                overflow-x: hidden;
                 float: left;
                 padding: 10px 20px;
                 border-right: 1px solid rgba({RGBcolor:Borders},0.1);
             }
             
-            .bar .block .heading {
+            .bar .block h3 {
                 font-size: 1.1em;
                 font-weight: 500;
-                margin-bottom: 5px;
+                margin: 0 0 5px;
             }
             
             .bar .block .content {
-                height: 164px;
-                overflow-x: hidden;
-                overflow-y: scroll;
+                overflow: hidden;
             }
             
             .block.wider {
@@ -131,11 +153,11 @@
             }
 
             .block:first-child {
-                padding-left: 30px;
+                padding-left: 31px;
             }
             
             .block .avatar {
-                background-image: url('{PortraitURL-96}');
+                background-image: url('{PortraitURL-128}');
                 background-size: 96px 96px;
                 width: 96px;
                 height: 96px;
@@ -143,12 +165,6 @@
                 {block:IfRoundedCorners}border-radius: 3px;{/block:IfRoundedCorners}
                 margin: 0 20px 0 0;
                 {block:IfShadows}box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset,0 1px 5px rgba(0,0,0,0.3);{/block:IfShadows}
-            }
-
-            @media (-webkit-min-device-pixel-ratio: 1.1)   { 
-                .block .avatar {
-                    background-image: url('{PortraitURL-128}');
-                }
             }
 
             #twitter .tweet {
@@ -206,6 +222,10 @@
                 display: block;
                 margin: 0;
             }
+            
+            /* ----------------------------------------------- *\
+                Top links
+            \* ----------------------------------------------- */
 
             .bar ul.links {
                 position: relative;
@@ -215,26 +235,38 @@
             }
             
             .bar ul.links li {
-                float: left;
                 display: block;
+                float: left;
                 line-height: 30px;
-                padding: 0 20px;
                 border-right: 1px solid rgba({RGBcolor:Borders},0.1);
-                -webkit-transition: background-color 0.2s linear;
-                -moz-transition: background-color 0.2s linear;
             }
             
             .bar ul.links li.title {
                 border-left: 1px solid rgba({RGBcolor:Borders},0.1);
-                font-weight: 500;
-                font-size: 1.2em;
+                font-weight: 700;
+            }
+
+            .bar ul.links li a {
+                display: block;
+                padding: 0 20px;
+                transition: background-color 0.5s ease-in-out;
+                -webkit-transition: background-color 0.15s ease-in-out;
+                -moz-transition: background-color 0.15s ease-in-out;
+                -ms-transition: background-color 0.15s ease-in-out;
+                -o-transition: background-color 0.15s ease-in-out;
+            }
+            
+            .bar ul.links li.description_trigger {
+                padding: 0 20px;
             }
             
             .bar ul.links li:hover {
                 background-color: #F1F1F1;
-                -webkit-transition: background-color 0.2s linear;
-                -moz-transition: background-color 0.2s linear;
             }
+            
+            /* ----------------------------------------------- *\
+                All posts
+            \* ----------------------------------------------- */
 
             .posts {
                 position: relative;
@@ -259,72 +291,6 @@
                 padding: 8px 10px;
             }
 
-            .permalink_block {
-                opacity: 0;
-                position: absolute;
-                z-index: 2;
-                background-color: rgba(255,255,255,0.9);
-                box-shadow: -1px 0px 3px rgba(0,0,0,0.25);
-                right: 0px;
-                top: 8px;
-                border-radius: 3px 0 0 3px;
-                -webkit-transition: opacity 0.2s ease-in;
-                -moz-transition: opacity 0.2s ease-in;
-            }
-
-            .post:hover .permalink_block {
-                opacity: 1;
-                -webkit-transition: opacity 0.2s ease-out;
-                -moz-transition: opacity 0.2s ease-out;
-            }
-            
-            .permalink_block .action {
-                float: left;
-                height: 19px;
-                min-width: 19px;
-                padding: 4px;
-                border-right: thin solid rgba(0,0,0,0.1);
-                opacity: 0.75;
-                text-align: center;
-            }
-            
-            .permalink_block .action:last-child {
-                border-right: 0;
-            }
-            
-            .permalink_block .action:first-child {   
-                border-radius: 3px 0 0 3px
-            }
-            
-            .permalink_block .like .like_button {
-                height: 19px;
-            }
-            
-            .permalink_block .make_lightbox {
-                padding: 5px;
-                width: 17px;
-                height: 17px;
-                cursor: pointer;
-            }
-            
-            .permalink_block .make_lightbox i {
-                line-height: 1;
-                font-size: 128%;
-            }
-
-            .permalink_block .permalink {
-                text-align: center;
-                color: {color:Text};
-                font-weight: {block:IfUseCoolFont}500{/block:IfUseCoolFont}{block:IfNotUseCoolFont}bold{/block:IfNotUseCoolFont};
-            }
-            
-            .permalink_block .action:hover {
-                text-decoration: none;
-                background-color: rgb(255,255,255);
-                -webkit-transition: all 0.1s linear;
-                -moz-transition: all 0.1s linear;
-            }
-
             {block:PermalinkPage}.post {
                 float: left;
                 width: 500px;
@@ -334,6 +300,10 @@
                 width: 300px;
                 float: right;
             }{/block:PermalinkPage}
+
+            {block:IfRoundedCorners}img {
+                border-radius: 2px;
+            }{/block:IfRoundedCorners}    
             
             .post.blackandwhite img.image, .post.blackandwhite img.artwork {
                 -webkit-filter: grayscale(100%);
@@ -355,6 +325,10 @@
                 -webkit-transition: -webkit-filter 0.1s linear;
             }
             
+            /* ----------------------------------------------- *\
+                Chat post
+            \* ----------------------------------------------- */
+            
             .chat ul {
                 margin: 0;
             }
@@ -371,6 +345,10 @@
                 border: none;
                 margin: 0;
             }
+            
+            /* ----------------------------------------------- *\
+                Audio post
+            \* ----------------------------------------------- */
             
             .audio .player.native {
                 padding: 3px 0;
@@ -395,7 +373,7 @@
                 font-size: 1.5em;
             }
 
-            i.icon-info-sign:after { /* paint a white background behind the transparent i */
+            i.icon-info-sign:after {
                 content: ' ';
                 height: 15px;
                 width: 7px;
@@ -459,10 +437,85 @@
                 -ms-transition: opacity 0.2s ease-in;
                 transition: opacity 0.2s ease-in;
             }
+            
+            /* ----------------------------------------------- *\
+                Post permalink: index page only.
+            \* ----------------------------------------------- */
 
-            {block:IfRoundedCorners}img {
-                border-radius: 2px;
-            }{/block:IfRoundedCorners}        
+            .permalink_block {
+                opacity: 0;
+                position: absolute;
+                z-index: 2;
+                background-color: rgba(255,255,255,0.95);
+                box-shadow: -1px 0px 3px rgba(0,0,0,0.25);
+                right: 0px;
+                top: 8px;
+                border-radius: 3px 0 0 3px;
+                -webkit-transition: opacity 0.2s ease-in;
+                -moz-transition: opacity 0.2s ease-in;
+            }
+
+            .post:hover .permalink_block {
+                opacity: 1;
+                -webkit-transition: opacity 0.2s ease-out;
+                -moz-transition: opacity 0.2s ease-out;
+            }
+            
+            .permalink_block .action {
+                float: left;
+                height: 27px;
+                min-width: 27px;
+                padding: 4px;
+                border-right: thin solid rgba(0,0,0,0.1);
+                opacity: 0.75;
+                text-align: center;
+            }
+            
+            .permalink_block .action:last-child {
+                border-right: 0;
+            }
+            
+            .permalink_block .action:first-child {   
+                border-radius: 3px 0 0 3px
+            }
+            
+            .permalink_block .like .like_button {
+                height: 19px;
+            }
+            
+            .permalink_block .like_button:not(.liked),
+            .permalink_block .reblog_button {
+                opacity: 0.75;
+            }
+            
+            .permalink_block .make_lightbox {
+                padding: 5px;
+                width: 17px;
+                height: 17px;
+                cursor: pointer;
+            }
+            
+            .permalink_block .make_lightbox i {
+                line-height: 1;
+                font-size: 128%;
+            }
+
+            .permalink_block .permalink {
+                text-align: center;
+                color: {color:Text};
+                font-weight: {block:IfUseCoolFont}500{/block:IfUseCoolFont}{block:IfNotUseCoolFont}bold{/block:IfNotUseCoolFont};
+            }
+            
+            .permalink_block .action:hover {
+                text-decoration: none;
+                background-color: rgb(255,255,255);
+                -webkit-transition: all 0.1s linear;
+                -moz-transition: all 0.1s linear;
+            }
+            
+            /* ----------------------------------------------- *\
+                Meta & notes: permalink page only.
+            \* ----------------------------------------------- */    
             
             ul.info, ol.notes, ul.info li, ol.notes li {
                 margin: 0;
@@ -491,14 +544,14 @@
                 font-size: 0.9em;
             }
             
-            .inf_scr {
-                display: none;
-            }
+            /* ----------------------------------------------- *\
+                Navigation
+            \* ----------------------------------------------- */
 
             body.infinite_scrolling .navigation,
             body.permalink_page .navigation {
                 display: none;
-            }
+            }   
 
             .navigation {
                 margin: 10px 5px 20px 5px;
@@ -517,26 +570,60 @@
                 float: right;
             }
             
+            /* ----------------------------------------------- *\
+                Utilities & misc.
+            \* ----------------------------------------------- */
+            
             #infscr-loading {
                 display: none !important;
                 position: absolute !important;
                 left: -1000px !important;
             }
+            
+            .inf_scr {
+                display: none;
+            }
+            
+            /* ----------------------------------------------- *\
+                Iframe position fixes because of the top bar.
+            \* ----------------------------------------------- */
+            
+            iframe#tumblr_controls,
+            html > body#blocky > iframe#tumblr_controls.tumblr_sticky_iframe {
+                top: 30px !important;
+                position: fixed !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                /* This is necessary to circumvent Tumblr's automatic re-styling of the controls on scroll. */
+            }
+            
+            /* ----------------------------------------------- *\
+                Custom CSS
+            \* ----------------------------------------------- */
+            
+            {CustomCSS}
+            
+            /* ----------------------------------------------- *\
+                                     FIN
+            \* ----------------------------------------------- */
         </style>
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/6AXmkmmdv/fontawesome.css" />
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/Pqlmidiid/description_animation.css" />
-        <script src="http://static.tumblr.com/fpdiq1j/NT8mm8rjl/eathemes_v4.js"></script>
+        <link rel="stylesheet" href="//static.tumblr.com/fpdiq1j/xVVmqcrzo/animations.css" />
+        <link rel="stylesheet" href="//static.tumblr.com/fpdiq1j/6AXmkmmdv/fontawesome.css" />
+        <script src="//static.tumblr.com/fpdiq1j/NT8mm8rjl/eathemes_v4.js"></script>
         <script>$(function(){ 
+            
             eathemes($('.posts'),'.post','{Name}',{block:IfOneColumn}530{/block:IfOneColumn}{block:IfTwoColumn}410{/block:IfTwoColumn}{block:IfFluidColumn}280{/block:IfFluidColumn})
+            
+            
             $('.description_trigger').click(function(){
-                if($('.bar').hasClass('animate_in')){
-                    $('.bar').addClass('animate_out').removeClass('animate_in')
-                    $('.container').addClass('shrink').removeClass('grow')
+                if($('body').hasClass('animate-in')){
+                    $('body').addClass('animate-out').removeClass('animate-in')
                 }else{
-                    $('.bar').addClass('animate_in').removeClass('animate_out')
-                    $('.container').addClass('grow').removeClass('shrink')
+                    $('body').addClass('animate-in').removeClass('animate-out')
                 }
             })
+            
+            
             $('.overlay_trigger').click(function(){
                 var forPost = $(this).data('parent-post')
                 $('.overlay_trigger').siblings().closest('[data-postid="'+forPost+'"] .data').first().toggleClass('shown').toggleClass('hidden')
@@ -551,30 +638,30 @@
                     var arrayContents = {"width":pWidth, "height":pHeight, "low_res":"", "high_res":pHighRes};
                     lbArray.push(arrayContents);
                     Tumblr.Lightbox.init(lbArray,1);
-                    $('body').toggleClass('tumblr_lightbox_active');
                 })
             })
         })</script>
     </head>
-    <body class="{block:IndexPage}index_page masonry_enabled{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling} {block:IfFluidColumn} fluid_layout{/block:IfFluidColumn}"> 
+    <body id="blocky" class="{block:IndexPage}index_page masonry_enabled{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling} {block:IfFluidColumn} fluid_layout{/block:IfFluidColumn}"> 
         <div class="bar">
             <div class="wrapper cf">
-                <div class="block wider">
+                <div class="block info wider">
                     <div class="avatar"/> </div>
                     {Description}
                 </div>
                 {block:IfShowAskInDescription}
-                    <div class="block wider">
-                        <div class="heading">{AskLabel}</div>
+                    <div class="block inline-ask wider">
+                        <h3>{AskLabel}</h3>
                         <div class="content">
-                            <iframe frameborder="0" src="http://www.tumblr.com/ask_form/{Name}.tumblr.com" style="width: 100%; height: 200px;" id="e_ask_form"></iframe>
+                            <iframe frameborder="0" src="http://www.tumblr.com/ask_form/{Name}.tumblr.com" style="width: 100%; height: 245px; display: block;" id="e_ask_form"></iframe>
                             <!--[if IE]><script type="text/javascript">document.getElementById('e_ask_form').allowTransparency=true;</script><![endif]-->
                         </div>
                     </div>
                 {/block:IfShowAskInDescription}
+                <!-- I don't think anyone really used Twitter on this theme so I'm not going to fix it. Yell at me at themes.edada.ms/ask if you want this feature.
                 {block:IfTwitterName}
-                    <div class="block">
-                        <div class="heading"><i class="icon icon-twitter"></i> {lang:Tweets}</div>
+                    <div class="block twitter">
+                        <h3><i class="icon icon-twitter"></i> {lang:Tweets}</h3>
                         <script>
                             $(function(){
                                 var twitter_name = '{text:Twitter Name}';
@@ -589,10 +676,11 @@
                         <div class="content" id="twitter"> </div>
                     </div>
                 {/block:IfTwitterName}
+                -->
                 {block:IfNotShowMyLikes}
                     {block:Likes}
-                        <div class="block">
-                            <div class="heading">{lang:Likes}</div>
+                        <div class="block likes">
+                            <h3>{lang:Likes}</h3>
                             <div class="content">
                                 {Likes limit="5" width="500" summarize="249"}
                             </div>
@@ -601,8 +689,8 @@
                 {/block:IfNotShowMyLikes}
                 {block:IfNotShowWhoIFollow}
                     {block:Following}
-                        <div class="block">
-                            <div class="heading">{lang:Following}</div>
+                        <div class="block following-blogs">
+                            <h3>{lang:Following}</h3>
                             <div class="content">
                                 <ul id="following">
                                     {block:Followed}
@@ -619,11 +707,39 @@
                 {/block:IfNotShowWhoIFollow}
             </div>
             <ul class="links cf">
-                <a href="/"><li class="title">{Title}</li></a>
-                <a><li class="description_trigger">{block:IfAboutMeLabel}{text:About Me label}{block:IfAboutMeLabel}{block:IfNotAboutMeLabel}{lang:About}{block:IfNotAboutMeLabel}</li></a>
-                {block:HasPages}{block:Pages}<a href="{URL}"><li>{Label}</li></a>{/block:Pages}{/block:HasPages}
-                {block:AskEnabled}<li><a href="/ask">{AskLabel}</a></li>{/block:AskEnabled}
-                {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
+                <li class="title">
+                    <a href="/">{Title}</a>
+                </li>
+                <li class="description_trigger">
+                    {block:IfAboutMeLabel}
+                        {text:About Me label}
+                    {block:IfAboutMeLabel}
+
+                    {block:IfNotAboutMeLabel}
+                        {lang:About}
+                    {block:IfNotAboutMeLabel}
+                </li>
+                {block:HasPages}
+                    {block:Pages}
+                        <li>
+                            <a href="{URL}">{Label}</a>
+                        </li>
+                    {/block:Pages}
+                {/block:HasPages}
+                {block:AskEnabled} 
+                    <li>
+                        <a href="/ask">
+                            {AskLabel}
+                        </a>
+                    </li>
+                {/block:AskEnabled}
+                {block:SubmissionsEnabled}
+                    <li>
+                        <a href="/submit">
+                            {SubmitLabel}
+                        </a>
+                    </li>
+                {/block:SubmissionsEnabled}
             </ul>
         </div>
         <div class="container cf">
@@ -771,17 +887,17 @@
                         {block:Date}
                             {block:IndexPage}
                                 <div class="permalink_block">
-                                {block:Photo}
-                                    {block:HighRes}
-                                        <div class="action make_lightbox" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" data-highres="{PhotoURL-HighRes}" data-lowres="{PhotoURL-400}">
-                                            <i class="icon-resize-full"></i>
-                                        </div>
-                                    {/block:HighRes}
-                                {/block:Photo}
                                     
                                     <a class="action permalink" href="{Permalink}">
                                         {NoteCount}
                                     </a>
+                                    {block:Photo}
+                                        {block:HighRes}
+                                            <div class="action make_lightbox" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" data-highres="{PhotoURL-HighRes}" data-lowres="{PhotoURL-400}">
+                                                <i class="icon-resize-full"></i>
+                                            </div>
+                                        {/block:HighRes}
+                                    {/block:Photo}
                                     <div class="action like">
                                         {LikeButton size="19" color="black"}
                                     </div>
