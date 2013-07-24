@@ -1,6 +1,22 @@
 <html>
     <head>
-        <!-- RAW, from themes.edada.ms -->
+        <!--
+            RAW, from themes.edada.ms
+            
+            PLEASE READ THIS FOR AN EXPLANATION OF THE "Fancy post styles" OPTION!
+            
+            "Fancy post styles" adds some style to certain types of posts. I've tried to maintain the "simplicity" that made this theme good, but I was worried I'd add stuff people wouldn't like so this is all entirely optional.
+            
+            Changes if you enable "Fancy post styles" are as follows:
+            
+            - Chat posts will have borders around each line of the chat, and there'll be some extra padding
+            
+            - Audio posts have a 'Show song info' button, that will show the track data (Track Title, Artist Name, Album Name) when clicked.
+            
+            - Answer posts display the asker's avatar and have a line seperating the question from the answer.
+            
+            You can see what the Chat and Audio styles look like in the preview to the left, but to see how Asks look you're gonna have to save it and try it on your actual blog, because there's no Ask/Answer post in the preview mode.
+        -->
         <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged {Tag}{/block:TagPage}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
@@ -17,49 +33,54 @@
         <meta name="if:Background fixed" content="1" />
         <meta name="if:Display photo captions" content="1" />
         <meta name="if:Sidebar separator" content="1" />
-        <meta name="if:Underline hyperlinks" content="1" />
+        <meta name="if:Underline hyperlinks" content="0" />
         <meta name="if:Display Title" content="1" />
         <meta name="if:Display Icon" content="1" />
         <meta name="if:Display Ask" content="1" />
         <meta name="if:Display Submit" content="1" />
+        <meta name="if:Fancy post styles" content="0" />
         
         <style>
+            *,
+            *:before,
+            *:after {
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+            }
+        
             body {
                 padding: 0;
                 margin: 0;
-                font-size: 0.9em;
-                font: normal 0.9em/1.1 {font:Font};
+                font: normal 14px/1.3 {font:Font};
                 color: {color:Text};
                 background: {color:Background} url('{image:Background}') repeat{block:IfBackgroundFixed} fixed{/block:IfBackgroundFixed};
                 {block:IfBackgroundCover}background-size: cover;{/block:IfBackgroundCover}
+                -webkit-font-smoothing: antialiased;
             }
             
             a {
                 color: {color:Link};
                 {block:IfNotUnderlineHyperlinks}text-decoration: none;{/block:IfNotUnderlineHyperlinks}
-            }
-            
-            a:hover {
-                color: {color:Link Hover};
-            }
-            
-            a, a:hover {
                 transition: all 0.1s linear;
                 -webkit-transition: all 0.1s linear;
                 -moz-transition: all 0.1s linear;
                 -o-transition: all 0.1s linear;
                 -ms-transition: all 0.1s linear;
             }
+            
+            a:hover {
+                color: {color:Link Hover};
+            }
         
             header {
-                width: 16%;
+                width: 20%;
                 float: left;
                 display: block;
                 height: 100%;
-                padding: 2% 1% 0 1%;
-                margin-right: 2%;
+                padding: 50px;
                 position: fixed;
-                {block:IfSidebarSeparator}border-right: 1px solid rgba(0,0,0,0.25);{/block:IfSidebarSeparator}
+                {block:IfSidebarSeparator}border-right: 1px solid rgba(0,0,0,0.075);{/block:IfSidebarSeparator}
             }
             
             header img {
@@ -70,9 +91,10 @@
             }
             
             header h4 {
+                text-align: center;
                 font-weight: normal;
-                font-size: 1.1em;
-                line-height: 1.3em;
+                font-size: 1.4em;
+                line-height: 1;
             }
             
             header h4 a {
@@ -81,36 +103,194 @@
             }
             
             header aside, header h4, header nav {
-                margin: 5% 0;
+                margin: 0 0 20px;
             }
             
-            header nav {
-                font-size: smaller;
+            header nav ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
             }
             
+            header nav ul li:not(:last-of-type) {
+                margin: 0 0 10px 0;
+            }
+                
             .container {
                 width: 80%;
                 float: left;
                 display: block;
                 height: 100%;
-                margin: 2% 0 0 20%;
+                padding: 50px;
+                position: relative;
+                left: 20%;
             }
             
-            article {
-                margin-bottom: 4%;
+            article:not(:last-of-type) {
+                margin-bottom: 50px;
             }
             
             article h3 {
-                line-height: 1.2em;
+                line-height: 1.3em;
             }
             
-            article.text, article.link, article.chat, article.answer {
-                width: 70%;
+            .text,
+            .link,
+            .chat,
+            .answer, 
+            .quote,
+            .caption {
+                max-width: 700px;
             }
             
-            article img.photo {
+            img.photo,
+            .audio img {
                 margin-bottom: 1em;
-                max-width: 90%;
+            }
+            
+            {block:IfFancyPostStyles}.album-art-wrapper {
+                position: relative;
+            }
+            
+            .album-art-wrapper > img {
+                max-width: 500px;
+                width: 100%;
+                display: block;
+            }
+            
+            .album-art-wrapper > .overlay {
+                position: absolute;
+                top: 0;
+                max-width: 500px;
+                width: 100%;
+                height: 100%;
+                padding: 37px 40px;
+                background: rgba(0,0,0,0.65);
+                color: #fff;
+                text-shadow: 0 1px 1px #000;
+                box-shadow: 0 0 50px rgba(0,0,0,0.25) inset;
+                transition: opacity 0.15s ease-in;
+                -webkit-transition: opacity 0.15s ease-in;
+                -moz-transition: opacity 0.15s ease-in;
+                -ms-transition: opacity 0.15s ease-in;
+                -o-transition: opacity 0.15s ease-in;
+            }
+            
+            .album-art-wrapper > .overlay.shown {
+                opacity: 1;
+            }
+            
+            .album-art-wrapper > .overlay.hidden {
+                opacity: 0;
+            }
+            
+            .album-art-wrapper ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            
+            .album-art-wrapper ul li.value {
+                margin-bottom: 12px;
+                font-weight: bold;
+            }
+            
+            .album-art-wrapper ul li.key {
+                margin-bottom: 4px;
+            }
+            
+            .album-art-toggle {
+                font-size: 0.8em;
+                margin-top: -10px;
+                margin-bottom: 10px;
+            }
+            
+            .album-art-toggle:hover {
+                cursor: pointer;
+                color: {color:Link Hover};
+            }
+            
+            .chat ul li {
+                border: 1px solid rgba(0,0,0,0.075);
+                border-bottom: none;
+                padding: 12px 15px;
+            }
+            
+            .chat ul li:last-of-type {
+                border-bottom: 1px solid rgba(0,0,0,0.075);
+            }
+            
+            .answer {
+                position: relative;
+            }
+            
+            .answer .question {
+                border-bottom: 1px solid rgba(0,0,0,0.075);
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .answer .arrow {
+                top: -21px;
+                left: 14px;
+                position: relative;
+            }
+            
+            .answer .arrow:before,
+            .answer .arrow:after {
+                content: ' ';
+                display: block;
+                position: absolute;
+            }
+            
+            .answer .arrow:before {
+                width: 0; 
+                height: 0; 
+                margin-top: 1px;
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 15px solid rgb(230,230,230);
+            }
+            
+            .answer .arrow:after {
+                width: 0; 
+                height: 0; 
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 15px solid #fff;
+            }
+            
+            .answer .asked-by {
+                margin-left: 10px;
+            }
+            
+            .answer .asked-by img {
+                width: 40px;
+                height: 40px;
+                display: block;
+                float: left;
+                border-radius: 2px;
+            }
+
+            .answer .asked-by .sender {
+                line-height: 40px;
+                margin-left: 10px;
+                float: left;
+                font-weight: bold;
+            }
+            
+            .answer .response {
+                margin-top: 20px;
+            }{/block:IfFancyPostStyles}
+            
+            .chat ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            
+            article img {
+                max-width: 100%;
             }
             
             article p:empty, article h3:empty {
@@ -123,18 +303,18 @@
             
             article section {
                 margin-top: 1em;
-                font-size: smaller;
+                font-size: 0.9em;
             }
 
             body.permalink_page article section {
                 padding-top: 1em;
-                border-top: 1px solid rgba(0,0,0,0.25);
+                border-top: 1px solid rgba(0,0,0,0.075);
             }
             
             blockquote {
                 margin: 0 0 1em 0;
-                padding-left: 0.5em;
-                border-left: 2px solid rgba(0, 0, 0, 0.25);
+                padding-left: 1em;
+                border-left: 2px solid rgba(0, 0, 0, 0.1);
             }
             
             ol.notes blockquote {
@@ -168,8 +348,18 @@
                 display: none;
             }
             
+            .cf:before, .cf:after{content: " ";display: table} .cf:after{clear: both}
+            
             {CustomCSS}
         </style>
+        {block:IfFancyPostStyles}<script src="http://code.jquery.com/jquery.min.js"></script>
+        <script>
+            $(function(){
+                $('.album-art-toggle').on('click',function(){
+                    $(this).siblings().find('.overlay').toggleClass('hidden').toggleClass('shown');
+                });
+            });
+        </script>{/block:IfFancyPostStyles}
         <!--[if lt IE 9]><script src="http://static.tumblr.com/hriofhd/Qj0m8pn7q/html5shiv.js"></script><![endif]-->
     </head>
     <body class="raw {block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}">
@@ -192,26 +382,29 @@
                 </aside>
             {/block:Description}
             <nav>
-                <p>
+                <ul>
                     {block:HasPages}
                         {block:Pages}
-                            <a href="{URL}">{Label}</a>
-                            <span class="hide_if_last"> / </span>
+                            <li>
+                                <a href="{URL}">{Label}</a>
+                            </li>
                         {/block:Pages}
                     {/block:HasPages}
                     {block:IfDisplayAsk}
                         {block:AskEnabled}
-                            <a href="/ask">Ask</a>
-                            <span class="hide_if_last"> / </span>
+                            <li>
+                                <a href="/ask">Ask</a>
+                            </li>
                         {/block:AskEnabled}
                     {/block:IfDisplayAsk}
                     {block:IfDisplaySubmit}
                         {block:SubmissionsEnabled}
-                            <a href="/submit">Submit</a>
-                            <span class="hide_if_last"> / </span>
+                            <li>
+                                <a href="/submit">Submit</a>
+                            </li>
                         {/block:SubmissionsEnabled}
                     {/block:IfDisplaySubmit}
-                </p>
+                </ul>
             </nav>
         </header>
         <section class="container">
@@ -249,30 +442,65 @@
                     
                     {block:Chat}
                         <h3>{Title}</h3>
-                        <div style="display: block;margin-bottom: 0.9em;">
+                        <ul>
                         {block:Lines}
-                            <div style="line-height: 1.2em;">
+                            <li>
                                 {block:Label}<strong>{Label}</strong>{/block:Label} {Line}
-                            </div>
+                            </li>
                         {/block:Lines}
-                        </div>
+                        </ul>
                     {/block:Chat}
                     
                     {block:Audio}
-                        {block:AlbumArt}<img src="{AlbumArtURL}" />{/block:AlbumArt}
+                        {block:AlbumArt}
+                            <div class="album-art-wrapper">
+                                <img src="{AlbumArtURL}" alt="{TrackName} - {Artist}" />
+                                {block:IfFancyPostStyles}<div class="overlay hidden">
+                                    <ul>
+                                        {block:TrackName}
+                                            <li>Name:</li>
+                                            <li class="value">{TrackName}</li>
+                                        {/block:TrackName}
+                                        {block:Artist}
+                                            <li>Artist:</li>
+                                            <li class="value">{Artist}</li>
+                                        {/block:Artist}
+                                        {block:Album}
+                                            <li>Album:</li>
+                                            <li class="value">{Album}</li>
+                                        {/block:Album}
+                                        <li>Plays:</li>
+                                        <li class="value">{PlayCount}</li>
+                                    </ul>
+                                </div>{/block:IfFancyPostStyles}
+                            </div>
+                            {block:IfFancyPostStyles}<div class="album-art-toggle">
+                                See song info &rarr;
+                            </div>{/block:IfFancyPostStyles}
+                        {/block:AlbumArt}
                         {AudioPlayer}
                         {Caption}
                     {/block:Audio}
                     
                     {block:Answer}
-                        <h3>{Asker} asked: {Question}</h3>
-                        {Answer}
+                        {block:IfFancyPostStyles}<div class="question">
+                            {Question}
+                        </div>
+                        <div class="arrow"> </div>
+                        <div class="asked-by cf">
+                            <img src="{AskerPortraitURL-96}" />
+                            <div class="sender">{Asker}</div>
+                        </div>{/block:IfFancyPostStyles}
+                        {block:IfNotFancyPostStyles}<h3>{Asker} asked: {Question}</h3>{/block:IfNotFancyPostStyles}
+                        <div class="response">
+                            {Answer}
+                        </div>
                     {/block:Answer}
                     
                     <section>
                         {block:Date}
                             {block:IndexPage}
-                                <a href="{Permalink}">{NoteCount}</a>
+                                <a href="{Permalink}">{TimeAgo}</a>
                             {/block:IndexPage}
                             {block:PermalinkPage}
                                 <!--{block:ContentSource}(Source: <a href="{SourceURL}">{SourceTitle}</a>{/block:ContentSource}{block:RebloggedFrom}, via: <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom}){/block:ContentSource}-->
