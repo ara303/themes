@@ -1,17 +1,25 @@
 <html>
     <head>
-        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged "{Tag}"{/block:TagPage}</title>
+        <title>{Title}{block:PostSummary} | {PostSummary}{/block:PostSummary}{block:TagPage} | #{Tag}{/block:TagPage}</title>
         <link rel="shortcut icon" href="{Favicon}">
         <link rel="alternate" type="application/rss+xml" href="{RSS}">
-        {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}{block:IfCustomFont}
-        <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>{/block:IfCustomFont}
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/A6Lml2520/fontawesome.css" />
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/gGtml0lz1/cf.css" />
+        {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {block:IfUseGoogleWebFont}
+            {block:IfGoogleWebFontName}
+                <link href="http://fonts.googleapis.com/css?family={text:Google Web Font Name}:400,700" rel="stylesheet">
+            {/block:IfGoogleWebFontName}
+        {/block:IfUseGoogleWebFont}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <meta name="color:Accent" content="#ababab" />
         <meta name="color:Links" content="#a29f9f" />
+        <meta name="color:Text" content="#555555" />
         <meta name="if:Smaller images" content="0" />
-        <meta name="if:Custom font" content="1" />
         <meta name="font:Font" content="'Helvetica Neue', Arial, sans-serif">
+        <meta name="if:Use Google Web Font" content="1" />
+        <meta name="text:Google Web Font Name" content="Open Sans" />
         <meta name="text:Twitter Name" content="" />
         <meta name="text:Facebook Name" content="" />
         <meta name="text:GitHub Name" content="" />
@@ -19,10 +27,22 @@
         <meta name="text:GooglePlus ID" content="" />
         <meta name="text:Instagram Name" content="" />
         <style>
+            *,
+            ::before,
+            ::after {
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+            }
+        
+            .cf:before,.cf:after{content:" ";display:table}.cf:after{clear:both}.cf{*zoom:1}
+            
             body {
+                -webkit-text-size-adjust: none;
+                -webkit-font-smoothing: antialiased;
                 margin: 0;
-                font: normal 14px/1.2 {block:IfCustomFont}'Droid Serif',serif{/block:IfCustomFont}{block:IfNotCustomFont}{font:Font}{/block:IfNotCustomFont};
-                color: #444444;
+                font: normal 15px/1.2 {block:IfUseGoogleWebFont}{block:IfGoogleWebFontName}'{text:Google Web Font Name}'{block:IfGoogleWebFontName}{block:IfNotGoogleWebFontName}'Open Sans'{/block:IfNotGoogleWebFontName},sans-serif{/block:IfUseGoogleWebFont}{block:IfNotUseGoogleWebFont}{font:Font}{/block:IfNotUseGoogleWebFont};
+                color: {color:Text};
             }
             
             a {
@@ -60,7 +80,7 @@
             }
             
             header .information {
-                width: 70%;
+                width: 69%;
                 float: left;
             }
             
@@ -85,11 +105,6 @@
             header #links a:hover {
                 background-color: #fff;
                 text-decoration: none;
-                transition: all 0.1s ease-in;
-                -webkit-transition: all 0.1s ease-in;
-                -moz-transition: all 0.1s ease-in;
-                -ms-transition: all 0.1s ease-in;
-                -o-transition: all 0.1s ease-in;
                 color: {color:Links};
             }
             
@@ -102,7 +117,7 @@
             }
             
             header .social {
-                width: 30%;
+                width: 31%;
                 float: right;
                 display: none;
             }
@@ -157,14 +172,14 @@
                 padding-top: 12px;
                 padding: 0;
                 margin: 0;
-                border-top: thin solid {color:Accent};
+                border-top: 0.1rem solid {color:Accent};
             }
             
             li.post,
             li.post.meta.less_than_viewport {
                 list-style: none;
                 position: relative;
-                border-bottom: thin solid {color:Accent};
+                border-bottom: 0.1rem solid {color:Accent};
             }
 
             li.post.meta {
@@ -190,6 +205,7 @@
             
             img.image.has_caption,
             h3.has_caption,
+            .audio .native.has_caption,
             .wrapper.has_caption {
                 margin-bottom: 13px;
             }
@@ -204,62 +220,60 @@
                 position: relative;
             }
             
-            .icon_wrapper {
-                position: absolute;
-                bottom: 10px;
-                right: 10px;
-                color: #000;
-            }
-            
-            .icon_wrapper i.active,
-            .icon_wrapper i.active:hover {
-                color: #fff;
-            }
-            
-            i.icon-resize-full.icon-2x {
-                padding: 3px;
-                color: rgb(255,255,255);
-                background-color: rgba(0,0,0,0.6);
-                border: thin solid rgba(0,0,0,0.3);
+            .audio .native {
+                border: thin solid {color:Accent};
+                width: 700px;
                 border-radius: 4px;
-                width: 33px;
             }
             
-            .icon_wrapper i:hover {
-                color: #444;
-                cursor: pointer;
+            .audio .native .artwork > img {
+                width: 200px;
+                height: 200px;
+                display: block;
+                border-radius: 0 3px 3px 0;
             }
-
-            .photo .overlay {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0,0,0,0.6);
-                text-shadow: rgba(0,0,0,0.6);
-                box-shadow: 0 0 50px rgba(0,0,0,0.6) inset;
-                color: #fff;
+            
+            .audio .native .wrapper {
+                width: 500px;
+                float: left;
             }
-
-            .photo .overlay.hidden,
-            .icon_wrapper {
-                opacity: 0;
-                transition: all 0.3s ease-out;
-                -webkit-transition: all 0.3s ease-out;
-                -moz-transition: all 0.3s ease-out;
-                -ms-transition: all 0.3s ease-out;
-                -o-transition: all 0.3s ease-out;
+            
+            .audio .native .player iframe {
+                display: block;
+                width: 490px;
+                padding-left: 10px;
+                height: 50px;
+                border-bottom: thin solid {color:Accent};
             }
-
-            .photo .overlay.shown,
-            .post:hover .icon_wrapper {
-                opacity: 1;
-                transition: all 0.3s ease-in;
-                -webkit-transition: all 0.3s ease-in;
-                -moz-transition: all 0.3s ease-in;
-                -ms-transition: all 0.3s ease-in;
-                -o-transition: all 0.3s ease-in;
+            
+            .audio .native .player embed {
+                display: block;
+                padding: 10px;
+                border-radius: 3px 0 0 0;
+                border-bottom: thin solid {color:Accent};
+            }
+            
+            .audio .native .id3 {
+                margin: 0;
+                padding: 13px 15px;
+                list-style: none;
+                display: none;
+            }
+            
+            .audio .native .id3.shown {
+                display: block;
+            }
+            
+            .audio .native .id3 li {
+                margin: 0 0 3px;
+                padding: 0 0 3px;
+                border-bottom: thin dashed {color:Accent};
+            }
+            
+            .audio .native .id3 li:last-child {
+                margin: 0;
+                padding: 0;
+                border-bottom: none;
             }
 
             .chat ul.chat {
@@ -270,12 +284,10 @@
             }
 
             .chat ul.chat li {
-                border-bottom: thin solid {color:Accent};
-                padding: 4px 0 4px 4px;
+                padding: 6px 0 6px 6px;
             }
 
             .chat ul.chat li.even {
-                color: #FFFFFF;
                 background-color: {color:Accent};
             }
 
@@ -306,7 +318,7 @@
             }
 
             .meta .notes_container > .inner {
-                border-left: thin solid {color:Accent};
+                border-left: 0.1rem solid {color:Accent};
             }
 
             .meta ul,
@@ -337,56 +349,34 @@
                 position: absolute;
                 bottom: 15px;
                 right: 15px;
-                border: thin solid {color:Accent};
+                border: 0.1rem solid {color:Accent};
             }
             
-            .post aside > section,
-            .post aside > a {
+            .post aside a.notes {
                 display: block;
-                min-width: 14px;
-                padding: 6px 9px;
+                min-width: 34px;
+                line-height: 16px;
+                padding: 8px 9px;
                 float: left;
                 text-align: center;
                 text-decoration: none;
                 cursor: pointer;
                 background-color: rgba(255,255,255,0.45);
                 color: {color:Links};
-                border-right: thin solid {color:Accent};
+                border-right: 0.1rem solid {color:Accent};
             }
             
-            .post aside > *:last-child {
-                border-right: none;
+            .post aside .reblog_button {
+                border-right: 0.1rem solid {color:Accent};
+                width: 34px !important;
+                height: 32px !important;
             }
             
-            .post aside > section.like {
-                padding-top: 7px;
-                padding-bottom: 5px;
-            }
-
-            .post.answer aside .reblog { /* Look into alternate ways to extract Reblog Key. */
-                display: none;
-            }
-            
-            aside .like:hover,
-            aside .like.liked {
-                color: #d32a2a;
-            }
-            
-            aside .reblog:hover {
-                color: #67a540;
-            }
-            
-            aside .notes {
-                font-family: 'Helvetica Neue',Arial,sans-serif;
-                line-height: 16px;
-            }
-            
-            aside .notes:hover {
-                color: #444444;
-            }
-            
-            footer {
-                
+            .post aside .like_button,
+            .post aside .reblog_button {
+                float: left;
+                padding: 7px 8px;
+                height: 32px;
             }
             
             footer .inner {
@@ -476,10 +466,41 @@
             
             .to_top:hover {
                 cursor: pointer;
-            }   
+            }  
+            
+            
+            
+            @media (max-width: 959px) {
+                .container {
+                    width: 100%;
+                    border: none;
+                }
+                
+                .container img.image {
+                    max-width: 100%;
+                }
+                
+                header .information {
+                    width: 100%;
+                    border-right: none;
+                    border-bottom: 1px solid {color:Accent};
+                }
+                
+                header .social {
+                    width: 100%;
+                }
+                
+                header .inner {
+                    padding: 15px;
+                }
+                
+                li.post .inner {
+                    padding: 15px 15px 63px 15px;
+                }
+            }
         </style>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="http://static.tumblr.com/fpdiq1j/eJzml94w1/fine_line.min.js"></script>
+        <script src="//static.tumblr.com/fpdiq1j/5cAmrf51i/fine-line.js"></script>
     </head>
     <body class="{block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}">
         <section class="to_top hidden">Back to top</section>
@@ -551,8 +572,8 @@
                             {block:Date}
                                 <aside class="cf">
                                     <a class="notes" href="{Permalink}">{NoteCount}</a>
-                                    <a class="reblog" href="{ReblogURL}"><i class="icon icon-retweet"> </i></a>
-                                    <section class="like" data-postid="{PostID}"><i class="icon icon-heart"> </i></section>
+                                    {ReblogButton size="18"}
+                                    {LikeButton size="18"}
                                 </aside>
                             {/block:Date}
                             {block:Text}
@@ -592,10 +613,6 @@
                                             </section>
                                         </section>
                                     {/block:Exif}
-                                    <section class="icon_wrapper exif">
-                                        {block:Exif}<i class="icon-info-sign icon-2x" title="EXIF data"> </i>{/block:Exif}
-                                        {block:HighRes}<i class="icon-resize-full icon-2x" title="{lang:High-res photo}" data-highres="{PhotoURL-HighRes}" data-lowres="{PhotoURL-400" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}"> </i>{/block:HighRes}
-                                    </section>
                                 </section>
                                 {block:Caption}
                                     <div class="caption">{Caption}</div>
@@ -654,17 +671,16 @@
                                 {/block:Caption}
                             {/block:Video}
                             {block:Audio}
-                                <section class="wrapper{block:Caption} has_caption{/block:Caption} {block:AudioEmbed}is_embed{/block:AudioEmbed}{block:AudioPlayer}is_native{/block:AudioPlayer}">
-                                    {block:AudioPlayer}
-                                        {AudioPlayer}
-                                    {/block:AudioPlayer}
-                                    {block:AudioEmbed}
-                                        {AudioEmbed}
-                                    {/block:AudioEmbed}
-                                </section>
-                                {block:Caption}
-                                    <div class="caption">{Caption}</div>
-                                {/block:Caption}
+                                {block:AudioPlayer}
+                                    <div class="wrapper">
+                                        {AudioPlayer color="white"}
+                                    </div>
+                                {/block:AudioPlayer}
+                                    {block:Caption}
+                                        <div class="caption">
+                                            {Caption}
+                                        </div>
+                                    {/block:Caption}
                             {/block:Audio}
                             {block:Answer}
                                 <h3 class="has_caption">{Asker} asked: {Question}</h3>
