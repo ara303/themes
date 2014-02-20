@@ -10,13 +10,13 @@
                 <link href="http://fonts.googleapis.com/css?family={text:Google Web Font Name}:400,700" rel="stylesheet">
             {/block:IfGoogleWebFontName}
         {/block:IfUseGoogleWebFont}
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <meta name="color:Accent" content="#ababab" />
         <meta name="color:Links" content="#a29f9f" />
         <meta name="color:Text" content="#555555" />
-        <meta name="if:Smaller images" content="0" />
+        <meta name="if:Smaller layout" content="0" />
         <meta name="font:Font" content="'Helvetica Neue', Arial, sans-serif">
         <meta name="if:Use Google Web Font" content="1" />
         <meta name="text:Google Web Font Name" content="Open Sans" />
@@ -41,7 +41,7 @@
                 -webkit-text-size-adjust: none;
                 -webkit-font-smoothing: antialiased;
                 margin: 0;
-                font: normal 15px/1.2 {block:IfUseGoogleWebFont}{block:IfGoogleWebFontName}'{text:Google Web Font Name}'{block:IfGoogleWebFontName}{block:IfNotGoogleWebFontName}'Open Sans'{/block:IfNotGoogleWebFontName},sans-serif{/block:IfUseGoogleWebFont}{block:IfNotUseGoogleWebFont}{font:Font}{/block:IfNotUseGoogleWebFont};
+                font: normal 16px/1.4 {block:IfUseGoogleWebFont}{block:IfGoogleWebFontName}'{text:Google Web Font Name}'{block:IfGoogleWebFontName}{block:IfNotGoogleWebFontName}'Open Sans'{/block:IfNotGoogleWebFontName},sans-serif{/block:IfUseGoogleWebFont}{block:IfNotUseGoogleWebFont}{font:Font}{/block:IfNotUseGoogleWebFont};
                 color: {color:Text};
             }
             
@@ -55,7 +55,7 @@
             }
             
             .container {
-                width: 960px;
+                width: {block:IfNotSmallerLayout}900{/block:IfNotSmallerLayout}{block:IfSmallerLayout}700{/block:IfSmallerLayout}px;
                 margin: 0 auto;
                 border-left: thin solid {color:Accent};
                 border-right: thin solid {color:Accent};
@@ -80,8 +80,16 @@
             }
             
             header .information {
+                width: 100%;   
+            }
+            
+            header.has_social .information {
                 width: 69%;
                 float: left;
+            }
+            
+            header.has_social .information .inner {
+                border-right: 1px solid {color:Accent};
             }
             
             header p {
@@ -112,10 +120,6 @@
                 margin: 0;
             }
             
-            header.has_social .information .inner {
-                border-right: 1px solid {color:Accent};
-            }
-            
             header .social {
                 width: 31%;
                 float: right;
@@ -139,38 +143,32 @@
                 margin: 0;
             }
 
-            header .icon-twitter:hover {
+            header .fa-twitter:hover {
                 color: #1dcaff;
             }
 
-            header .icon-facebook {
-                padding: 0 30%;
-                position: relative;
-            }
-
-            header .icon-facebook:hover {
+            header .fa-facebook:hover {
                 color: #3b5998;
             }
 
-            header .icon-github:hover {
+            header .fa-github:hover {
                 color: #a29f9f;
             }
 
-            header .icon-pinterest:hover {
+            header .fa-pinterest:hover {
                 color: #cd1d1f;
             }
 
-            header .icon-google-plus:hover {
+            header .fa-google-plus:hover {
                 color: #fbcc33;
             }
 
-            header .icon-camera-retro:hover {
+            header .fa-instagram:hover {
                 color: #a6775b;
             }
             
             ol#posts {
-                padding-top: 12px;
-                padding: 0;
+                padding: 12px 0 0;
                 margin: 0;
                 border-top: 0.1rem solid {color:Accent};
             }
@@ -199,8 +197,10 @@
                 color: #444444;
             }
             
-            img.image {
-                max-width: {block:IfSmallerImages}700px{/block:IfSmallerImages}{block:IfNotSmallerImages}100%{/block:IfNotSmallerImages};
+            img {
+                max-width: 100%;
+                height: auto;
+                vertical-align: middle;
             }
             
             img.image.has_caption,
@@ -299,6 +299,19 @@
                 border: none;
             }
             
+            .video .wrapper {
+                max-width: 500px;
+                margin: 0 auto;
+                display: block;
+            }
+            
+            .video .wrapper iframe,
+            .video .wrapper embed,
+            .video .wrapper object {
+                width: 100%;
+                height: auto;
+            }
+            
             .post.text .inner,
             .post.answer .inner,
             .post.quote .inner,
@@ -350,6 +363,14 @@
                 bottom: 15px;
                 right: 15px;
                 border: 0.1rem solid {color:Accent};
+                z-index: 90;
+            }
+            
+            .post aside a.notes,
+            .post aside .reblog_button,
+            .post aside .like_button {
+                background-color: #fff;
+                float: left;
             }
             
             .post aside a.notes {
@@ -357,11 +378,9 @@
                 min-width: 34px;
                 line-height: 16px;
                 padding: 8px 9px;
-                float: left;
                 text-align: center;
                 text-decoration: none;
                 cursor: pointer;
-                background-color: rgba(255,255,255,0.45);
                 color: {color:Links};
                 border-right: 0.1rem solid {color:Accent};
             }
@@ -374,7 +393,6 @@
             
             .post aside .like_button,
             .post aside .reblog_button {
-                float: left;
                 padding: 7px 8px;
                 height: 32px;
             }
@@ -391,15 +409,10 @@
             footer .next {
                 display: block;
                 padding: 5px 7px;
-                color: #FFFFFF;
+                color: #ffffff;
                 float: right;
                 margin-left: 15px;
                 background-color: {color:Accent};
-            }
-            
-            i.icon {
-                font-family: 'FontAwesome';
-                line-height: 120% !important;
             }
             
             .post p {
@@ -412,7 +425,7 @@
 
             .post ol,
             .post ul {
-                padding-left: 16px;
+                padding-left: 22px;
                 margin: 10px 0 0 0;
             }
 
@@ -421,8 +434,8 @@
             }
             
             .post blockquote {
-                margin: 10px 0 0 5px;
-                padding-left: 5px;
+                margin: 10px 0 0 10px;
+                padding-left: 10px;
                 border-left: 3px solid rgba(0,0,0,0.25);
             }
             
@@ -430,15 +443,16 @@
                 position: fixed;
                 top: 50px;
                 right: 0;
-                padding: 5px 8px;
+                padding: 4px 1px;
+                z-index: 100;
                 background: #ffffff;
                 border: thin solid {color:Accent};
                 border-right: none;
+                font-size: 1.5em;
             }
             
             .to_top.hidden {
-                transform: translate(96px,0);
-                transition: all 0.3s ease-out;
+                opacity: 0;
                 -webkit-transform: translate(96px,0);
                 -webkit-transition: all 0.3s ease-out;
                 -moz-transform: translate(96px,0);
@@ -447,12 +461,12 @@
                 -ms-transition: all 0.3s ease-out;
                 -o-transform: translate(96px,0);
                 -o-transition: all 0.3s ease-out;
-                opacity: 0;
+                transform: translate(43px,0);
+                transition: all 0.3s ease-out;
             }
             
             .to_top.shown {
-                transform: translate(0,0);
-                transition: all 0.3s ease-in;
+                opacity: 1;
                 -webkit-transform: translate(0,0);
                 -webkit-transition: all 0.3s ease-in;
                 -moz-transform: translate(0,0);
@@ -461,7 +475,8 @@
                 -ms-transition: all 0.3s ease-in;
                 -o-transform: translate(0,0);
                 -o-transition: all 0.3s ease-in;
-                opacity: 1;
+                transform: translate(0,0);
+                transition: all 0.3s ease-in;
             }
             
             .to_top:hover {
@@ -470,7 +485,7 @@
             
             
             
-            @media (max-width: 959px) {
+            @media (max-width: 768px) {
                 .container {
                     width: 100%;
                     border: none;
@@ -483,10 +498,10 @@
                 header .information {
                     width: 100%;
                     border-right: none;
-                    border-bottom: 1px solid {color:Accent};
                 }
                 
-                header .social {
+                header.has_social .social {
+                    border-top: 1px solid {color:Accent};
                     width: 100%;
                 }
                 
@@ -498,12 +513,21 @@
                     padding: 15px 15px 63px 15px;
                 }
             }
+            
+            #tumblr_controls.visible {
+                visibility: hidden !important;
+                opacity: 0 !important;
+                display: none !important;
+
+            }
         </style>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//static.tumblr.com/fpdiq1j/5cAmrf51i/fine-line.js"></script>
     </head>
     <body class="{block:IndexPage}index_page{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage}">
-        <section class="to_top hidden">Back to top</section>
+        <section class="to_top hidden" title="Go to the top of the page">
+            <i class="fa fa-fw fa-chevron-up"></i>
+        </section>
         <section class="container">
             <header class="cf {block:IfTwitterName}has_social{/block:IfTwitterName} {block:IfFacebookName}has_social{/block:IfFacebookName} {block:IfGitHubName}has_social{/block:IfGitHubName} {block:IfPinterestName}has_social{/block:IfPinterestName} {block:IfGooglePlusID}has_social{/block:IfGooglePlusID} {block:IfInstagramName}has_social{/block:IfInstagramName}">
                 <section class="information">
@@ -533,32 +557,32 @@
                     <section class="inner cf">
                         {block:IfTwitterName}
                             <a href="https://twitter.com/{text:Twitter Name}">
-                                <i class="icon icon-2x icon-twitter"> </i>
+                                <i class="fa fa-2x fa-fw fa-twitter"></i>
                             </a>
                         {/block:IfTwitterName}
                         {block:IfFacebookName}
                             <a href="https://facebook.com/{text:Facebook Name}">
-                                <i class="icon icon-2x icon-facebook"> </i>
+                                <i class="fa fa-2x fa-fw fa-facebook"></i>
                             </a>
                         {/block:IfFacebookName}
                         {block:IfGitHubName}
                             <a href="https://github.com/{text:GitHub Name}">
-                                <i class="icon icon-2x icon-github"> </i>
+                                <i class="fa fa-2x fa-fw fa-github"></i>
                             </a>
                         {/block:IfGitHubName}
                         {block:IfPinterestName}
                             <a href="http://pinterest.com/{text:Pinterest Name}/">
-                                <i class="icon icon-2x icon-pinterest"> </i>
+                                <i class="fa fa-2x fa-fw fa-pinterest"></i>
                             </a>
                         {/block:IfPinterestName}
                         {block:IfGooglePlusID}
                             <a href="http://plus.google.com/{text:GooglePlus ID}/posts">
-                                <i class="icon icon-2x icon-google-plus"> </i>
+                                <i class="fa fa-2x fa-fw fa-google-plus"> </i>
                             </a>
                         {/block:IfGooglePlusID}
                         {block:IfInstagramName}
                             <a href="http://instagram.com/{text:Instagram Name}">
-                                <i class="icon icon-2x icon-camera-retro"> </i> 
+                                <i class="fa fa-2x fa-fw fa-instagram"> </i> 
                             </a>
                         {/block:IfInstagramName}
                     </section>
@@ -587,32 +611,7 @@
                                     {block:LinkURL}{LinkOpenTag}{/block:LinkURL}
                                         <img src="{PhotoURL-HighRes}" class="image" alt="{PhotoAlt}"/>
                                     {block:LinkURL}{LinkCloseTag}{/block:LinkURL}
-                                    {block:Exif}
-                                        <section class="overlay exif hidden">
-                                            <section class="inner" style="padding: 47px 50px;">
-                                                {block:Camera}
-                                                    <strong>Camera:</strong><br />
-                                                    {Camera}
-                                                    <br /><br />
-                                                {/block:Camera}
-                                                {block:Aperture}
-                                                    <strong>Aperture:</strong><br />
-                                                    {Aperture}
-                                                    <br /><br />
-                                                {/block:Aperture}
-                                                {block:Exposure}
-                                                    <strong>Exposure:</strong><br />
-                                                    {Exposure}
-                                                    <br /><br />
-                                                {/block:Exposure}
-                                                {block:FocalLength}
-                                                    <strong>Focal Length:</strong><br />
-                                                    {FocalLength}
-                                                    <br /><br />
-                                                {/block:FocalLength}
-                                            </section>
-                                        </section>
-                                    {/block:Exif}
+                                    
                                 </section>
                                 {block:Caption}
                                     <div class="caption">{Caption}</div>
@@ -627,7 +626,7 @@
                                 {/block:Caption}
                             {/block:Panorama}
                             {block:Photoset}
-                                {Photoset-700}
+                                {Photoset}
                                 {block:Caption}
                                     <div class="caption">{Caption}</div>
                                 {/block:Caption}
@@ -664,7 +663,7 @@
                             {/block:Chat}
                             {block:Video}
                                 <div class="wrapper{block:Caption} has_caption{/block:Caption}">
-                                    {Video-700}
+                                    {Video-500}
                                 </div>
                                 {block:Caption}
                                     <div class="caption">{Caption}</div>
@@ -734,6 +733,5 @@
                 </section>
             </footer>
         </section>
-        <iframe id="like_iframe" style="height: 0; width: 0; visibility: hidden;" seamless frameborder="0" src=""></iframe>
     </body>
 </html>
