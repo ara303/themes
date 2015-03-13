@@ -1,43 +1,40 @@
 <html>
     <head>
-        <!-- Win98, from eathemes.tumblr.com -->
-        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, posts tagged "{Tag}"{/block:TagPage}</title>
+        <!-- Win98, from themes.edada.ms -->
+        <title>{Title}{block:PostSummary}, {PostSummary}{/block:PostSummary}{block:TagPage}, #{Tag}{/block:TagPage}</title>
         {block:Description}<meta name="description" value="{MetaDescription}" />{/block:Description}
         <link rel="shortcut icon" href="{Favicon}" />
         <link rel="alternate" href="{RSS}" />
         <meta charset="utf-8" />
 
-        <meta name="image:Background" content="" />
+        <meta name="image:Background image" content="" />
+        <meta name="color:Background color" content="#008080" />
+        <meta name="color:Links" content="#000000" />
+        <meta name="color:Icon labels" content="#ffffff" />
+        <meta name="font:Font" content="Helvetica Neue" />
+        <meta name="if:Infinite scrolling" content="1" />
+        <meta name="if:Two columns" content="1" />
+        <meta name="if:Background image cover" content="0" />
+        <meta name="if:Tags on index" content="1" />
+        <meta name="if:Photo captions" content="1" />
+        <meta name="if:Description box" content="0" />
+        <meta name="if:Home icon" content="1" />
+        <meta name="if:Ask icon" content="1" />
+        <meta name="if:Submit icon" content="1" />
+        <meta name="if:Pages icon" content="1" />
+        <meta name="if:Archive icon" content="1" />
 
-        <meta name="color:Background" content="#008080" />
-        <meta name="color:Link Color" content="#000000" />
-        <meta name="color:Icon Color" content="#ffffff" />
-
-        <meta name="font:Font" content="'Helvetica Neue', Helvetica, Arial, sans-serif" />
-        
-        <meta name="if:Enable Infinite Scrolling" content="1" />
-        <meta name="if:Two Column" content="1" />
-        <meta name="if:Background Image Cover" content="0" />
-        <meta name="if:Tags on Index" content="1" />
-        <meta name="if:Display Photo Captions" content="1" />
-        <meta name="if:Display Description" content="0" />
-        <meta name="if:Display Home Icon" content="1" />
-        <meta name="if:Display Ask Icon" content="1" />
-        <meta name="if:Display Submit Icon" content="1" />
-        <meta name="if:Display Pages Icon" content="1" />
-        <meta name="if:Display Archive Icon" content="1" />
-
-        <link rel="stylesheet" href="http://static.tumblr.com/fpdiq1j/N3Zmkjmqn/theme_generic.css" />
+        <link rel="stylesheet" href="//static.tumblr.com/fpdiq1j/N3Zmkjmqn/theme_generic.css" />
         <style type="text/css">
             body {
-                background: {color:Background} url('{image:Background}') repeat fixed;
+                background: {color:Background color} url('{image:Background image}') repeat fixed;
                 {block:IfBackgroundImageCover}background-size: cover;{/block:IfBackgroundImageCover}
                 margin: 0;
                 font: normal 13px/1.3 {font:Font};
             }
         
             a {
-                color: {color:Link Color};
+                color: {color:Links};
                 text-decoration: none;
             }
         
@@ -56,7 +53,7 @@
             }
         
             .my_computer, .my_documents, .network_neighborhood, .folder, .recycle_bin, .start_menu, .application_icons, .start_bar .start_button .logo, .start_bar .tray .calendar, .start_menu, .window .top, .window .middle, .window .bottom, .description .top, .description .ok_button, .description .bottom {
-                background-image: url('http://static.tumblr.com/fpdiq1j/O6Um4f3al/master_sprite.png');
+                background-image: url('//static.tumblr.com/fpdiq1j/O6Um4f3al/master_sprite.png');
                 margin: auto;
             }
         
@@ -137,7 +134,7 @@
             }
         
             .window .middle, div.notes, div.attribution, div.tags {
-                background: url('http://static.tumblr.com/fpdiq1j/utSm3gwcy/large_middle.png');
+                background: url('//static.tumblr.com/fpdiq1j/utSm3gwcy/large_middle.png');
                 background-repeat: repeat-y;
             }
         
@@ -148,14 +145,15 @@
         
             .icon_label {
                 padding-top: 6px;
-                padding-bottom: 15px;
-                color: {color:Icon Color};
+                color: {color:Icon labels};
                 text-align: center;
             }
         
             .icons a {
-                color: {color:Icon Color};
+                color: {color:Icon labels};
                 text-decoration: none;
+                display: block;
+                margin-bottom: 15px;
             }
         
             .title {
@@ -174,15 +172,15 @@
             }
         
             #desktop, .navigation {
-                margin: 20px auto 0 auto;
+                margin: 20px auto;
                 z-index: 3;
                 position: relative;
-                {block:IfNotTwoColumn}
-                    width: 480px;
-                {/block:IfNotTwoColumn}
-                {block:IfTwoColumn}
+                {block:IfTwoColumns}
                     width: 1000px;
-                {/block:IfTwoColumn}
+                {/block:IfTwoColumns}
+                {block:IfNotTwoColumns}
+                    width: 480px;
+                {/block:IfNotTwoColumns}
                 left: 10px;
             }
 
@@ -194,13 +192,13 @@
             .window {
                 width: 480px;
                 max-width: 480px;
-                {block:IfNotTwoColumn}
-                    margin: 0 0 30px 0;
-                {/block:IfNotTwoColumn}
-                {block:IfTwoColumn}
+                {block:IfTwoColumns}
                     float: left;
                     margin: 0 20px 20px 0;
-                {/block:IfTwoColumn}
+                {/block:IfTwoColumns}
+                {block:IfNotTwoColumns}
+                    margin: 0 0 30px 0;
+                {/block:IfNotTwoColumns}
             }
         
             .window .top {
@@ -252,13 +250,6 @@
                 margin-bottom: 0;
             }
             
-            .photoset .wrapper,
-            .video .video_player {
-                width: 400px;
-                display: block;
-                margin: 0 auto;
-            }
-            
             .photo .wrapper {
                 position: relative;
                 z-index: 0;
@@ -273,17 +264,20 @@
                 font-size: 0.9em;
                 z-index: 1;
                 opacity: 0;
-                -webkit-transition: opacity 0.2s ease-in;
+                -webkit-transition: opacity 0.2s ease-out;
+                -moz-transition: opacity 0.2s ease-out;
+                transition: opacity 0.2s ease-out;
             }
 
             .photo .wrapper:hover .make_lightbox {
-                opacity: 0.9;
+                opacity: 0.8;
                 -webkit-transition: opacity 0.2s ease-out;
+                -moz-transition: opacity 0.2s ease-out;
+                transition: opacity 0.2s ease-out;
             }
 
             .make_lightbox:hover {
-                cursor: hand;
-                text-decoration: underline;
+                cursor: pointer;
             }
             
             .tagged {
@@ -305,7 +299,7 @@
             }
             
             .description .middle {
-                background: url('http://static.tumblr.com/fpdiq1j/leqm4f39j/description_middle.png') repeat-y;
+                background: url('//static.tumblr.com/fpdiq1j/leqm4f39j/description_middle.png') repeat-y;
                 display: block;
                 padding: 5px;
                 max-width: 190px;
@@ -315,13 +309,17 @@
             ol.notes {
                 padding: 11px 0 0 0;
                 margin: 0;
-                border-top: 1px dashed #CCCCCC;
+                border-top: 1px dashed #cccccc;
             }
 
             ol.notes li.note {
                 list-style: none;
                 margin-bottom: 3px;
-                height: 16px;
+            }
+            
+            ol.notes li.note img.avatar {
+                vertical-align: middle;
+                margin-right: 5px;
             }
 
             ol.notes li.note:last-child {
@@ -334,11 +332,11 @@
             }
 
             .navigation {
-                padding: 0 {block:IfTwoColumn}40px{/block:IfTwoColumn}{block:IfNotTwoColumn}0{/block:IfNotTwoColumn} 55px 0;
-                height: 26px;
+                overflow: hidden;
                 font-weight: bold;
                 clear: both;
                 float: none;
+                margin-bottom: 40px !important;
             }
             
             .navigation .next, .navigation .prev {
@@ -461,88 +459,65 @@
             
             /* COMMON */
 
-            body.infinite_scrolling .navigation, .inf_scr {
+            body.infinite_scrolling .navigation {
                 display: none;
             }
             
+            #infscr-loading {
+                position: absolute;
+                top: -9999em;
+                left: -9999em;
+                width: 0;
+                height: 0;
+                overflow: hidden;
+                clip: 0 0 0 0;
+                visibility: hidden;
+            }
+            
             .middle img {
-                display: block;
+                vertical-align: middle;
             }
 
             .content p, blockquote, ul, ol {
                 margin: 0 0 0.6em 0;
             }
             
-            {block:IfNotDisplayPhotoCaptions}.caption{
+            {block:IfNotPhotoCaptions}.caption{
                 display:none;
-            }{/block:IfNotDisplayPhotoCaptions}
+            }{/block:IfNotPhotoCaptions}
 
-            {block:IfNotDisplayHomeIcon}.home{
+            {block:IfNotHomeIcon}.home{
                 display:none;
-            }{/block:IfNotDisplayHomeIcon}
+            }{/block:IfNotHomeIcon}
 
-            {block:IfNotDisplayAskIcon}.ask{
+            {block:IfNotAskIcon}.ask{
                 display:none;
-            }{/block:IfNotDisplayAskIcon}
+            }{/block:IfNotAskIcon}
 
-            {block:IfNotDisplaySubmitIcon}.submit{
+            {block:IfNotSubmitIcon}.submit{
                 display:none;
-            }{/block:IfNotDisplaySubmitIcon}
+            }{/block:IfNotSubmitIcon}
 
-            {block:IfNotDisplayPagesIcon}.pages{
+            {block:IfNotPagesIcon}.pages{
                 display:none;
-            }{/block:IfNotDisplayPagesIcon}
+            }{/block:IfNotPagesIcon}
 
-            {block:IfNotDisplayArchiveIcon}.archive{
+            {block:IfNotArchiveIcon}.archive{
                 display:none;
-            }{/block:IfNotDisplayArchiveIcon}
+            }{/block:IfNotArchiveIcon}
         
             {CustomCSS}
         </style>
-    
-        <script type="text/javascript" src="http://static.tumblr.com/fpdiq1j/yq6mkjsmu/eathemes.min.js"></script>
-        <script type="text/javascript">
-            $(function(){
-                eathemes($(".container"), ".window", "{Name}", 500)
-                $('.ok_button').click(function(){
-                    $(this).parent().parent().fadeOut();
-                })
-                $('.start_button').click(function(){
-                    $(this).toggleClass('sb_click')
-                    $('.start_menu').slideToggle()
-                })
-                function updateClock(){
-                    var date = new Date();
-                    var mins = date.getMinutes();
-                    var hrs = date.getHours();
-                    var ext = "AM";
-                    if(hrs > 12){ 
-                        var ext = "PM";
-                        var hrs = hrs - parseInt(12);
-                    }
-                    var currentTime = hrs + ":" + mins + " " + ext;
-                    $('#showClock').html(currentTime);
-                }
-                window.setInterval(updateClock, 6000);
-                updateClock();
-                $('.make_lightbox').each(function(e){
-                    $(this).on('click',function(v){
-                        var lbArray = [];
-                        var pWidth = $(this).data('width');
-                        var pHeight = $(this).data('height');
-                        var pHighRes = $(this).data('highres');
-                        var pLowRes = $(this).data('lowres');
-                        var arrayContents = {"width":pWidth, "height":pHeight, "low_res":pLowRes, "high_res":pHighRes};
-                        lbArray.push(arrayContents);
-                        Tumblr.Lightbox.init(lbArray,1);
-                        $('body').toggleClass('tumblr_lightbox_active');
-                    })
-                })
-            })
-        </script>
+        
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//static.tumblr.com/fpdiq1j/Ieqn0wdlb/jquery.imagesloaded.min.js"></script>
+        <script src="//static.tumblr.com/fpdiq1j/GV9n0wdlc/jquery.infinitescroll.min.js"></script>
+        <script src="//static.tumblr.com/fpdiq1j/x8Nn0wiyd/jquery.masonry.min.js"></script>
+        <script src="//static.tumblr.com/fpdiq1j/jpPn0wdlf/jquery.photosetgrid.min.js"></script>
+        <script src="//static.tumblr.com/fpdiq1j/6oKn0wj7b/win98.js"></script>
     </head>
 
-    <body class="win98 {block:IndexPage}index_page{block:IfEnableInfiniteScrolling} infinite_scrolling{/block:IfEnableInfiniteScrolling}{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfTwoColumn}two_column masonry_enabled{/block:IfTwoColumn}">
+    <body data-curr-page="1" class="win98 {block:IndexPage}index_page{block:IfInfiniteScrolling} infinite_scrolling{/block:IfInfiniteScrolling}{/block:IndexPage}{block:PermalinkPage}permalink_page{/block:PermalinkPage} {block:IfTwoColumns}two_column{/block:IfTwoColumns}">
         <div class="wrapper">
             <div class="icons">
                 <a href="/" class="home">
@@ -578,7 +553,7 @@
                     <div class="icon_label">{lang:Archive}</div>
                 </a>
             </div>
-            {block:IfDisplayDescription}
+            {block:IfDisplayDescriptionBox}
                 {block:Description}
                     <div class="description">
                         <div class="top"></div>
@@ -589,7 +564,7 @@
                         <div class="bottom"></div>
                     </div>        
                 {/block:Description}
-            {block:IfDisplayDescription}
+            {block:IfDisplayDescriptionBox}
             <div id="desktop" class="container">
                 {block:Posts}
                     <div class="window {PostType}{block:Photoset}set{/block:Photoset}">
@@ -597,7 +572,7 @@
                             <div class="top">
                                 {block:Date}
                                     <div class="info">
-                                        Posted on {DayOfMonth}{DayOfMonthSuffix} {ShortMonth} at {12Hour}:{Minutes} {CapitalAmPm}{block:NoteCount}, with {NoteCountWithLabel}{/block:NoteCount}
+                                        {lang:Posted TimeAgo with NoteCount notes}
                                     </div>
                                 {/block:Date}
                             </div>
@@ -630,7 +605,11 @@
 
                             {block:Photoset}
                                 <div class="wrapper">
-                                    {Photoset-400}
+                                    <div class="photoset-grid" data-layout="{PhotosetLayout}" style="visibility: hidden;">
+                                        {block:Photos}
+                                            <img src="{PhotoURL-500}" {block:HighRes}data-highres="{PhotoURL-HighRes}"{/block:HighRes} data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" {block:Caption}alt="{Caption}"{/block:caption} />
+                                        {/block:Photos}
+                                    </div>
                                 </div>
                                 {block:Caption}
                                     <div class="content caption">
@@ -690,7 +669,7 @@
 
                             {block:Video}
                                 <div class="video_player" data-from-page="{CurrentPage}">
-                                    {Video-400}
+                                    {VideoEmbed-400}
                                 </div>
                                 {block:Caption}
                                     <div class="content caption">
@@ -698,6 +677,7 @@
                                     </div>
                                 {/block:Caption}
                             {/block:Video}
+                            
                             {block:Audio}
                                 {block:AlbumArt}
                                     <img src="{AlbumArtURL}" alt="Artwork" class="full_image" />
@@ -711,6 +691,7 @@
                                     </div>
                                 {/block:Caption}
                             {/block:Audio}
+                            
                             {block:Answer}
                                 <div class="title">
                                     {lang:Asker asked 2}: {Question}
@@ -756,9 +737,9 @@
             </div>
             
                 {block:Pagination}
-                    <div class="navigation cf">
+                    <div class="navigation cf" id="i_nav">
                         {block:NextPage}
-                            <a class="next" href="{NextPage}">{lang:Next} &rarr;</a>
+                            <a class="next" id="i_next" href="{NextPage}">{lang:Next} &rarr;</a>
                         {/block:NextPage}
                         {block:PreviousPage}
                             <a class="prev" href="{PreviousPage}">&larr; {lang:Previous}</a>
