@@ -1,11 +1,11 @@
-**This repository is mostly archival.**
+# [Visit my Tumblr Themes website](http://eathemes.tumblr.com)
 
-------------------
+---
 
-When I started making themes for Tumblr, I had all the time I wanted to work on whatever I wanted, but nowadays I have to worry about bills and numbers and financials. 
+In March 2018, I lost access to the Tumblr account that hosts these themes. Not really a loss since I haven't been using Tumblr for many years. So far as this repository is concerned, I've lost access to all assets stored on Tumblr, and can't access the blogs associated with them anymore. 
 
-These days, I just can't afford the time all nine of these themes need to be kept shiny and new.
+I'm hesitant to invest a great deal of time into rebuilding the lost infrastructure. My work these days is in WordPress and other more modern tech almost exclusively.
 
-I say this is "mostly" archival because I'll still update my most popular themes (as dictated by my analytics) to resolve bugs or keep up with Tumblr Themes API changes, but I don't think I'll be adding new features or doing design overhauls.
+The Win98 theme I made, based on Windows 98, still works fine despite losing my Tumblr account. It can be installed on my themes website linked above.
 
-That said, this *is* GitHub, so if you see a glaring flaw in one of these: do something about it.
+**This repository is archival.**
